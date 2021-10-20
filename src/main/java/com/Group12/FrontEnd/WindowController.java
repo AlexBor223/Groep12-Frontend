@@ -14,7 +14,7 @@ public class WindowController extends javafx.application.Application {
 
         // Load the FXML document
         Parent root = FXMLLoader.load(getClass().getClassLoader()
-                .getResource("fxml/sayhello.fxml"));
+                .getResource("fxml/Mainview.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Hello FXML");
