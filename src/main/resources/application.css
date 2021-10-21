@@ -1,0 +1,12 @@
+#NavB{
+    -fx-display:block;
+    -fx-font-family: SansSerif;
+    -fx-background-color: #01689b;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+
+}
+
+#NavB:hover{
+    -fx-underline: true;
+}
