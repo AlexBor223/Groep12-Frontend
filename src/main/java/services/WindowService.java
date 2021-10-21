@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 
@@ -32,7 +33,7 @@ public class WindowService {
 
     public void showWindow(String fxmlName, String windowTitle) {
         try {
-            AnchorPane pane = FXMLLoader.load(getResource("fxml/" + fxmlName + ".fxml"));
+            VBox pane = FXMLLoader.load(getResource("fxml/" + fxmlName + ".fxml"));
             Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
             scene.getStylesheets().add(getResourceAsString("application.css"));
             window = new Stage();

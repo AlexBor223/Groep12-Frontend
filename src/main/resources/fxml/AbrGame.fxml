@@ -8,12 +8,10 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="views.MainView"
-            prefHeight="600.0" prefWidth="900.0">
+            fx:controller="views.NavbarView"
+            prefHeight="560.0" prefWidth="900.0"
+            style="-fx-background-color: red;">
 
-    <Button fx:id="AbrSearch" id="AbrSearch" prefWidth="225" layoutX="0" prefHeight="40" onAction="#LoadWindow">Afkorting Zoeken</Button>
-    <Button fx:id="AbrGame" id="AbrGame" prefWidth="225" layoutX="225" prefHeight="40" onAction="#LoadWindow">Game</Button>
-    <Button fx:id="AbrAdd" id="AbrAdd" prefWidth="225" layoutX="450" prefHeight="40" onAction="#LoadWindow">Afkorting Toevoegen</Button>
-    <Button fx:id="About" id="AbrAbout" prefWidth="225" layoutX="675" prefHeight="40" onAction="#LoadWindow">About</Button>
+
 
 </AnchorPane>

@@ -1,4 +1,4 @@
-AnchorPane Button{
+GridPane Button{
     -fx-display:block;
     -fx-font-family: SansSerif;
     -fx-background-color: #01689b;
@@ -8,6 +8,10 @@ AnchorPane Button{
 
 }
 
-AnchorPane Button:hover{
+GridPane Button:hover{
     -fx-underline: true;
+}
+
+GridPane{
+
 }
