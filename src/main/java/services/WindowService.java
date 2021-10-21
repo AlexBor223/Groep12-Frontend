@@ -1,5 +1,6 @@
 package services;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -41,10 +42,13 @@ public class WindowService {
             window.getIcons().add(new Image(getResourceAsString("images/logo.png")));
             window.setScene(scene);
             window.show();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
+
 
     public Stage getWindow() {
         return window;
