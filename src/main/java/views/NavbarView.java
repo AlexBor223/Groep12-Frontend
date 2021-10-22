@@ -13,7 +13,8 @@ import java.util.ResourceBundle;
 
 public class NavbarView implements Initializable {
 
-    @FXML public AnchorPane Content;
+    @FXML
+    public AnchorPane Content;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -24,6 +25,7 @@ public class NavbarView implements Initializable {
     private void testMethod() {
         System.out.println("Test method called");
     }
+
     @FXML
     public void LoadWindow(ActionEvent event) throws IOException {
         Button btn = (Button) event.getSource();
