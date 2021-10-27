@@ -12,9 +12,7 @@ AnchorPane Button{
     -fx-background-color: #01689b;
     -fx-text-fill: white;
     -fx-cursor: hand;
-
-
-
+    -fx-background-radius: 1;
 
 }
 
@@ -30,7 +28,14 @@ Label {
 }
 
 .abrAddAnchorpane{
-    -fx-background-color: green;
+    -fx-background-color: #ededed;
+    -fx-background-radius: 10;
+    -fx-border-width: 1;
+    -fx-border-color: #828081;
+    -fx-border-radius: 10;
 
+}
+
+#ChooseDep{
 
 }

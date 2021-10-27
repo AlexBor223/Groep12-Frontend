@@ -13,12 +13,12 @@
             prefHeight="600.0" prefWidth="900.0">
 <children>
 
-<AnchorPane styleClass="abrAddAnchorpane" >
-    <Label text="Afkorting Toevoegen" layoutY="50" layoutX="100"/>
-    <TextField layoutY="150" layoutX="100" promptText="Afkorting"/>
-    <TextArea layoutY="150" layoutX="350" prefWidth="200" prefHeight="100" promptText="Betekenis"/>
-    <ComboBox fx:id="ChooseDep" id="ChooseDep" layoutY="150" layoutX="650" prefWidth="175" promptText="Afdeling"></ComboBox>
-    <Button id="AbrToApp" layoutY="250" layoutX="650">Invoeren</Button>
+<AnchorPane styleClass="abrAddAnchorpane" layoutY="100" layoutX="70" prefWidth="750" prefHeight="275">
+    <Label text="Afkorting Toevoegen" layoutY="20"/>
+    <TextField layoutY="100" layoutX="50" promptText="Afkorting"/>
+    <TextField layoutY="100" layoutX="250" prefWidth="200"  promptText="Betekenis"/>
+    <ComboBox fx:id="ChooseDep" id="ChooseDep" layoutY="100" layoutX="500" prefWidth="175" promptText="Afdeling"></ComboBox>
+    <Button id="AbrToApp" layoutY="200" layoutX="500">Invoeren</Button>
 </AnchorPane>
 
 </children>
