@@ -22,10 +22,10 @@ public class AbrAddController implements Initializable {
                     "Hugo"
             );
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChooseDep.setItems(Departments);
+
     }
 
 

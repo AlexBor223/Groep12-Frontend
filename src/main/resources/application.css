@@ -1,19 +1,36 @@
+/*@font-face {*/
+/*    font-family: rebotos;*/
+/*    src: url("FontWeb.ttf") format("truetype");*/
+/*    font-style: normal;*/
+/*    font-weight: normal;*/
+/*}*/
+
+
+
 AnchorPane Button{
     -fx-display:block;
-    -fx-font-family: SansSerif;
     -fx-background-color: #01689b;
     -fx-text-fill: white;
     -fx-cursor: hand;
+
+
 
 
 }
 
 AnchorPane Button:hover{
     -fx-underline: true;
+
 }
 
 Label {
     -fx-background-color: #01689b;
     -fx-text-fill: white;
     -fx-label-padding: 20px;
+}
+
+.abrAddAnchorpane{
+    -fx-background-color: green;
+
+
 }
