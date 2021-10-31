@@ -1,14 +1,12 @@
-GridPane Button{
+AnchorPane Button{
     -fx-display:block;
     -fx-font-family: SansSerif;
     -fx-background-color: #01689b;
     -fx-text-fill: white;
     -fx-cursor: hand;
-
-
 }
 
-GridPane Button:hover{
+AnchorPane Button:hover{
     -fx-underline: true;
 }
 
