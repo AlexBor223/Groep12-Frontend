@@ -1,12 +1,3 @@
-/*@font-face {*/
-/*    font-family: rebotos;*/
-/*    src: url("FontWeb.ttf") format("truetype");*/
-/*    font-style: normal;*/
-/*    font-weight: normal;*/
-/*}*/
-
-
-
 AnchorPane Button{
     -fx-display:block;
     -fx-background-color: #01689b;

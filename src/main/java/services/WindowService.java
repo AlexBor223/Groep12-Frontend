@@ -1,10 +1,8 @@
 package services;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 
@@ -35,7 +33,7 @@ public class WindowService {
         try {
             VBox pane = FXMLLoader.load(getResource("fxml/" + fxmlName + ".fxml"));
             Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
-            scene.getStylesheets().add(getResourceAsString("application.css"));
+            scene.getStylesheets().add(getResourceAsString("CSS/application.css"));
             window = new Stage();
             window.setTitle(windowTitle);
             window.setResizable(false);
