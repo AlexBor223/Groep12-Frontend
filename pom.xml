@@ -72,6 +72,11 @@
 			<version>${javafx.version}</version>
 			<classifier>mac</classifier>
 		</dependency>
+		<dependency>
+			<groupId>com.konghq</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>3.12.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
