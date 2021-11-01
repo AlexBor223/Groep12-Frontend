@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import services.HttpService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,13 @@ public class NavbarView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        HttpService test = new HttpService();
+        try{
+        test.searchAbbreviations("test", "test");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 

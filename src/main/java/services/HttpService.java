@@ -1,27 +1,45 @@
 package services;
 
+import kong.unirest.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.net.URLEncoder;
 
 public class HttpService {
-    URL url = new URL("http://localhost:8080/");
 
-    // Open a connection(?) on the URL(??) and cast the response(???)
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-    // Now it's "open", we can set the request method, headers etc.
+    private String host = "http://info.cern.ch";
+    private String charset = "UTF-8";
 
 
-    // This line makes the request
-    InputStream responseStream = connection.getInputStream();
-
-
-    public HttpService() throws IOException {
+    public JsonNode SearchObject(String url) throws Exception{
+        String query = String.format( URLEncoder.encode(url, charset));
+        HttpResponse<JsonNode> response = Unirest.get(host+url)
+                .asJson();
+        return response.getBody();
     }
 
-// Finally we have the response
+    public boolean AddOrUpdateObject(String url) throws Exception{
+        String query = String.format( URLEncoder.encode(url, charset));
+        HttpResponse<JsonNode> response = Unirest.post(host+url)
+                .asJson();
+        return (response.getStatus()==201);
+    }
+
+    public boolean DeleteObject(String url) throws Exception {
+        String query = String.format(URLEncoder.encode(url, charset));
+        HttpResponse<JsonNode> response = Unirest.delete(host + url)
+                .asJson();
+        return (response.getStatus() == 201);
+    }
+
+
+
+
+
 
 }
