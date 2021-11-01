@@ -12,6 +12,7 @@ public class Abbreviation {
     Abbreviation(String letters, String meaning, String department, Integer likes, long id){
         this.letters = letters;
         this.meaning = meaning;
+        this.department = department;
         this.likes = likes;
         this.id = id;
     }
@@ -46,5 +47,13 @@ public class Abbreviation {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }
