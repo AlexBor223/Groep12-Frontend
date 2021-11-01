@@ -1,36 +1,31 @@
-/*@font-face {*/
-/*    font-family: rebotos;*/
-/*    src: url("FontWeb.ttf") format("truetype");*/
-/*    font-style: normal;*/
-/*    font-weight: normal;*/
-/*}*/
+/* global */
+* {
+    -fx-primaryColor: #01689B;
+    -fx-greyColor: #EDEDED;
+    -fx-greyBorderColor: #DDDDDD;
+}
 
-
-
-AnchorPane Button{
-    -fx-display:block;
-    -fx-background-color: #01689b;
-    -fx-text-fill: white;
+Button {
     -fx-cursor: hand;
-
-
-
-
 }
 
-AnchorPane Button:hover{
-    -fx-underline: true;
-
+/* main page */
+.main {
+    -fx-background-color: red;
 }
 
-Label {
-    -fx-background-color: #01689b;
+/* navigation bar */
+.navlogo {
+    -fx-background-color: -fx-greyColor;
+}
+
+.navbar Button {
+    -fx-font-size: 20;
     -fx-text-fill: white;
-    -fx-label-padding: 20px;
+    -fx-background-radius: 0;
+    -fx-background-color: -fx-primaryColor;
 }
 
-.abrAddAnchorpane{
-    -fx-background-color: green;
-
-
+.navbar Button:hover {
+    -fx-underline: true;
 }

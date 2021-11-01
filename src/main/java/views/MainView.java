@@ -5,13 +5,9 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AbrSearchView implements Initializable {
+public class MainView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
-
-
-
 }
