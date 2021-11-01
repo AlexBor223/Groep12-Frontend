@@ -33,7 +33,7 @@ public class AbrAddController implements Initializable {
     @FXML
     private Text StatusText;
 
-    ArrayList<String> abbreviation = new ArrayList<>();
+    Abbreviation abbreviation = new Abbreviation();
 
     private String noAbbreviation = "Geef een afkorting mee";
     private String noExplanation = "Geef een uitleg van je afkorting mee";
@@ -76,18 +76,19 @@ public class AbrAddController implements Initializable {
 
 
 
-        abbreviation.add(AbbreviationL);
-        abbreviation.add(Meaning);
-        abbreviation.add(Department);
+        abbreviation.setLetters(AbbreviationL);
+        abbreviation.setMeaning(Meaning);
+        abbreviation.setDepartment(Department);
+        abbreviation.setLikes(0);
 
 
-        System.out.printf(abbreviation.toString());
+        System.out.printf(abbreviation.getMeaning() + abbreviation.getDepartment() + abbreviation.getLetters());
 
         checkInput();
     }
 
    public void checkInput(){
-        if(abbreviation.get(0).isEmpty() || abbreviation.get(1).isEmpty()  || abbreviation.get(2) == null){
+        if(abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty()  || abbreviation.getDepartment() == null){
             StatusText.setText(fillInFields);
 
         }else {
@@ -97,7 +98,7 @@ public class AbrAddController implements Initializable {
 
         }
 
-        abbreviation.clear();
+
 
    }
 

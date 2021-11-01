@@ -20,7 +20,7 @@
     <TextField fx:id = "AbbreviationMeaning" layoutY="100" layoutX="250" prefWidth="200"  promptText="Betekenis"/>
     <ComboBox fx:id="ChooseDep" id="ChooseDep" layoutY="100" layoutX="480" prefWidth="175" promptText="Afdeling"></ComboBox>
     <Button fx:id="AbrToApp" id="AbrToApp" layoutY="200" layoutX="480" onAction="#getInput" >Invoeren</Button>
-    <Text fx:id="StatusText" layoutY="250" layoutX="500" ></Text>
+    <Text fx:id="StatusText" layoutY="250" layoutX="480" ></Text>
 </AnchorPane>
 
 </children>

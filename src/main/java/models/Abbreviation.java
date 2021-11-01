@@ -9,13 +9,28 @@ public class Abbreviation {
     private long id;
 
 
-    Abbreviation(String letters, String meaning, String department, Integer likes, long id){
+    public Abbreviation(){
+
+    }
+
+
+
+    public Abbreviation(String letters, String meaning, String department, Integer likes, long id){
         this.letters = letters;
         this.meaning = meaning;
         this.department = department;
         this.likes = likes;
         this.id = id;
     }
+
+    public Abbreviation(String letters, String meaning, String department, Integer likes){
+        this.letters = letters;
+        this.meaning = meaning;
+        this.department = department;
+        this.likes = likes;
+    }
+
+
 
     public String getLetters() {
         return letters;
