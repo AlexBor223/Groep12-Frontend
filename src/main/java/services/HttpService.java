@@ -1,6 +1,7 @@
 package services;
 
 import kong.unirest.*;
+import models.Abbreviation;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +13,7 @@ import java.net.URLEncoder;
 
 public class HttpService {
 
-    private String host = "https://<insert>";
+    private String host = "https://ptsv2.com";
     private String charset = "UTF-8";
 
 
@@ -22,9 +23,12 @@ public class HttpService {
         return response.getBody();
     }
 
-    public boolean AddOrUpdateObject(String url) throws Exception{
+    public boolean AddOrUpdateObject(String url, String abbreviation) throws Exception{
         HttpResponse<JsonNode> response = Unirest.post(host+url)
+                .header("accept", "application/json")
+                .body(abbreviation)
                 .asJson();
+
         return (response.getStatus()==201);
     }
 

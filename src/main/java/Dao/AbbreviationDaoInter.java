@@ -7,6 +7,6 @@ import java.util.List;
 public interface AbbreviationDaoInter {
     Abbreviation getAbbreviaton(Integer id);
     List<Abbreviation> getAllAbbreviations();
-    void updateAbbreviation(Abbreviation abbreviation);
+    void updateAbbreviation(String abbreviation) throws Exception;
     void deleteAbbreviation(Abbreviation abbreviation);
 }

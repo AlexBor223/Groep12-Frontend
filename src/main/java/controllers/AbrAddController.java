@@ -1,13 +1,12 @@
 package controllers;
 
+import Dao.AbbreviationDao;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -31,6 +30,10 @@ public class AbrAddController implements Initializable {
 
     Abbreviation abbreviation = new Abbreviation();
     WindowController windowController = new WindowController();
+    AbbreviationDao abbreviationDao = new AbbreviationDao();
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
 
     private String noAbbreviation = "Geef een afkorting mee";
     private String noExplanation = "Geef een uitleg van je afkorting mee";
@@ -39,6 +42,7 @@ public class AbrAddController implements Initializable {
     private String AbrAdded = "Afkorting succesvol toegevoegd";
 
     Gson gson = new Gson();
+
 
 
     ObservableList<String> Departments =
@@ -70,7 +74,7 @@ public class AbrAddController implements Initializable {
 
     }
 
-    public void getInput(javafx.event.ActionEvent actionEvent) {
+    public void getInput(javafx.event.ActionEvent actionEvent) throws Exception {
         String AbbreviationL = AbbreviationLetters.getText();
         String Meaning = AbbreviationMeaning.getText();
         String Department = ChooseDep.getValue();
@@ -88,16 +92,19 @@ public class AbrAddController implements Initializable {
         checkInput();
     }
 
-   public void checkInput(){
+   public void checkInput() throws Exception {
+
         if(abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty()  || abbreviation.getDepartment() == null){
+
+
             StatusText.setText(fillInFields);
 
         }else {
 
             StatusText.setText(AbrAdded);
-
-
-
+            String jsonStr = objectMapper.writeValueAsString(abbreviation);
+            System.out.println(jsonStr);
+            abbreviationDao.updateAbbreviation(jsonStr);
 
         }
 
