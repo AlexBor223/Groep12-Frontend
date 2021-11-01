@@ -25,4 +25,6 @@
 
 </children>
 
+    <Button fx:id="LoginPage"  layoutY="500" layoutX="800"  onAction="#loadAdminPage">Admin inloggen</Button>
+
 </AnchorPane>

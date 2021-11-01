@@ -18,7 +18,7 @@ Label {
     -fx-label-padding: 20px;
 }
 
-.abrAddAnchorpane{
+.abrAddAnchorpane, .LoginAnchorPane{
     -fx-background-color: #ededed;
     -fx-background-radius: 10;
     -fx-border-width: 1;

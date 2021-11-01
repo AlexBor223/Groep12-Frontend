@@ -3,19 +3,17 @@ package controllers;
 import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import models.Abbreviation;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AbrAddController implements Initializable {
@@ -29,11 +27,10 @@ public class AbrAddController implements Initializable {
     @FXML
     private Button AbrToApp;
     @FXML
-    private Label LabelAdd;
-    @FXML
     private Text StatusText;
 
     Abbreviation abbreviation = new Abbreviation();
+    WindowController windowController = new WindowController();
 
     private String noAbbreviation = "Geef een afkorting mee";
     private String noExplanation = "Geef een uitleg van je afkorting mee";
@@ -59,7 +56,6 @@ public class AbrAddController implements Initializable {
                     "Ministerie van Sociale Zaken en Werkgelegenheid",
                     "Ministerie van Volksgezondheid, Welzijn en Sport"
 
-
             );
 
     @Override
@@ -68,6 +64,11 @@ public class AbrAddController implements Initializable {
 
     }
 
+    public void loadAdminPage (){
+
+        windowController.showWindow("LoginPage", "Inlog admin");
+
+    }
 
     public void getInput(javafx.event.ActionEvent actionEvent) {
         String AbbreviationL = AbbreviationLetters.getText();
@@ -92,9 +93,11 @@ public class AbrAddController implements Initializable {
             StatusText.setText(fillInFields);
 
         }else {
+
             StatusText.setText(AbrAdded);
 
-            // abbreviation word naar de backend gestuurd
+
+
 
         }
 
