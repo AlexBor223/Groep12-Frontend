@@ -4,10 +4,12 @@ public class Abbreviation {
 
     private String letters;
     private String meaning;
+    private String department;
     private Integer likes;
     private long id;
 
-    Abbreviation(String letters, String meaning, Integer likes, long id){
+
+    Abbreviation(String letters, String meaning, String department, Integer likes, long id){
         this.letters = letters;
         this.meaning = meaning;
         this.likes = likes;

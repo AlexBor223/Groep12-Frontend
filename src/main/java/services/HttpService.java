@@ -1,27 +1,36 @@
 package services;
 
+
+import com.sun.glass.ui.GlassRobot;
+import netscape.javascript.JSObject;
+import org.json.JSONObject;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.util.concurrent.ExecutionException;
 
 public class HttpService {
-    URL url = new URL("http://localhost:8080/");
-
-    // Open a connection(?) on the URL(??) and cast the response(???)
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-    // Now it's "open", we can set the request method, headers etc.
 
 
-    // This line makes the request
-    InputStream responseStream = connection.getInputStream();
-
-
-    public HttpService() throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        synchronousRequest();
     }
 
-// Finally we have the response
+    private static void synchronousRequest() throws IOException, InterruptedException {
+        var client = HttpClient.newHttpClient();
 
+        // create a request
+        var request = HttpRequest.newBuilder(
+                        URI.create("http://localhost:8080/"))
+                .header("accept", "application/json")
+                .build();
+
+        // use the client to send the request
+//        var response = client.send(request, );
+
+// the response:
+//        System.out.println(response.body());
+    }
 }
