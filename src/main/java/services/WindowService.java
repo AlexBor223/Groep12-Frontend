@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -31,11 +30,6 @@ public class WindowService {
         return String.valueOf(getClass().getClassLoader().getResource(resourcePath));
     }
 
-    private void destroyWindow() {
-        if (window != null)
-            window.close();
-    }
-
     public void showWindow(String fxmlName, String windowTitle) {
         if (windowTitle == null)
             windowTitle = defaultTitle;
@@ -48,7 +42,6 @@ public class WindowService {
             Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
             scene.getStylesheets().add(getResourceAsString("application.css"));
 
-//            destroyWindow();
             window.setTitle(windowTitle);
             window.setResizable(false);
             window.setMaximized(false);
@@ -62,5 +55,10 @@ public class WindowService {
 
     public Stage getWindow() {
         return window;
+    }
+
+    public void destroyWindow() {
+        if (window != null)
+            window.close();
     }
 }
