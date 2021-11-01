@@ -4,7 +4,6 @@ import controllers.WindowController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
 import java.net.URL;
@@ -18,8 +17,8 @@ public class NavbarView implements Initializable {
 
     @FXML
     public void loadWindow(ActionEvent event) {
-        Parent btn = (Parent) event.getSource();
-        String fxmlName = btn.getId();
+        Button navButton = (Button) event.getSource();
+        String fxmlName = navButton.getId();
 
         WindowController windowController = new WindowController();
         windowController.showWindow(fxmlName, null);

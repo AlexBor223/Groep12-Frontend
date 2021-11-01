@@ -46,7 +46,6 @@ public class WindowService {
         try {
             AnchorPane pane = FXMLLoader.load(getResource("fxml/" + fxmlName + ".fxml"));
             Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
-            scene.getStylesheets().add(getResourceAsString("fonts/RijksoverheidSansWebText.ttf"));
             scene.getStylesheets().add(getResourceAsString("application.css"));
 
 //            destroyWindow();
