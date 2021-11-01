@@ -19,13 +19,6 @@ public class NavbarView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        HttpService test = new HttpService();
-        try{
-        test.searchAbbreviations("test", "test");
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
 
     }
 
