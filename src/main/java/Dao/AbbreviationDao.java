@@ -9,6 +9,13 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     List<Abbreviation> abbreviations;
 
+    public Abbreviation[] getFilteredAbbreviations(){
+        Abbreviation[] abbreviations;
+        abbreviations = new Abbreviation[4];
+
+        return abbreviations;
+    }
+
 
     public AbbreviationDao() {
         abbreviations = new ArrayList<Abbreviation>();

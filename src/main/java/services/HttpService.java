@@ -1,36 +1,42 @@
 package services;
 
-
-import com.sun.glass.ui.GlassRobot;
-import netscape.javascript.JSObject;
-import org.json.JSONObject;
+import kong.unirest.*;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.util.concurrent.ExecutionException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.net.URLEncoder;
 
 public class HttpService {
 
+    private String host = "https://<insert>";
+    private String charset = "UTF-8";
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        synchronousRequest();
+
+    public JsonNode SearchObject(String url) throws Exception{
+        HttpResponse<JsonNode> response = Unirest.get(host+url)
+                .asJson();
+        return response.getBody();
     }
 
-    private static void synchronousRequest() throws IOException, InterruptedException {
-        var client = HttpClient.newHttpClient();
-
-        // create a request
-        var request = HttpRequest.newBuilder(
-                        URI.create("http://localhost:8080/"))
-                .header("accept", "application/json")
-                .build();
-
-        // use the client to send the request
-//        var response = client.send(request, );
-
-// the response:
-//        System.out.println(response.body());
+    public boolean AddOrUpdateObject(String url) throws Exception{
+        HttpResponse<JsonNode> response = Unirest.post(host+url)
+                .asJson();
+        return (response.getStatus()==201);
     }
+
+    public boolean DeleteObject(String url) throws Exception {
+        HttpResponse<JsonNode> response = Unirest.delete(host+url)
+                .asJson();
+        return (response.getStatus() == 201);
+    }
+
+
+
+
+
+
 }
