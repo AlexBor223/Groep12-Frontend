@@ -35,16 +35,11 @@ public class AbrSearchController implements Initializable {
     @FXML private VBox abbreviations;
     @FXML private VBox newAbbreviations;
 
-    @Override
-
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         input.requestFocus();
         comboBox.setItems(Departments);
         String[] comboBoxOptions = {"ict","politie","buitenlandse zaken"};
-
-
-
 
         input.textProperty().addListener((observable, oldValue, newValue) -> {
             abbreviations.getChildren().clear();

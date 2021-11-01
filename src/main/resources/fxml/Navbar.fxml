@@ -19,5 +19,6 @@
     </AnchorPane>
 
     <AnchorPane fx:id="Content">
+        <AnchorPane/>
     </AnchorPane>
 </VBox>

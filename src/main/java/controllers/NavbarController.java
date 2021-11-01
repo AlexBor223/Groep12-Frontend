@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class NavbarController implements Initializable {
 
-    @FXML private AnchorPane Content;
+    @FXML public AnchorPane Content;
     final private String Initialfxml = "AbrSearch";
     private HashMap<String, Node> fxmls = new HashMap<>();
 
@@ -38,11 +38,12 @@ public class NavbarController implements Initializable {
 
         try {
             if (!fxmls.containsKey(fxmlName)) {
-                fxmls.put(fxmlName, FXMLLoader.load(getClass().getClassLoader().getResource("fxml/" + fxmlName + ".fxml")));
+                Node fxml = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/" + fxmlName + ".fxml"));
+                fxmls.put(fxmlName, fxml);
             }
+
         } catch(IOException e){
             e.printStackTrace();
-            System.out.println(fxmlName);
         }
 
         Content.getChildren().clear();
