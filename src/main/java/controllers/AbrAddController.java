@@ -13,6 +13,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.Abbreviation;
+import models.NewAbbreviation;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,7 +31,7 @@ public class AbrAddController implements Initializable {
     @FXML
     private Text StatusText;
 
-    Abbreviation abbreviation = new Abbreviation();
+    NewAbbreviation abbreviation = new NewAbbreviation();
     WindowController windowController = new WindowController();
 
     private String noAbbreviation = "Geef een afkorting mee";
@@ -55,7 +57,6 @@ public class AbrAddController implements Initializable {
                     "Ministerie van Onderwijs, Cultuur en Wetenschap",
                     "Ministerie van Sociale Zaken en Werkgelegenheid",
                     "Ministerie van Volksgezondheid, Welzijn en Sport"
-
             );
 
     @Override

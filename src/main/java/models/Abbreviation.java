@@ -5,7 +5,6 @@ public class Abbreviation {
     private String letters;
     private String meaning;
     private String department;
-    private Integer likes;
     private long id;
 
 
@@ -19,7 +18,6 @@ public class Abbreviation {
         this.letters = letters;
         this.meaning = meaning;
         this.department = department;
-        this.likes = likes;
         this.id = id;
     }
 
@@ -27,7 +25,6 @@ public class Abbreviation {
         this.letters = letters;
         this.meaning = meaning;
         this.department = department;
-        this.likes = likes;
     }
 
 
@@ -46,14 +43,6 @@ public class Abbreviation {
 
     public void setMeaning(String meaning) {
         this.meaning = meaning;
-    }
-
-    public Integer getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Integer likes) {
-        this.likes = likes;
     }
 
     public long getId() {
