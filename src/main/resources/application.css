@@ -9,6 +9,14 @@ Button {
     -fx-cursor: hand;
 }
 
+.greybox {
+    -fx-background-color: -fx-greyColor;
+    -fx-border-color: -fx-greyBorderColor;
+    -fx-border-width: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 5px;
+}
+
 /* main page */
 .main {
     -fx-background-color: red;
@@ -28,4 +36,9 @@ Button {
 
 .navbar Button:hover {
     -fx-underline: true;
+}
+
+/* game */
+.game-btn-container Button {
+
 }

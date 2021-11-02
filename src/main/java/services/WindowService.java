@@ -30,12 +30,21 @@ public class WindowService {
         return String.valueOf(getClass().getClassLoader().getResource(resourcePath));
     }
 
+    private boolean windowExists() {
+        return window != null;
+    }
+
+    private void createWindowIfNecessary() {
+        if (!windowExists())
+            window = new Stage();
+    }
+
     public void showWindow(String fxmlName, String windowTitle) {
         if (windowTitle == null)
             windowTitle = defaultTitle;
 
-        if (window == null)
-            window = new Stage();
+        destroyWindow();
+        createWindowIfNecessary();
 
         try {
             AnchorPane pane = FXMLLoader.load(getResource("fxml/" + fxmlName + ".fxml"));
@@ -58,7 +67,7 @@ public class WindowService {
     }
 
     public void destroyWindow() {
-        if (window != null)
+        if (windowExists())
             window.close();
     }
 }
