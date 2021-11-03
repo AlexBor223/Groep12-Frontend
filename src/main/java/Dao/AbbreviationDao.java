@@ -44,4 +44,15 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     public void deleteAbbreviation(Abbreviation abbreviation) {
         abbreviations.remove(abbreviation.getId());
     }
+
+
+    @Override
+    public void LikeAbbreviation(Long id) throws Exception {
+        httpService.LikeObject("/GiveLike", id);
+    }
+
+    @Override
+    public void DisLikeAbbreviation(Long id) throws Exception {
+        httpService.LikeObject("/GiveDisLike", id);
+    }
 }

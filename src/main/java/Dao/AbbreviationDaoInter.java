@@ -9,4 +9,6 @@ public interface AbbreviationDaoInter {
     List<Abbreviation> getAllAbbreviations() throws Exception;
     void updateAbbreviation(Abbreviation abbreviation) throws Exception;
     void deleteAbbreviation(Abbreviation abbreviation);
+    void LikeAbbreviation(Long id) throws Exception;
+    void DisLikeAbbreviation(Long id) throws Exception;
 }

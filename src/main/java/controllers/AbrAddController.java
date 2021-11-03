@@ -45,6 +45,8 @@ public class AbrAddController implements Initializable {
 
 
 
+
+
     ObservableList<String> Departments =
             FXCollections.observableArrayList(
                     "Ministerie van Algemene Zaken",
@@ -67,7 +69,13 @@ public class AbrAddController implements Initializable {
         ChooseDep.setItems(Departments);
 
         try {
-            abbreviationDao.getAllAbbreviations();
+            abbreviationDao.getAllAbbreviations();  //voor testen
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {           //voor testen
+            likeAbbreviation(1L);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,7 +83,6 @@ public class AbrAddController implements Initializable {
     }
 
     public void loadAdminPage (){
-
         windowController.showWindow("LoginPage", "Inlog admin");
 
     }
@@ -95,7 +102,7 @@ public class AbrAddController implements Initializable {
 
 
 
-        System.out.printf(abbreviation.getMeaning() + abbreviation.getDepartment() + abbreviation.getLetters());
+        System.out.printf(abbreviation.getMeaning() + abbreviation.getDepartment() + abbreviation.getLetters()); //voor testen
 
         checkInput();
     }
@@ -116,23 +123,19 @@ public class AbrAddController implements Initializable {
         }
 
 
-//       likeAbbreviation(3);
 
+        disLikeAbbreviation(1L); //Voor testen
 
 
    }
 
-   public void likeAbbreviation(Integer id) throws Exception {
-
-        Abbreviation abbreviation1 = abbreviationDao.getAbbreviaton(id);
-
-        abbreviation1.setLikes(1);
-
-        System.out.println("Likes " + abbreviation1.getLetters()+ abbreviation1.getLikes());
+   public void likeAbbreviation(Long id) throws Exception {
+    abbreviationDao.LikeAbbreviation(id);
 
    }
 
-   public void disLikeAbbreviation(){
+   public void disLikeAbbreviation(Long id) throws Exception {
+    abbreviationDao.DisLikeAbbreviation(id);
 
    }
 
