@@ -5,8 +5,8 @@ import models.Abbreviation;
 import java.util.List;
 
 public interface AbbreviationDaoInter {
-    Abbreviation getAbbreviaton(Integer id);
-    List<Abbreviation> getAllAbbreviations();
-    void updateAbbreviation(String abbreviation) throws Exception;
+    Abbreviation getAbbreviaton(Integer id) throws Exception;
+    List<Abbreviation> getAllAbbreviations() throws Exception;
+    void updateAbbreviation(Abbreviation abbreviation) throws Exception;
     void deleteAbbreviation(Abbreviation abbreviation);
 }

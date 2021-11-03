@@ -11,12 +11,7 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     List<Abbreviation> abbreviations;
     static HttpService httpService = new HttpService();
 
-    public Abbreviation[] getFilteredAbbreviations(){
-        Abbreviation[] abbreviations;
-        abbreviations = new Abbreviation[4];
 
-        return abbreviations;
-    }
 
 
     public AbbreviationDao() {
@@ -24,19 +19,25 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     }
 
     @Override
-    public Abbreviation getAbbreviaton(Integer id) {
+    public Abbreviation getAbbreviaton(Integer id) throws Exception {
+        httpService.SearchObject(id);
 
-        return abbreviations.get(id);
+
+
+     return null;
     }
 
     @Override //krijg alle abbreviations
-    public List<Abbreviation> getAllAbbreviations() {
+    public List<Abbreviation> getAllAbbreviations() throws Exception {
+        httpService.GetAllObjects("");
+
         return abbreviations;
+
     }
 
     @Override
-    public void updateAbbreviation(String abbreviation) throws Exception {
-        httpService.AddOrUpdateObject("/t/eso94-1635791662/post", abbreviation);
+    public void updateAbbreviation(Abbreviation abbreviation) throws Exception {
+        httpService.AddOrUpdateObject("", abbreviation);
     }
 
     @Override  //verwijder een abbreviation

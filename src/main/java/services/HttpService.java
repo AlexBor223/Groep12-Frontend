@@ -3,37 +3,49 @@ package services;
 import kong.unirest.*;
 import models.Abbreviation;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.net.URLEncoder;
 
 public class HttpService {
 
-    private String host = "https://ptsv2.com";
+    private String host = "http://localhost:8080/api/abbreviations";
     private String charset = "UTF-8";
 
+    com.fasterxml.jackson.databind.ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
 
-    public JsonNode SearchObject(String url) throws Exception{
-        HttpResponse<JsonNode> response = Unirest.get(host+url)
+
+
+    public HttpResponse<JsonNode> SearchObject(Integer id) throws Exception{
+        HttpResponse<kong.unirest.JsonNode> abbreviation = Unirest.get(host)
+                .header("accept", "application/json")
+                .queryString("id", id)
                 .asJson();
-        return response.getBody();
+
+        System.out.println("Uitkomstabbreviation: " + abbreviation.getBody());
+        return abbreviation;
     }
 
-    public boolean AddOrUpdateObject(String url, String abbreviation) throws Exception{
-        HttpResponse<JsonNode> response = Unirest.post(host+url)
+    public HttpResponse<JsonNode> GetAllObjects(String url) throws Exception{
+        HttpResponse<kong.unirest.JsonNode> abbreviation = Unirest.get(host)
                 .header("accept", "application/json")
+                .asJson();
+
+        System.out.println("Alle Abr: " + abbreviation.getBody().getArray());
+        return abbreviation;
+    }
+
+    public boolean AddOrUpdateObject(String url, Abbreviation abbreviation) throws Exception{
+
+        HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host  )
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
                 .body(abbreviation)
                 .asJson();
 
+        System.out.println("body: " + response.getBody());
         return (response.getStatus()==201);
     }
 
     public boolean DeleteObject(String url) throws Exception {
-        HttpResponse<JsonNode> response = Unirest.delete(host+url)
+        HttpResponse<kong.unirest.JsonNode> response = Unirest.delete(host)
                 .asJson();
         return (response.getStatus() == 201);
     }

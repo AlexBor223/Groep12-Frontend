@@ -66,6 +66,12 @@ public class AbrAddController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChooseDep.setItems(Departments);
 
+        try {
+            abbreviationDao.getAllAbbreviations();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void loadAdminPage (){
@@ -87,6 +93,8 @@ public class AbrAddController implements Initializable {
         abbreviation.setLikes(0);
 
 
+
+
         System.out.printf(abbreviation.getMeaning() + abbreviation.getDepartment() + abbreviation.getLetters());
 
         checkInput();
@@ -95,8 +103,6 @@ public class AbrAddController implements Initializable {
    public void checkInput() throws Exception {
 
         if(abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty()  || abbreviation.getDepartment() == null){
-
-
             StatusText.setText(fillInFields);
 
         }else {
@@ -104,11 +110,29 @@ public class AbrAddController implements Initializable {
             StatusText.setText(AbrAdded);
             String jsonStr = objectMapper.writeValueAsString(abbreviation);
             System.out.println(jsonStr);
-            abbreviationDao.updateAbbreviation(jsonStr);
+            abbreviationDao.updateAbbreviation(abbreviation);
+            System.out.println(abbreviation.toString());
 
         }
 
 
+//       likeAbbreviation(3);
+
+
+
+   }
+
+   public void likeAbbreviation(Integer id) throws Exception {
+
+        Abbreviation abbreviation1 = abbreviationDao.getAbbreviaton(id);
+
+        abbreviation1.setLikes(1);
+
+        System.out.println("Likes " + abbreviation1.getLetters()+ abbreviation1.getLikes());
+
+   }
+
+   public void disLikeAbbreviation(){
 
    }
 
