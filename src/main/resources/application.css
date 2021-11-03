@@ -3,6 +3,8 @@
     -fx-primaryColor: #01689B;
     -fx-greyColor: #EDEDED;
     -fx-greyBorderColor: #DDDDDD;
+    -fx-greenColor: #07EA80;
+    -fx-redColor: #FF665B;
 }
 
 Button {
@@ -11,6 +13,14 @@ Button {
 
 .greybox {
     -fx-background-color: -fx-greyColor;
+    -fx-border-color: -fx-greyBorderColor;
+    -fx-border-width: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 5px;
+}
+
+.whitebox {
+    -fx-background-color: white;
     -fx-border-color: -fx-greyBorderColor;
     -fx-border-width: 5px;
     -fx-border-radius: 5px;
@@ -27,6 +37,10 @@ Button {
     -fx-background-color: -fx-greyColor;
 }
 
+.navlogo ImageView {
+    -fx-cursor: hand;
+}
+
 .navbar Button {
     -fx-font-size: 20;
     -fx-text-fill: white;
@@ -40,5 +54,33 @@ Button {
 
 /* game */
 .game-btn-container Button {
+    -fx-text-fill: white;
+    -fx-background-color: -fx-primaryColor;
+    -fx-font-size: 14px;
+    -fx-border-radius: 3px;
+}
 
+.game-btn-container Button:hover {
+    -fx-background-color: derive(-fx-primaryColor, -30%);
+}
+
+.timerlbl {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.startbtn {
+    -fx-background-color: -fx-greenColor;
+}
+
+.startbtn:hover {
+    -fx-background-color: derive(-fx-greenColor, -30%);
+}
+
+.stopbtn {
+    -fx-background-color: -fx-redColor;
+}
+
+.stopbtn:hover {
+    -fx-background-color: derive(-fx-redColor, -30%);
 }

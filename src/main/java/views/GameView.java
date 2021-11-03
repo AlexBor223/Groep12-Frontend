@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import models.Abbreviation;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,9 +24,12 @@ public class GameView implements Initializable {
     private final GameController gameController;
 
     private Timer gameTimer;
-    private final StringProperty secondsLeft = new SimpleStringProperty();
+    private int interval = 0;
 
-    private Abbreviation testAbbreviation;
+    private final StringProperty secondsProperty = new SimpleStringProperty();
+    private final StringProperty answerProperty = new SimpleStringProperty();
+
+    private final ArrayList<Abbreviation> abbreviations;
 
     @FXML
     private AnchorPane buttonContainer;
@@ -34,58 +38,70 @@ public class GameView implements Initializable {
     private Button startButton, stopButton;
 
     @FXML
-    private Label timerLabel;
+    private Label timerLabel, answerLabel;
 
     public GameView() {
         gameController = new GameController();
         windowController = new WindowController();
-
-        testAbbreviation = new Abbreviation(
-                0,
-                "ACM",
-                "Autoriteit Consument en Markt",
-                0
-        );
+        abbreviations = gameController.getAllAbbreviations();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        timerLabel.textProperty().bind(secondsLeft);
+        timerLabel.textProperty().bind(secondsProperty);
+        secondsProperty.setValue("60 sec");
+        answerLabel.textProperty().bind(answerProperty);
 
         setupWindowHideEvent();
     }
 
+    private void loadAbbreviation() {
+
+    }
+
     private void setupWindowHideEvent() {
         windowController.getWindow().setOnHiding(windowEvent -> {
-            stopGameTimer();
+            stopGame();
         });
     }
 
-    private void stopGameTimer() {
+    private void stopGame() {
         if (gameTimer != null) {
             gameTimer.cancel();
             gameTimer.purge();
         }
     }
 
-    private void startGameTimer() {
-        TimerTask timerTask = new TimerTask() {
-            int countdown = 10;
+    private void gameTick() {
+        interval--;
+        Platform.runLater(() -> secondsProperty.setValue(interval + " sec"));
 
+        if (interval < 1)
+            stopGame();
+    }
+
+    private TimerTask getTimerTask() {
+        return new TimerTask() {
             @Override
             public void run() {
-                if (countdown > 0) {
-                    countdown--;
-                    Platform.runLater(() -> secondsLeft.setValue(countdown + " sec"));
-                } else {
-                    stopGameTimer();
-                }
+                gameTick();
             }
         };
-
-        gameTimer = new Timer();
-        gameTimer.scheduleAtFixedRate(timerTask, 1000, 1000);
     }
+
+    private void startGame() {
+        interval = 5;
+        gameTimer = new Timer();
+        gameTimer.scheduleAtFixedRate(getTimerTask(), 1000, 1000);
+    }
+
+//    private void randomiseButtons(Abbreviation abbreviation) {
+//        ArrayList<Button> buttons = gameController.getButtonsFromClassName(buttonContainer, "gamebtn");
+//        ArrayList<String> randomStrings = gameController.getStringsFromAbbreviation(abbreviation, buttons.size());
+//
+//        if (buttons.isEmpty() || randomStrings.isEmpty())
+//            return;
+//    }
 
     private void toggleStartStop() {
         startButton.setDisable(!startButton.isDisable());
@@ -96,15 +112,19 @@ public class GameView implements Initializable {
     private void gameButtonClicked(ActionEvent event) {
         Button gameButton = (Button) event.getSource();
         String letter = gameButton.getText();
+
+        Platform.runLater(() -> answerProperty.setValue(answerProperty.getValue() + letter));
     }
 
     @FXML
     private void startButtonClicked(ActionEvent event) {
         toggleStartStop();
+        startGame();
     }
 
     @FXML
     private void stopButtonClicked(ActionEvent event) {
         toggleStartStop();
+        stopGame();
     }
 }

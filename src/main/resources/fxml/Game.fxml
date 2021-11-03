@@ -34,14 +34,14 @@
                </HBox>
             </children>
           </AnchorPane>
-         <HBox alignment="CENTER" layoutX="282.0" layoutY="25.0" prefHeight="62.0" prefWidth="272.0">
+         <HBox styleClass="whitebox" alignment="CENTER" layoutX="282.0" layoutY="25.0" prefHeight="62.0" prefWidth="272.0">
             <children>
                <Label text="Hier komt de betekenis" />
             </children>
          </HBox>
-         <HBox alignment="CENTER" layoutX="332.0" layoutY="104.0" prefHeight="39.0" prefWidth="171.0">
+         <HBox styleClass="whitebox" alignment="CENTER" layoutX="332.0" layoutY="104.0" prefHeight="39.0" prefWidth="171.0">
             <children>
-               <Label text="Jouw antwoord" />
+               <Label fx:id="answerLabel" text="Jouw antwoord" />
             </children>
          </HBox>
          <HBox alignment="CENTER" layoutY="34.0" prefHeight="62.0" prefWidth="136.0">
@@ -49,9 +49,9 @@
                <Label text="Game" />
             </children>
          </HBox>
-         <Label fx:id="timerLabel" layoutX="737.0" layoutY="48.0" />
-         <Button fx:id="startButton" layoutX="729.0" layoutY="260.0" mnemonicParsing="false" onAction="#startButtonClicked" text="START" />
-         <Button fx:id="stopButton" disable="true" layoutX="729.0" layoutY="297.0" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="25.0" prefWidth="50.0" text="STOP" />
+         <Label fx:id="timerLabel" styleClass="timerlbl" layoutX="737.0" layoutY="48.0" />
+         <Button fx:id="startButton" styleClass="startbtn" layoutX="729.0" layoutY="260.0" mnemonicParsing="false" onAction="#startButtonClicked" text="START" />
+         <Button fx:id="stopButton" styleClass="stopbtn" disable="true" layoutX="729.0" layoutY="297.0" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="25.0" prefWidth="50.0" text="STOP" />
       </children>
    </AnchorPane>
 </AnchorPane>
