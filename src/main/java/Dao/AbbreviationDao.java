@@ -41,8 +41,8 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     }
 
     @Override  //verwijder een abbreviation
-    public void deleteAbbreviation(Abbreviation abbreviation) {
-        abbreviations.remove(abbreviation.getId());
+    public void deleteAbbreviation(Long id) throws Exception {
+        httpService.DeleteObject("",id);
     }
 
 

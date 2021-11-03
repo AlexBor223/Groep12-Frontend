@@ -4,6 +4,7 @@ import kong.unirest.*;
 import models.Abbreviation;
 
 
+
 public class HttpService {
 
     private String host = "http://localhost:8080/api/abbreviations";
@@ -27,7 +28,6 @@ public class HttpService {
                 .header("Content-Type", "application/json")
                 .asJson();
 
-        System.out.println("Alle Abr: " + abbreviation.getBody().getArray());
         return abbreviation;
     }
 
@@ -43,9 +43,11 @@ public class HttpService {
         return (response.getStatus()==201);
     }
 
-    public boolean DeleteObject(String url) throws Exception {
-        HttpResponse<kong.unirest.JsonNode> response = Unirest.delete(host)
+    public boolean DeleteObject(String url, long id) throws Exception {
+        HttpResponse<kong.unirest.JsonNode> response = Unirest.delete(host + "/" + id)
+                .header("Accept", "application/json")
                 .asJson();
+
         return (response.getStatus() == 201);
     }
 
@@ -63,9 +65,6 @@ public class HttpService {
         System.out.println("body: " + response.getBody());
         return (response.getStatus()==201);
     }
-
-
-
 
 
 

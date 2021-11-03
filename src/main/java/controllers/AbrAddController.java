@@ -74,11 +74,11 @@ public class AbrAddController implements Initializable {
             e.printStackTrace();
         }
 
-        try {           //voor testen
-            likeAbbreviation(1L);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {           //voor testen
+//            likeAbbreviation(1L);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -92,17 +92,11 @@ public class AbrAddController implements Initializable {
         String Meaning = AbbreviationMeaning.getText();
         String Department = ChooseDep.getValue();
 
-
-
         abbreviation.setLetters(AbbreviationL);
         abbreviation.setMeaning(Meaning);
         abbreviation.setDepartment(Department);
         abbreviation.setLikes(0);
 
-
-
-
-        System.out.printf(abbreviation.getMeaning() + abbreviation.getDepartment() + abbreviation.getLetters()); //voor testen
 
         checkInput();
     }
@@ -115,16 +109,16 @@ public class AbrAddController implements Initializable {
         }else {
 
             StatusText.setText(AbrAdded);
-            String jsonStr = objectMapper.writeValueAsString(abbreviation);
-            System.out.println(jsonStr);
+//            String jsonStr = objectMapper.writeValueAsString(abbreviation);
+//            System.out.println(jsonStr);  print input van abbreviation uit
             abbreviationDao.updateAbbreviation(abbreviation);
-            System.out.println(abbreviation.toString());
+
 
         }
 
 
-
-        disLikeAbbreviation(1L); //Voor testen
+//        removeAbbreviation(3L);
+//        disLikeAbbreviation(1L); //Voor testen
 
 
    }
@@ -137,6 +131,10 @@ public class AbrAddController implements Initializable {
    public void disLikeAbbreviation(Long id) throws Exception {
     abbreviationDao.DisLikeAbbreviation(id);
 
+   }
+
+   public void removeAbbreviation(Long id) throws Exception {
+        abbreviationDao.deleteAbbreviation(id);
    }
 
 
