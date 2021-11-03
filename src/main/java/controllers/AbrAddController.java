@@ -3,17 +3,13 @@ package controllers;
 import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.Abbreviation;
-import models.NewAbbreviation;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +27,7 @@ public class AbrAddController implements Initializable {
     @FXML
     private Text StatusText;
 
-    NewAbbreviation abbreviation = new NewAbbreviation();
+    Abbreviation abbreviation = new Abbreviation();
     WindowController windowController = new WindowController();
 
     private String noAbbreviation = "Geef een afkorting mee";

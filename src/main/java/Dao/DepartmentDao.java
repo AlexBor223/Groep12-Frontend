@@ -14,11 +14,11 @@ public class DepartmentDao implements DepartmentDaoInter {
     public ArrayList<DepartmentModel> GetAllDepartments() {
         ArrayList list = new ArrayList();
         try {
-            JsonNode Json = HttpService.SearchObject(AbrPath);
+            list = (ArrayList) HttpService.GetAllDepartments(AbrPath);
             return list;
         }catch(Exception e){
             e.printStackTrace();
-            return null;
+            return list;
         }
     }
 }

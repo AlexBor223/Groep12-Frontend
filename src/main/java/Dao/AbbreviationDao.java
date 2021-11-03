@@ -11,7 +11,7 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     List<Abbreviation> abbreviations;
 
     private static HttpService HttpService = new HttpService();
-    private final String AbrPath = "/api/abbreviation";
+    private final String AbrPath = "/api/abbreviations";
 
 
     public AbbreviationDao() {
@@ -35,16 +35,20 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     }
 
     @Override
-    public ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department){
-        JsonNode abbreviations = new JsonNode("dd");
+    public ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department) {
+
+//        try {
+//            abbreviations = HttpService.SearchAbbreviationsObject( AbrPath, abbreviation, department);
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
         try {
-            abbreviations = HttpService.SearchObject(String.format("%s?Value=%s&Department=%s", AbrPath,  abbreviation, department));
-
-        }catch(Exception e){
+            abbreviations = HttpService.GetAllAbbreviations(AbrPath);
+       }catch(Exception e){
             e.printStackTrace();
-        }
+       }
         ArrayList<Abbreviation> abbreviationList = new ArrayList<Abbreviation>();
-
+        abbreviationList = (ArrayList<Abbreviation>) abbreviations;
         return abbreviationList;
     }
 

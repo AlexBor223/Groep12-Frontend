@@ -45,9 +45,9 @@ public class AbrSearchController implements Initializable {
         input.requestFocus();
         ArrayList<DepartmentModel> DepartmentArray = depDao.GetAllDepartments();
         ObservableList<String> options = FXCollections.observableArrayList();
-        for (DepartmentModel department:DepartmentArray){
-            options.add(department.getName());
-        }
+//        for (DepartmentModel department:DepartmentArray){
+//            options.add(department.getName());
+//        }
 
         comboBox.setItems(options);
 
@@ -57,21 +57,26 @@ public class AbrSearchController implements Initializable {
        });
         comboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             SearchedDepartment = newValue;
+            updateAbbreviationBoxes();
         });
 
-    }
-
-    public ArrayList<Abbreviation> getAbbreviations(){
-        return abrDao.searchAbbreviations(SearchedID, SearchedDepartment);
     }
 
     public void updateAbbreviationBoxes(){
         abbreviations.getChildren().clear();
         newAbbreviations.getChildren().clear();
         ArrayList<Abbreviation> localAbr= getAbbreviations();
-        for(Abbreviation abr : localAbr){
-            insertAbbreviation(abr.getLetters()+"  "+abr.getMeaning(),abr.getDepartment(), (int) abr.getId());
+        if(localAbr!=null) {
+            for (Abbreviation abr : localAbr) {
+                System.out.println(abr.getDepartment());
+                insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), (int) abr.getId());
+            }
         }
+    }
+
+    public ArrayList<Abbreviation> getAbbreviations(){
+
+        return abrDao.searchAbbreviations(SearchedID, SearchedDepartment);
     }
 
     public void insertAbbreviation(String AbbreviationMeaning, String department, int AbrId){
@@ -81,6 +86,7 @@ public class AbrSearchController implements Initializable {
 
     public void InsertNewAbbreviation(String AbbreviationMeaning, String department, int AbrId){
         AnchorPane abbreviationBox = createBaseAbbreviationBox(AbbreviationMeaning, department, AbrId);
+
 
         newAbbreviations.getChildren().add(abbreviationBox);
     }
