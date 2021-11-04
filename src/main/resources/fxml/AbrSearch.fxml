@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="560.0" prefWidth="900.0" stylesheets="@/CSS/AbrSearch.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AbrSearchController">
+<AnchorPane prefHeight="560.0" prefWidth="900.0" stylesheets="@/CSS/AbrSearch.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AbrSearchView">
    <children>
       <TextField fx:id="input" layoutX="111.0" layoutY="109.0" prefHeight="31.0" prefWidth="179.0" />
       <ComboBox fx:id="comboBox" layoutX="111.0" layoutY="53.0" prefHeight="25.0" prefWidth="179.0" />

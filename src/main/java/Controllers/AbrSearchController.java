@@ -1,42 +1,31 @@
-package views;
+package Controllers;
 
 import Dao.AbbreviationDao;
 import Dao.DepartmentDao;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
 import models.Abbreviation;
 import models.DepartmentModel;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-public class AbrSearchController implements Initializable {
+public class AbrSearchController {
 
-    @FXML private TextField input;
-    @FXML private ComboBox<String> comboBox;
-
-    private final String AbbreviationStylingId = "abbreviation";
-    private final String DepartmentStylingId = "department";
-    private final String AbbreviationBoxStylingId= "abbreviationBox";
-    private final String PngLocation = "images/%s.png";
+    private String AbbreviationBoxStylingId = "abbreviationBox";
+    private String PngLocation = "/images/%s.png";
+    private String AbbreviationStylingId = "abbreviation";
+    private String DepartmentStylingId = "department";
 
     private AbbreviationDao abrDao = new AbbreviationDao();
     private DepartmentDao depDao = new DepartmentDao();
 
-    private String SearchedID;
+    private String SearchedAbr;
     private String SearchedDepartment;
 
     private EventHandler<MouseEvent> like = new EventHandler<MouseEvent>() {
@@ -69,66 +58,58 @@ public class AbrSearchController implements Initializable {
         }
     };
 
-
-    @FXML private VBox abbreviations;
-    @FXML private VBox newAbbreviations;
-
-    @FXML
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        input.requestFocus();
-        ArrayList<DepartmentModel> DepartmentArray = depDao.GetAllDepartments();
-        ObservableList<String> options = FXCollections.observableArrayList();
-
-//        for (DepartmentModel department:DepartmentArray){
-//            options.add(department.getName());
-//        }
-
-
-        comboBox.setItems(options);
-        //listens for change in query
-        input.textProperty().addListener((observable, oldValue, newValue) -> {
-            SearchedID = newValue;
-            updateAbbreviationBoxes();
-       });
-
-        //listens for change in department
-        comboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            SearchedDepartment = newValue;
-
-            updateAbbreviationBoxes();
-        });
-
+    public ArrayList<AnchorPane> getAbbreviationBoxes(){
+        if(SearchedAbr.isEmpty()){return null;}
+    ArrayList<Abbreviation> localAbr= getAbbreviations();
+    ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
+    try {
+        if (localAbr != null) {
+            for (Abbreviation abr : localAbr) {
+                if (abr.isApproved()) {
+                   abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId()));
+                }
+            }
+        }
+    }catch(Exception e){
+        e.printStackTrace();
     }
-    //gives out information to either newAbbreviation boxes or abbreviation box
-    public void updateAbbreviationBoxes(){
-        abbreviations.getChildren().clear();
-        newAbbreviations.getChildren().clear();
+    return abbreviationBoxes;
+    }
+    public ArrayList<AnchorPane> getNewAbbreviationBoxes(){
         ArrayList<Abbreviation> localAbr= getAbbreviations();
+        ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
         try {
             if (localAbr != null) {
                 for (Abbreviation abr : localAbr) {
-                    if (abr.isApproved()) {
-                        insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId());
-                    } else {
-                        insertNewAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId());
+                    if (!abr.isApproved()) {
+                        abbreviationBoxes.add(insertNewAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId()));
                     }
                 }
             }
         }catch(Exception e){
             e.printStackTrace();
         }
+        return abbreviationBoxes;
+    }
+
+    public void updateAbr(String Abr){
+        SearchedAbr = Abr;
     }
 
     public ArrayList<Abbreviation> getAbbreviations(){
-        return abrDao.searchAbbreviations(SearchedID, SearchedDepartment);
+        return abrDao.searchAbbreviations(SearchedAbr, SearchedDepartment);
     }
 
-    public void insertAbbreviation(String AbbreviationMeaning, String department, long AbrId){
+    public Boolean likeAbbreviation(long id) throws Exception{
+        return abrDao.LikeAbbreviation(id);
+    }
+
+    public AnchorPane insertAbbreviation(String AbbreviationMeaning, String department, long AbrId){
         AnchorPane abbreviationBox = createBaseAbbreviationBox(AbbreviationMeaning, department, AbrId);
-        abbreviations.getChildren().add(abbreviationBox);
+        return abbreviationBox;
     }
 
-    public void insertNewAbbreviation(String AbbreviationMeaning, String department, long AbrId) throws Exception{
+    public AnchorPane insertNewAbbreviation(String AbbreviationMeaning, String department, long AbrId) throws Exception{
         AnchorPane abbreviationBox = createBaseAbbreviationBox(AbbreviationMeaning, department, AbrId);
         Button likeButton = CreateLikeButton("like");
         Button dislikeButton = CreateLikeButton("dislike");
@@ -149,7 +130,7 @@ public class AbrSearchController implements Initializable {
         likeButton.setOnMouseClicked(like);
         dislikeButton.setOnMouseClicked(dislike);
 
-        newAbbreviations.getChildren().add(abbreviationBox);
+        return abbreviationBox;
     }
 
     public Button CreateLikeButton(String kind){
@@ -200,6 +181,14 @@ public class AbrSearchController implements Initializable {
         abbreviationBox.getChildren().add(Department);
 
         return abbreviationBox;
+    }
+
+    public ArrayList<DepartmentModel> getAllDepartments(){
+        return new ArrayList<DepartmentModel>();
+    }
+
+    public void updateDep(String department){
+        SearchedDepartment = department;
     }
 
 }
