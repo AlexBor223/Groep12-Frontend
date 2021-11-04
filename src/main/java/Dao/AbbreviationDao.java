@@ -10,7 +10,7 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     List<Abbreviation> abbreviations;
 
-    private static HttpService HttpService = new HttpService();
+    private static HttpService httpService = new HttpService();
     private final String AbrPath = "/api/abbreviations";
 
 
@@ -19,19 +19,24 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     }
 
     @Override
-    public Abbreviation getAbbreviation(Integer id) {
+    public Abbreviation getAbbreviaton(Integer id) throws Exception {
+        httpService.SearchObject(id);
 
-        return abbreviations.get(id);
+
+
+     return null;
     }
 
     @Override //krijg alle abbreviations
-    public List<Abbreviation> getAllAbbreviations() {
+    public List<Abbreviation> getAllAbbreviations() throws Exception {
+        httpService.GetAllObjects("");
+
         return abbreviations;
     }
 
     @Override
-    public void updateAbbreviation(Abbreviation abbreviation) {
-
+    public void updateAbbreviation(Abbreviation abbreviation) throws Exception {
+        httpService.AddOrUpdateObject("", abbreviation);
     }
 
     @Override
@@ -53,7 +58,18 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     }
 
     @Override  //verwijder een abbreviation
-    public void deleteAbbreviation(Abbreviation abbreviation) {
-        abbreviations.remove(abbreviation.getId());
+    public void deleteAbbreviation(Long id) throws Exception {
+        httpService.DeleteObject("",id);
+    }
+
+
+    @Override
+    public void LikeAbbreviation(Long id) throws Exception {
+        httpService.LikeObject("/GiveLike", id);
+    }
+
+    @Override
+    public void DisLikeAbbreviation(Long id) throws Exception {
+        httpService.LikeObject("/GiveDisLike", id);
     }
 }

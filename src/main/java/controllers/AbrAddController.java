@@ -1,5 +1,7 @@
 package controllers;
 
+import Dao.AbbreviationDao;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,10 @@ public class AbrAddController implements Initializable {
 
     Abbreviation abbreviation = new Abbreviation();
     WindowController windowController = new WindowController();
+    AbbreviationDao abbreviationDao = new AbbreviationDao();
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
 
     private String noAbbreviation = "Geef een afkorting mee";
     private String noExplanation = "Geef een uitleg van je afkorting mee";
@@ -37,6 +43,9 @@ public class AbrAddController implements Initializable {
     private String AbrAdded = "Afkorting succesvol toegevoegd";
 
     Gson gson = new Gson();
+
+
+
 
 
     ObservableList<String> Departments =
@@ -59,20 +68,29 @@ public class AbrAddController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChooseDep.setItems(Departments);
 
+        try {
+            abbreviationDao.getAllAbbreviations();  //voor testen
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        try {           //voor testen
+//            likeAbbreviation(1L);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     public void loadAdminPage (){
-
         windowController.showWindow("LoginPage", "Inlog admin");
 
     }
 
-    public void getInput(javafx.event.ActionEvent actionEvent) {
+    public void getInput(javafx.event.ActionEvent actionEvent) throws Exception {
         String AbbreviationL = AbbreviationLetters.getText();
         String Meaning = AbbreviationMeaning.getText();
         String Department = ChooseDep.getValue();
-
-
 
         abbreviation.setLetters(AbbreviationL);
         abbreviation.setMeaning(Meaning);
@@ -80,26 +98,43 @@ public class AbrAddController implements Initializable {
         abbreviation.setLikes(0);
 
 
-        System.out.printf(abbreviation.getMeaning() + abbreviation.getDepartment() + abbreviation.getLetters());
-
         checkInput();
     }
 
-   public void checkInput(){
+   public void checkInput() throws Exception {
+
         if(abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty()  || abbreviation.getDepartment() == null){
             StatusText.setText(fillInFields);
 
         }else {
 
             StatusText.setText(AbrAdded);
-
-
+//            String jsonStr = objectMapper.writeValueAsString(abbreviation);
+//            System.out.println(jsonStr);  print input van abbreviation uit
+            abbreviationDao.updateAbbreviation(abbreviation);
 
 
         }
 
 
+//        removeAbbreviation(3L);
+//        disLikeAbbreviation(1L); //Voor testen
 
+
+   }
+
+   public void likeAbbreviation(Long id) throws Exception {
+    abbreviationDao.LikeAbbreviation(id);
+
+   }
+
+   public void disLikeAbbreviation(Long id) throws Exception {
+    abbreviationDao.DisLikeAbbreviation(id);
+
+   }
+
+   public void removeAbbreviation(Long id) throws Exception {
+        abbreviationDao.deleteAbbreviation(id);
    }
 
 
