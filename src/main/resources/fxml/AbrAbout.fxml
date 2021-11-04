@@ -6,9 +6,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefHeight="600.0" prefWidth="900.0"
-            style="-fx-background-color: orange;">
+            prefHeight="600.0" prefWidth="900.0">
+
+
+    <Text styleClass="header" layoutY="35" layoutX="50">Over de applicatie</Text>
+
+
+    <Text wrappingWidth="800" layoutY="60" layoutX="50" styleClass="functieT">Deze applicatie is gemaakt door 4 studenten van de Hogeschool Leiden.
+      Hiervoor hebben zij Java, Css, PostgresSQL, Fxml en Springboot gebruikt.
+      De applicatie is opgesplits in 2 delen, een frontend deel die communiceert met de
+      backend en een backend deel die communiceert met de database.</Text>
+
+    <Text styleClass="header" layoutY="120" layoutX="50">Gebruik van de applicatie</Text>
+
+    <Text  styleClass="overA" layoutY="150" layoutX="50">In deze applicatie kan je verschillende dingen doen:</Text>
+
+    <Text id="functieT" styleClass="functieT" layoutY="180" layoutX="50" wrappingWidth="400">• Je kan een afkorting opzoeken. Als je dit doet zoek je in de database naar afkortingen die
+        overeenkomen met jou zoekopdracht.</Text>
+
+    <Text styleClass="functieT" layoutY="230" layoutX="50" wrappingWidth="400">• Je kan een afkorting toevoegen als je dit doet word de afkorting als tijdelijke afkorting
+        aan de database toegoevoegd. Als dan andere personen genoeg likes aan de afkorting geven word
+        deze definief gemaakt en aan de lijst met permanente afkortingen toegevoegd.</Text>
+
+    <Text styleClass="functieT" layoutY="310" layoutX="50" wrappingWidth="400">• Ook kan je een afkortingen spel spelen en zo jou collega's uitdagen en kijken wie de
+        afkortingen die gebruikt worden op de werkvloer het beste weet.</Text>
+
+
 
 </AnchorPane>

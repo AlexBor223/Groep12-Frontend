@@ -27,6 +27,22 @@ Label {
 
 }
 
-#ChooseDep{
+.functieT{
+
+    -fx-font-size: 13;
 
 }
+
+.header{
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-font-size: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);
+}
+
+.overA{
+    -fx-font-size: 15;
+
+}
+
+

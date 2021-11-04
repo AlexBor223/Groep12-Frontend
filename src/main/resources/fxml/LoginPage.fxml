@@ -11,7 +11,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.LoginController"
             prefHeight="600.0" prefWidth="900.0">
-
+<AnchorPane prefHeight="600.0" prefWidth="900.0">
     <AnchorPane styleClass="LoginAnchorPane" layoutY="100" layoutX="70" prefWidth="300" prefHeight="-200">
         <Label fx:id= "LabelAdmin" text="Admin login" layoutY="20"/>
         <TextField fx:id = "AdminUsername" layoutY="100" layoutX="50" promptText="Gebruikersnaam"/>
@@ -19,6 +19,6 @@
         <Button fx:id="AdminLogin"  layoutY="200" layoutX="250"  >Inloggen</Button>
         <Text fx:id="StatusText" layoutY="250" layoutX="480" ></Text>
     </AnchorPane>
-
+</AnchorPane>
 
 </VBox>
