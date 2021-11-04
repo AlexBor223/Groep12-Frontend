@@ -11,7 +11,7 @@ public class AbbreviationDao implements AbbreviationDaoInter {
     List<Abbreviation> abbreviations;
 
     private static HttpService httpService = new HttpService();
-    private final String AbrPath = "/api/abbreviations";
+    private final String AbrPath = "api/abbreviations";
 
 
     public AbbreviationDao() {

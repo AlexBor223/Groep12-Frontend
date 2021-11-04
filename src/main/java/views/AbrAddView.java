@@ -110,7 +110,7 @@ public class AbrAddView implements Initializable {
 
 
 //      removeAbbreviation(3L);
-//        dislikeAbbreviation(1L);
+        dislikeAbbreviation(2L);
 
 
     }
