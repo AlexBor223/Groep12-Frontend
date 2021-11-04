@@ -26,13 +26,17 @@ import java.util.ResourceBundle;
 
 public class AbrSearchView implements Initializable {
 
-    @FXML private TextField input;
-    @FXML private ComboBox<String> comboBox;
+    @FXML
+    private TextField input;
+    @FXML
+    private ComboBox<String> comboBox;
 
     private AbrSearchController controller = new AbrSearchController();
 
-    @FXML private VBox abbreviations;
-    @FXML private VBox newAbbreviations;
+    @FXML
+    private VBox abbreviations;
+    @FXML
+    private VBox newAbbreviations;
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,7 +54,7 @@ public class AbrSearchView implements Initializable {
         input.textProperty().addListener((observable, oldValue, newValue) -> {
             controller.updateAbr(newValue);
             updateAbbreviationBoxes();
-       });
+        });
 
         //listens for change in department
         comboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -59,14 +63,16 @@ public class AbrSearchView implements Initializable {
         });
     }
 
-    private void updateAbbreviationBoxes(){
+    private void updateAbbreviationBoxes() {
         abbreviations.getChildren().clear();
         newAbbreviations.getChildren().clear();
-        if(controller.noSearch()){return;}
-        for(AnchorPane abbreviationBox: controller.getNewAbbreviationBoxes()){
+        if (controller.noSearch()) {
+            return;
+        }
+        for (AnchorPane abbreviationBox : controller.getNewAbbreviationBoxes()) {
             newAbbreviations.getChildren().add(abbreviationBox);
         }
-        for(AnchorPane abbreviationBox: controller.getAbbreviationBoxes()){
+        for (AnchorPane abbreviationBox : controller.getAbbreviationBoxes()) {
             abbreviations.getChildren().add(abbreviationBox);
         }
     }

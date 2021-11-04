@@ -32,11 +32,10 @@ public class AbrSearchController {
         @Override
         public void handle(MouseEvent event) {
             Button clickedButton = (Button) event.getSource();
-            System.out.println(clickedButton.getParent().getProperties().get("abrId"));
-            long id = Long.parseLong((String)clickedButton.getParent().getProperties().get("abrId"));
+            long id = Long.parseLong((String) clickedButton.getParent().getProperties().get("abrId"));
             try {
                 abrDao.LikeAbbreviation(id);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -48,92 +47,94 @@ public class AbrSearchController {
         @Override
         public void handle(MouseEvent event) {
             Button clickedButton = (Button) event.getSource();
-            long id = Long.parseLong((String)clickedButton.getParent().getProperties().get("abrId"));
+            long id = Long.parseLong((String) clickedButton.getParent().getProperties().get("abrId"));
             try {
                 abrDao.DislikeAbbreviation(id);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
     };
 
-    public ArrayList<AnchorPane> getAbbreviationBoxes(){
-        if(SearchedAbr.isEmpty()){return null;}
-    ArrayList<Abbreviation> localAbr= getAbbreviations();
-    ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
-    try {
-        if (localAbr != null) {
-            for (Abbreviation abr : localAbr) {
-                if (abr.isApproved()) {
-                   abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId()));
-                }
-            }
-        }
-    }catch(Exception e){
-        e.printStackTrace();
+    public boolean noSearch() {
+        return SearchedAbr.isEmpty();
     }
-    return abbreviationBoxes;
-    }
-    public ArrayList<AnchorPane> getNewAbbreviationBoxes(){
-        ArrayList<Abbreviation> localAbr= getAbbreviations();
+
+    public ArrayList<AnchorPane> getAbbreviationBoxes() {
+        ArrayList<Abbreviation> localAbr = getAbbreviations();
         ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
         try {
             if (localAbr != null) {
                 for (Abbreviation abr : localAbr) {
-                    if (!abr.isApproved()) {
-                        abbreviationBoxes.add(insertNewAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId()));
+                    if (abr.isApproved()) {
+                        abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId(), false));
                     }
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return abbreviationBoxes;
     }
 
-    public void updateAbr(String Abr){
+
+    public ArrayList<AnchorPane> getNewAbbreviationBoxes() {
+        ArrayList<Abbreviation> localAbr = getAbbreviations();
+        ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
+        try {
+            if (localAbr != null) {
+                for (Abbreviation abr : localAbr) {
+                    if (!abr.isApproved()) {
+                        abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId(), true));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return abbreviationBoxes;
+    }
+
+    public void updateAbr(String Abr) {
         SearchedAbr = Abr;
     }
 
-    public ArrayList<Abbreviation> getAbbreviations(){
+    public ArrayList<Abbreviation> getAbbreviations() {
         return abrDao.searchAbbreviations(SearchedAbr, SearchedDepartment);
     }
 
-    public Boolean likeAbbreviation(long id) throws Exception{
+    public Boolean likeAbbreviation(long id) throws Exception {
         return abrDao.LikeAbbreviation(id);
     }
 
-    public AnchorPane insertAbbreviation(String AbbreviationMeaning, String department, long AbrId){
+    public AnchorPane insertAbbreviation(String AbbreviationMeaning, String department, long AbrId, boolean isNew) {
         AnchorPane abbreviationBox = createBaseAbbreviationBox(AbbreviationMeaning, department, AbrId);
+        if (isNew) {
+            Button likeButton = CreateLikeButton("like");
+            Button dislikeButton = CreateLikeButton("dislike");
+
+            //adding buttons to abbreviation box
+            abbreviationBox.getChildren().add(likeButton);
+            abbreviationBox.getChildren().add(dislikeButton);
+
+            //positioning in abbreviation box
+            likeButton.setLayoutX(320);
+            likeButton.setLayoutY(9);
+
+            //positioning in abbreviation box
+            dislikeButton.setLayoutX(360);
+            dislikeButton.setLayoutY(11);
+
+            //set triggers for likes and dislikes
+            likeButton.setOnMouseClicked(like);
+            dislikeButton.setOnMouseClicked(dislike);
+        }
+
         return abbreviationBox;
     }
 
-    public AnchorPane insertNewAbbreviation(String AbbreviationMeaning, String department, long AbrId) throws Exception{
-        AnchorPane abbreviationBox = createBaseAbbreviationBox(AbbreviationMeaning, department, AbrId);
-        Button likeButton = CreateLikeButton("like");
-        Button dislikeButton = CreateLikeButton("dislike");
-
-        //adding buttons to abbreviation box
-        abbreviationBox.getChildren().add(likeButton);
-        abbreviationBox.getChildren().add(dislikeButton);
-
-        //positioning in abbreviation box
-        likeButton.setLayoutX(320);
-        likeButton.setLayoutY(9);
-
-        //positioning in abbreviation box
-        dislikeButton.setLayoutX(360);
-        dislikeButton.setLayoutY(11);
-
-        //set triggers for likes and dislikes
-        likeButton.setOnMouseClicked(like);
-        dislikeButton.setOnMouseClicked(dislike);
-
-        return abbreviationBox;
-    }
-
-    public Button CreateLikeButton(String kind){
+    public Button CreateLikeButton(String kind) {
         Button likeButton = new Button();
 
         //makes button black
@@ -143,7 +144,7 @@ public class AbrSearchController {
 
         likeButton.setEffect(color);
 
-        BackgroundImage Image= new BackgroundImage(new Image(String.format(PngLocation, kind),30,30,false,true),
+        BackgroundImage Image = new BackgroundImage(new Image(String.format(PngLocation, kind), 30, 30, false, true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -155,7 +156,7 @@ public class AbrSearchController {
     }
 
 
-    public AnchorPane createBaseAbbreviationBox(String abbreviationMeaning, String department, long abrId){
+    public AnchorPane createBaseAbbreviationBox(String abbreviationMeaning, String department, long abrId) {
         AnchorPane abbreviationBox = new AnchorPane();
         Text Meaning = new Text();
         Text Department = new Text();
@@ -183,11 +184,11 @@ public class AbrSearchController {
         return abbreviationBox;
     }
 
-    public ArrayList<DepartmentModel> getAllDepartments(){
+    public ArrayList<DepartmentModel> getAllDepartments() {
         return new ArrayList<DepartmentModel>();
     }
 
-    public void updateDep(String department){
+    public void updateDep(String department) {
         SearchedDepartment = department;
     }
 
