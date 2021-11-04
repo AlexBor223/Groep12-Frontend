@@ -1,4 +1,4 @@
-AnchorPane Button{
+#NavBar Button{
     -fx-display:block;
     -fx-background-color: #01689b;
     -fx-text-fill: white;
@@ -7,7 +7,7 @@ AnchorPane Button{
 
 }
 
-AnchorPane Button:hover{
+#NavBar Button:hover{
     -fx-underline: true;
 
 }

@@ -1,4 +1,4 @@
-package controllers;
+package views;
 
 import Dao.AbbreviationDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.Abbreviation;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -61,7 +62,6 @@ public class AbrAddController implements Initializable {
                     "Ministerie van Onderwijs, Cultuur en Wetenschap",
                     "Ministerie van Sociale Zaken en Werkgelegenheid",
                     "Ministerie van Volksgezondheid, Welzijn en Sport"
-
             );
 
     @Override
@@ -128,8 +128,8 @@ public class AbrAddController implements Initializable {
 
    }
 
-   public void disLikeAbbreviation(Long id) throws Exception {
-    abbreviationDao.DisLikeAbbreviation(id);
+   public void dislikeAbbreviation(Long id) throws Exception {
+    abbreviationDao.DislikeAbbreviation(id);
 
    }
 

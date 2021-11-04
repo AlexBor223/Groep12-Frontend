@@ -1,12 +1,9 @@
 package application;
 
-import controllers.WindowController;
+import views.WindowController;
 import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
-
-import java.awt.*;
 
 public class Main extends Application {
     @Override

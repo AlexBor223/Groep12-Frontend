@@ -7,12 +7,12 @@ public class Abbreviation {
     private String department;
     private Integer likes;
     private long id;
+    private Boolean approved = false;
 
 
     public Abbreviation(){
 
     }
-
 
 
     public Abbreviation(String letters, String meaning, String department, Integer likes, long id){
@@ -66,6 +66,10 @@ public class Abbreviation {
 
     public String getDepartment() {
         return department;
+    }
+
+    public Boolean isApproved() {
+        return approved;
     }
 
     public void setDepartment(String department) {
