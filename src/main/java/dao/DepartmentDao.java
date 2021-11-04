@@ -1,6 +1,5 @@
-package Dao;
+package dao;
 
-import kong.unirest.JsonNode;
 import models.DepartmentModel;
 import services.HttpService;
 
