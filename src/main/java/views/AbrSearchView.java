@@ -41,7 +41,7 @@ public class AbrSearchView implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         input.requestFocus();
-        ArrayList<DepartmentModel> DepartmentArray = controller.getAllDepartments();
+        ArrayList<DepartmentModel> DepartmentArray = controller. getAllDepartments();
         ObservableList<String> options = FXCollections.observableArrayList();
 
 //        for (DepartmentModel department:DepartmentArray){
