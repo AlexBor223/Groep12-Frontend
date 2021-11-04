@@ -1,10 +1,10 @@
-package Controllers;
+package controllers;
 
 
 
 
-import Dao.AbbreviationDao;
-import Dao.DepartmentDao;
+import dao.AbbreviationDao;
+import dao.DepartmentDao;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Shadow;
