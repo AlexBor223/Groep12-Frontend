@@ -1,6 +1,6 @@
 package views;
 
-import Dao.AbbreviationDao;
+import dao.AbbreviationDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import javafx.collections.FXCollections;

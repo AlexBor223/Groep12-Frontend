@@ -1,8 +1,6 @@
 package views;
 
-import Controllers.AbrSearchController;
-import Dao.AbbreviationDao;
-import Dao.DepartmentDao;
+import controllers.AbrSearchController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
