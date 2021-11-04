@@ -3,6 +3,7 @@ package views;
 import Dao.AbbreviationDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import controllers.AbrAddController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,7 +17,7 @@ import models.Abbreviation;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AbrAddController implements Initializable {
+public class AbrAddView implements Initializable {
 
     @FXML
     private ComboBox<String> ChooseDep;
@@ -31,7 +32,8 @@ public class AbrAddController implements Initializable {
 
     Abbreviation abbreviation = new Abbreviation();
     WindowController windowController = new WindowController();
-    AbbreviationDao abbreviationDao = new AbbreviationDao();
+    AbrAddController abrAddController = new AbrAddController();
+
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -41,11 +43,6 @@ public class AbrAddController implements Initializable {
     private String selectDepartment = "Selecteerd u eerst een afdeling";
     private String fillInFields = "Vul alle velden goed in";
     private String AbrAdded = "Afkorting succesvol toegevoegd";
-
-    Gson gson = new Gson();
-
-
-
 
 
     ObservableList<String> Departments =
@@ -68,11 +65,6 @@ public class AbrAddController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChooseDep.setItems(Departments);
 
-        try {
-            abbreviationDao.getAllAbbreviations();  //voor testen
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 //        try {           //voor testen
 //            likeAbbreviation(1L);
@@ -82,7 +74,7 @@ public class AbrAddController implements Initializable {
 
     }
 
-    public void loadAdminPage (){
+    public void loadAdminPage() {
         windowController.showWindow("LoginPage", "Inlog admin");
 
     }
@@ -101,41 +93,41 @@ public class AbrAddController implements Initializable {
         checkInput();
     }
 
-   public void checkInput() throws Exception {
+    public void checkInput() throws Exception {
 
-        if(abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty()  || abbreviation.getDepartment() == null){
+        if (abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty() || abbreviation.getDepartment() == null) {
             StatusText.setText(fillInFields);
 
-        }else {
+        } else {
 
             StatusText.setText(AbrAdded);
+            abrAddController.createAbbreviation(abbreviation);
 //            String jsonStr = objectMapper.writeValueAsString(abbreviation);
 //            System.out.println(jsonStr);  print input van abbreviation uit
-            abbreviationDao.updateAbbreviation(abbreviation);
 
 
         }
 
 
-//        removeAbbreviation(3L);
-//        disLikeAbbreviation(1L); //Voor testen
+//      removeAbbreviation(3L);
+//        dislikeAbbreviation(1L);
 
 
-   }
+    }
 
-   public void likeAbbreviation(Long id) throws Exception {
-    abbreviationDao.LikeAbbreviation(id);
+    public void likeAbbreviation(Long id) throws Exception {
+        abrAddController.giveLike(id);
 
-   }
+    }
 
-   public void dislikeAbbreviation(Long id) throws Exception {
-    abbreviationDao.DislikeAbbreviation(id);
+    public void dislikeAbbreviation(Long id) throws Exception {
+        abrAddController.giveDislike(id);
 
-   }
+    }
 
-   public void removeAbbreviation(Long id) throws Exception {
-        abbreviationDao.deleteAbbreviation(id);
-   }
+    public void removeAbbreviation(Long id) throws Exception {
+        abrAddController.delete(id);
+    }
 
 
 }

@@ -6,7 +6,7 @@ import services.HttpService;
 
 import java.util.*;
 
-public class AbbreviationDao implements AbbreviationDaoInter{
+public class AbbreviationDao implements AbbreviationDaoInter {
 
     List<Abbreviation> abbreviations;
 
@@ -22,7 +22,7 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     public Abbreviation getAbbreviaton(Integer id) throws Exception {
         httpService.SearchObject(id);
 
-     return null;
+        return null;
     }
 
     @Override //krijg alle abbreviations
@@ -47,9 +47,9 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 //        }
         try {
             abbreviations = httpService.GetAllAbbreviations(AbrPath);
-       }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-       }
+        }
         ArrayList<Abbreviation> abbreviationList = new ArrayList<Abbreviation>();
         abbreviationList = (ArrayList<Abbreviation>) abbreviations;
         return abbreviationList;
@@ -57,17 +57,17 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     @Override  //verwijder een abbreviation
     public void deleteAbbreviation(Long id) throws Exception {
-        httpService.DeleteObject("",id);
+        httpService.DeleteObject("", id);
     }
 
 
     @Override
     public Boolean LikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("/%s/%d/%s",AbrPath, id,"GiveLike"));
+        return httpService.LikeObject(String.format("/%s/%d/%s", AbrPath, id, "GiveLike"));
     }
 
     @Override
     public Boolean DislikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("/%s/%d/%s",AbrPath, id,"GiveDisLike"));
+        return httpService.LikeObject(String.format("/%s/%d/%s", AbrPath, id, "GiveDisLike"));
     }
 }
