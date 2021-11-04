@@ -1,9 +1,8 @@
 package views;
 
-import Dao.AbbreviationDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import controllers.AbrAddController;
+import controllers.WindowController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +16,7 @@ import models.Abbreviation;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AbrAddView implements Initializable {
+public class AddView implements Initializable {
 
     @FXML
     private ComboBox<String> ChooseDep;

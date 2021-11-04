@@ -1,6 +1,6 @@
 package controllers;
 
-import Dao.AbbreviationDao;
+import dao.AbbreviationDao;
 import models.Abbreviation;
 
 public class AbrAddController {

@@ -21,7 +21,6 @@ AnchorPane #abbreviation{
     -fx-pref-width: 30;
 }
 
-
 AnchorPane #department{
     -fx-font-size: 15;
     -fx-text-inner-color: #828081;
@@ -29,7 +28,6 @@ AnchorPane #department{
 #new_Abbreviations{
     -fx-spacing: 10;
 }
-
 
 VBox{
 }

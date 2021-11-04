@@ -1,0 +1,141 @@
+/* global */
+* {
+    -fx-primaryColor: #01689B;
+    -fx-greyColor: #EDEDED;
+    -fx-greyBorderColor: #DDDDDD;
+    -fx-greenColor: #07EA80;
+    -fx-redColor: #FF665B;
+}
+
+Button {
+    -fx-cursor: hand;
+}
+
+.greybox {
+    -fx-background-color: -fx-greyColor;
+    -fx-border-color: -fx-greyBorderColor;
+    -fx-border-width: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 5px;
+}
+
+.whitebox {
+    -fx-background-color: white;
+    -fx-border-color: -fx-greyBorderColor;
+    -fx-border-width: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 5px;
+}
+
+/* main page */
+.main {
+    -fx-background-color: red;
+}
+
+/* navigation bar */
+.navlogo {
+    -fx-background-color: -fx-greyColor;
+}
+
+.navlogo ImageView {
+    -fx-cursor: hand;
+}
+
+.navbar Button {
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+    -fx-background-color: -fx-primaryColor;
+}
+
+.navbar Button:hover {
+    -fx-underline: true;
+}
+
+/* game */
+.game-btn-container Button {
+    -fx-text-fill: white;
+    -fx-background-color: -fx-primaryColor;
+    -fx-font-size: 12px;
+    -fx-border-radius: 3px;
+}
+
+.game-btn-container Button:hover {
+    -fx-background-color: derive(-fx-primaryColor, -30%);
+}
+
+.gamelbl {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.startbtn {
+    -fx-background-color: -fx-greenColor;
+}
+
+.startbtn:hover {
+    -fx-background-color: derive(-fx-greenColor, -30%);
+}
+
+.stopbtn {
+    -fx-background-color: -fx-redColor;
+}
+
+.stopbtn:hover {
+    -fx-background-color: derive(-fx-redColor, -30%);
+}
+
+.okaybtn {
+    -fx-text-fill: white;
+    -fx-background-color: -fx-primaryColor;
+    -fx-border-style: none;
+}
+
+.okaybtn:hover {
+    -fx-background-color: derive(-fx-primaryColor, 30%);
+}
+
+/* Added later to be reviewed */
+.functieT{
+
+    -fx-font-size: 13;
+
+}
+
+.header{
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-font-size: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);
+}
+
+.overA{
+    -fx-font-size: 15;
+
+}
+
+#abbreviationBox {
+    -fx-background-color: #ededed;
+    -fx-pref-Width:380px;
+    -fx-pref-Height:50px;
+    -fx-border-width: 3;
+    -fx-border-color: #828081;
+    -fx-border-radius: 10px;
+}
+
+AnchorPane #abbreviation{
+    -fx-font-size: 20;
+}
+
+.likebtn {
+    -fx-pref-height: 30;
+    -fx-pref-width: 30;
+}
+
+AnchorPane #department{
+    -fx-font-size: 15;
+    -fx-text-inner-color: #828081;
+}
+#new_Abbreviations{
+    -fx-spacing: 10;
+}

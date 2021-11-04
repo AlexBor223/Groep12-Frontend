@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="views.NavbarView"
-            prefHeight="600.0" prefWidth="900.0">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+
+    <fx:include source="Navbar.fxml" />
+
+    <Text layoutX="50.0" layoutY="194.0" styleClass="header">Over de applicatie</Text>
+
+
+    <Text layoutX="50.0" layoutY="219.0" styleClass="functieT" wrappingWidth="800">Deze applicatie is gemaakt door 4 studenten van de Hogeschool Leiden.
+      Hiervoor hebben zij Java, Css, PostgresSQL, Fxml en Springboot gebruikt.
+      De applicatie is opgesplits in 2 delen, een frontend deel die communiceert met de
+      backend en een backend deel die communiceert met de database.</Text>
+
+    <Text layoutX="50.0" layoutY="279.0" styleClass="header">Gebruik van de applicatie</Text>
+
+    <Text layoutX="50.0" layoutY="309.0" styleClass="overA">In deze applicatie kan je verschillende dingen doen:</Text>
+
+    <Text id="functieT" layoutX="50.0" layoutY="339.0" styleClass="functieT" wrappingWidth="400">• Je kan een afkorting opzoeken. Als je dit doet zoek je in de database naar afkortingen die
+        overeenkomen met jou zoekopdracht.</Text>
+
+    <Text layoutX="50.0" layoutY="389.0" styleClass="functieT" wrappingWidth="400">• Je kan een afkorting toevoegen als je dit doet word de afkorting als tijdelijke afkorting
+        aan de database toegoevoegd. Als dan andere personen genoeg likes aan de afkorting geven word
+        deze definief gemaakt en aan de lijst met permanente afkortingen toegevoegd.</Text>
+
+    <Text layoutX="50.0" layoutY="469.0" styleClass="functieT" wrappingWidth="400">• Ook kan je een afkortingen spel spelen en zo jou collega's uitdagen en kijken wie de
+        afkortingen die gebruikt worden op de werkvloer het beste weet.</Text>
+
+
 
 </AnchorPane>
