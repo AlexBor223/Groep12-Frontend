@@ -7,7 +7,6 @@ import models.GameRandomiser;
 import models.NodeSearcher;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GameController {
@@ -18,11 +17,11 @@ public class GameController {
 
     public ArrayList<String> getStringsFromAbbreviation(Abbreviation abbreviation, int numOfButtons) {
         GameRandomiser gameRandomiser = new GameRandomiser();
-        return gameRandomiser.getStringsFromAbbreviation(abbreviation, numOfButtons);
+        return gameRandomiser.getStringsFromLetters(abbreviation.getLetters(), numOfButtons);
     }
 
     public ArrayList<Abbreviation> getAllAbbreviations() {
-        // TO-DO after merge: Communicate with DAO to get abbreviations
+        // TODO after merge: Communicate with DAO to get abbreviations
         Abbreviation test1 = new Abbreviation(0, "ACM","Autoriteit Consument en Markt", 0);
         Abbreviation test2 = new Abbreviation(1, "BZK","Binnenlandse Zaken", 0);
         Abbreviation test3 = new Abbreviation(2, "ETC","Et cetera", 0);

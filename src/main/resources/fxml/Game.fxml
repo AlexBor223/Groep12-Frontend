@@ -9,7 +9,7 @@
    <fx:include source="Navbar.fxml" />
    <AnchorPane layoutX="33.0" layoutY="163.0" prefHeight="391.0" prefWidth="834.0" styleClass="greybox">
       <children>
-          <AnchorPane fx:id="buttonContainer" layoutX="313.0" layoutY="167.0" minHeight="210.0" minWidth="210.0" styleClass="game-btn-container">
+          <AnchorPane fx:id="buttonContainer" disable="true" layoutX="313.0" layoutY="167.0" minHeight="210.0" minWidth="210.0" styleClass="game-btn-container">
             <children>
                <HBox alignment="CENTER" prefHeight="70.0" prefWidth="210.0" spacing="50.0">
                   <children>
@@ -34,14 +34,14 @@
                </HBox>
             </children>
           </AnchorPane>
-         <HBox styleClass="whitebox" alignment="CENTER" layoutX="282.0" layoutY="25.0" prefHeight="62.0" prefWidth="272.0">
+         <HBox alignment="CENTER" layoutX="282.0" layoutY="25.0" prefHeight="62.0" prefWidth="272.0" styleClass="whitebox">
             <children>
-               <Label text="Hier komt de betekenis" />
+               <Label fx:id="meaningLabel" />
             </children>
          </HBox>
-         <HBox styleClass="whitebox" alignment="CENTER" layoutX="332.0" layoutY="104.0" prefHeight="39.0" prefWidth="171.0">
+         <HBox alignment="CENTER" layoutX="332.0" layoutY="104.0" prefHeight="39.0" prefWidth="171.0" styleClass="whitebox">
             <children>
-               <Label fx:id="answerLabel" text="Jouw antwoord" />
+               <Label fx:id="answerLabel" />
             </children>
          </HBox>
          <HBox alignment="CENTER" layoutY="34.0" prefHeight="62.0" prefWidth="136.0">
@@ -49,9 +49,10 @@
                <Label text="Game" />
             </children>
          </HBox>
-         <Label fx:id="timerLabel" styleClass="timerlbl" layoutX="737.0" layoutY="48.0" />
-         <Button fx:id="startButton" styleClass="startbtn" layoutX="729.0" layoutY="260.0" mnemonicParsing="false" onAction="#startButtonClicked" text="START" />
-         <Button fx:id="stopButton" styleClass="stopbtn" disable="true" layoutX="729.0" layoutY="297.0" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="25.0" prefWidth="50.0" text="STOP" />
+         <Label fx:id="timerLabel" layoutX="737.0" layoutY="48.0" styleClass="gamelbl" />
+         <Label fx:id="scoreLabel" layoutX="737.0" layoutY="78.0" styleClass="gamelbl" />
+         <Button fx:id="startButton" layoutX="729.0" layoutY="260.0" mnemonicParsing="false" onAction="#startButtonClicked" styleClass="startbtn" text="START" />
+         <Button fx:id="stopButton" disable="true" layoutX="729.0" layoutY="297.0" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="25.0" prefWidth="50.0" styleClass="stopbtn" text="STOP" />
       </children>
    </AnchorPane>
 </AnchorPane>

@@ -15,7 +15,7 @@ public class GameRandomiser {
     }
 
     private String shuffleString(String input) {
-        ArrayList<Character> shuffleArray = new ArrayList<Character>();
+        ArrayList<Character> shuffleArray = new ArrayList<>();
 
         for (int i = 0; i < input.length(); i++) {
             shuffleArray.add(input.charAt(i));
@@ -43,9 +43,8 @@ public class GameRandomiser {
     }
 
     // Method returns an ArrayList containing Strings with one correct character and the rest incorrect
-    public ArrayList<String> getStringsFromAbbreviation(Abbreviation abbreviation, int numOfButtons) {
+    public ArrayList<String> getStringsFromLetters(String letters, int numOfButtons) {
         ArrayList<String> result = new ArrayList<>();
-        String letters = abbreviation.getLetters();
 
         for (int i = 0; i < letters.length(); i++) {
             result.add(getRandomisedString(String.valueOf(letters.charAt(i)), numOfButtons));

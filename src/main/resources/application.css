@@ -56,7 +56,7 @@ Button {
 .game-btn-container Button {
     -fx-text-fill: white;
     -fx-background-color: -fx-primaryColor;
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
     -fx-border-radius: 3px;
 }
 
@@ -64,7 +64,7 @@ Button {
     -fx-background-color: derive(-fx-primaryColor, -30%);
 }
 
-.timerlbl {
+.gamelbl {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
@@ -83,4 +83,14 @@ Button {
 
 .stopbtn:hover {
     -fx-background-color: derive(-fx-redColor, -30%);
+}
+
+.okaybtn {
+    -fx-text-fill: white;
+    -fx-background-color: -fx-primaryColor;
+    -fx-border-style: none;
+}
+
+.okaybtn:hover {
+    -fx-background-color: derive(-fx-primaryColor, 30%);
 }
