@@ -68,7 +68,7 @@ public class Abbreviation {
         return department;
     }
 
-    public Boolean getApproved() {
+    public Boolean isApproved() {
         return approved;
     }
 
