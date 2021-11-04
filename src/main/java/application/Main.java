@@ -8,11 +8,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage window) {
-        Font.loadFont(getClass().getResourceAsStream("/FontWeb.ttf"), 16);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/RijksoverheidSansWebText.ttf"), 16);
         WindowController windowController = new WindowController();
-        windowController.showWindow("Navbar", "AFKO Applicatie - Groep 12");
-
-
+        windowController.showWindow("Main", null);
     }
 
     public static void main(String[] args) {
