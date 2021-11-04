@@ -1,4 +1,4 @@
-package views;
+package controllers;
 
 import javafx.stage.Stage;
 import services.WindowService;

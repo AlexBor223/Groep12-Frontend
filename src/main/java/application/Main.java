@@ -1,6 +1,6 @@
 package application;
 
-import views.WindowController;
+import controllers.WindowController;
 import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
