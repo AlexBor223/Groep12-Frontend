@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.AbrAddController"
+            fx:controller="views.AbrAddController"
             prefHeight="600.0" prefWidth="900.0">
 <children>
 

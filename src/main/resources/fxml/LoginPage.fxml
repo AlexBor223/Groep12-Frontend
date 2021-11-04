@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.LoginController"
+            fx:controller="views.LoginController"
             prefHeight="600.0" prefWidth="900.0">
 
     <AnchorPane styleClass="LoginAnchorPane" layoutY="100" layoutX="70" prefWidth="300" prefHeight="-200">

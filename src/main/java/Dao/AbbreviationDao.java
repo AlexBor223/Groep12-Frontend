@@ -22,8 +22,6 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     public Abbreviation getAbbreviaton(Integer id) throws Exception {
         httpService.SearchObject(id);
 
-
-
      return null;
     }
 
@@ -48,7 +46,7 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 //            e.printStackTrace();
 //        }
         try {
-            abbreviations = HttpService.GetAllAbbreviations(AbrPath);
+            abbreviations = httpService.GetAllAbbreviations(AbrPath);
        }catch(Exception e){
             e.printStackTrace();
        }
@@ -64,12 +62,12 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
 
     @Override
-    public void LikeAbbreviation(Long id) throws Exception {
-        httpService.LikeObject("/GiveLike", id);
+    public Boolean LikeAbbreviation(Long id) throws Exception {
+        return httpService.LikeObject(String.format("/%s/%d/%s",AbrPath, id,"GiveLike"));
     }
 
     @Override
-    public void DisLikeAbbreviation(Long id) throws Exception {
-        httpService.LikeObject("/GiveDisLike", id);
+    public Boolean DislikeAbbreviation(Long id) throws Exception {
+        return httpService.LikeObject(String.format("/%s/%d/%s",AbrPath, id,"GiveDisLike"));
     }
 }

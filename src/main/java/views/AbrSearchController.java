@@ -1,17 +1,17 @@
-package controllers;
+package views;
 
 import Dao.AbbreviationDao;
 import Dao.DepartmentDao;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Shadow;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.collections.ObservableList;
@@ -22,8 +22,6 @@ import models.DepartmentModel;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AbrSearchController implements Initializable {
 
@@ -33,12 +31,43 @@ public class AbrSearchController implements Initializable {
     private final String AbbreviationStylingId = "abbreviation";
     private final String DepartmentStylingId = "department";
     private final String AbbreviationBoxStylingId= "abbreviationBox";
+    private final String PngLocation = "images/%s.png";
 
     private AbbreviationDao abrDao = new AbbreviationDao();
     private DepartmentDao depDao = new DepartmentDao();
 
     private String SearchedID;
     private String SearchedDepartment;
+
+    private EventHandler<MouseEvent> like = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            Button clickedButton = (Button) event.getSource();
+            System.out.println(clickedButton.getParent().getProperties().get("abrId"));
+            long id = Long.parseLong((String)clickedButton.getParent().getProperties().get("abrId"));
+            try {
+                abrDao.LikeAbbreviation(id);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+    };
+
+    private EventHandler<MouseEvent> dislike = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            Button clickedButton = (Button) event.getSource();
+            long id = Long.parseLong((String)clickedButton.getParent().getProperties().get("abrId"));
+            try {
+                abrDao.DislikeAbbreviation(id);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+    };
 
 
     @FXML private VBox abbreviations;
@@ -54,6 +83,7 @@ public class AbrSearchController implements Initializable {
 //            options.add(department.getName());
 //        }
 
+
         comboBox.setItems(options);
         //listens for change in query
         input.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -64,6 +94,7 @@ public class AbrSearchController implements Initializable {
         //listens for change in department
         comboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             SearchedDepartment = newValue;
+
             updateAbbreviationBoxes();
         });
 
@@ -73,13 +104,18 @@ public class AbrSearchController implements Initializable {
         abbreviations.getChildren().clear();
         newAbbreviations.getChildren().clear();
         ArrayList<Abbreviation> localAbr= getAbbreviations();
-        if(localAbr!=null) {
-            for (Abbreviation abr : localAbr) {
-                if(abr.isApproved()) {
-                    insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId());
+        try {
+            if (localAbr != null) {
+                for (Abbreviation abr : localAbr) {
+                    if (abr.isApproved()) {
+                        insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId());
+                    } else {
+                        insertNewAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId());
+                    }
                 }
-                else{insertNewAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId());}
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -92,20 +128,49 @@ public class AbrSearchController implements Initializable {
         abbreviations.getChildren().add(abbreviationBox);
     }
 
-    public void insertNewAbbreviation(String AbbreviationMeaning, String department, long AbrId){
+    public void insertNewAbbreviation(String AbbreviationMeaning, String department, long AbrId) throws Exception{
         AnchorPane abbreviationBox = createBaseAbbreviationBox(AbbreviationMeaning, department, AbrId);
+        Button likeButton = CreateLikeButton("like");
+        Button dislikeButton = CreateLikeButton("dislike");
 
+        //adding buttons to abbreviation box
+        abbreviationBox.getChildren().add(likeButton);
+        abbreviationBox.getChildren().add(dislikeButton);
+
+        //positioning in abbreviation box
+        likeButton.setLayoutX(320);
+        likeButton.setLayoutY(9);
+
+        //positioning in abbreviation box
+        dislikeButton.setLayoutX(360);
+        dislikeButton.setLayoutY(11);
+
+        //set triggers for likes and dislikes
+        likeButton.setOnMouseClicked(like);
+        dislikeButton.setOnMouseClicked(dislike);
 
         newAbbreviations.getChildren().add(abbreviationBox);
     }
 
-    @FXML
-    public void giveLike(ActionEvent event){
-        Button clickedButton = (Button) event.getSource();
-        long id = (int) clickedButton.getParent().getProperties().get("abrId");
+    public Button CreateLikeButton(String kind){
+        Button likeButton = new Button();
+
+        //makes button black
         Shadow color = new Shadow();
-        color.setColor(Color.CRIMSON);
-        clickedButton.setEffect(color);
+        color.setColor(Color.BLACK);
+        color.setRadius(0);
+
+        likeButton.setEffect(color);
+
+        BackgroundImage Image= new BackgroundImage(new Image(String.format(PngLocation, kind),30,30,false,true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        likeButton.setBackground(new Background(Image));
+
+        likeButton.setId(kind);
+
+        return likeButton;
     }
 
 

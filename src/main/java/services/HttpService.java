@@ -45,6 +45,7 @@ public class HttpService {
                 .asObject(new GenericType<List<Abbreviation>>() {
                 });
         return response.getBody();
+    }
     public HttpResponse<JsonNode> SearchObject(Integer id) throws Exception{
         HttpResponse<kong.unirest.JsonNode> abbreviation = Unirest.get(host)
                 .header("accept", "application/json")
@@ -67,8 +68,6 @@ public class HttpService {
 
 
 
-    public boolean AddOrUpdateObject(String url) throws Exception{
-        HttpResponse<JsonNode> response = Unirest.post(host+url)
     public boolean AddOrUpdateObject(String url, Abbreviation abbreviation) throws Exception{
 
         HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host )
@@ -90,22 +89,17 @@ public class HttpService {
 
 
 
-    public boolean LikeObject(String url, long id) throws Exception{
+    public boolean LikeObject(String url) throws Exception{
+        System.out.println(host + url);
 
-        HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host +"/" + id + url )
+        HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url )
                 .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
                 .asJson();
 
-
-        System.out.println(host +"/" + id +"/GiveLike");
-        System.out.println("body: " + response.getBody());
         return (response.getStatus()==201);
     }
 
 
 
-
-
-
 }
+

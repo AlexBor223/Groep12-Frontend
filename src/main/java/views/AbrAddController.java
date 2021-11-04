@@ -1,4 +1,4 @@
-package controllers;
+package views;
 
 import Dao.AbbreviationDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -128,8 +128,8 @@ public class AbrAddController implements Initializable {
 
    }
 
-   public void disLikeAbbreviation(Long id) throws Exception {
-    abbreviationDao.DisLikeAbbreviation(id);
+   public void dislikeAbbreviation(Long id) throws Exception {
+    abbreviationDao.DislikeAbbreviation(id);
 
    }
 

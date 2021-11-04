@@ -8,10 +8,10 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.NavbarController"
+            fx:controller="views.NavbarController"
             prefHeight="600.0" prefWidth="900.0">
 
-    <AnchorPane>
+    <AnchorPane id="NavBar">
     <Button fx:id="AbrSearch" id="AbrSearch" prefWidth="225" layoutX="0" prefHeight="40" onAction="#ChangeWindow">Afkorting Zoeken</Button>
     <Button fx:id="AbrGame" id="AbrGame" prefWidth="225" layoutX="225" prefHeight="40" onAction="#ChangeWindow">Game</Button>
     <Button fx:id="AbrAdd" id="AbrAdd" prefWidth="225" layoutX="450" prefHeight="40" onAction="#ChangeWindow">Afkorting Toevoegen</Button>
