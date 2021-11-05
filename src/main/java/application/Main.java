@@ -10,7 +10,7 @@ public class Main extends Application {
     public void start(Stage window) {
         Font.loadFont(getClass().getResourceAsStream("/fonts/RijksoverheidSansWebText.ttf"), 16);
         WindowController windowController = new WindowController();
-        windowController.showWindow("Main", null);
+        windowController.showWindow("AdminPanel", null);
     }
 
     public static void main(String[] args) {
