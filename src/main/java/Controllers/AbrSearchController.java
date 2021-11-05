@@ -1,10 +1,10 @@
-package controllers;
+package Controllers;
 
 
 
 
-import dao.AbbreviationDao;
-import dao.DepartmentDao;
+import Dao.AbbreviationDao;
+import Dao.DepartmentDao;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Shadow;
@@ -17,7 +17,6 @@ import models.Abbreviation;
 import models.DepartmentModel;
 
 import java.util.ArrayList;
-package controllers;
 
     public class AbrSearchController {
 
