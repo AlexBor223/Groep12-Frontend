@@ -17,7 +17,6 @@ import models.Abbreviation;
 import models.DepartmentModel;
 
 import java.util.ArrayList;
-package controllers;
 
     public class AbrSearchController {
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="560.0" prefWidth="900.0" stylesheets="@/CSS/AbrSearch.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AbrSearchView">
+<AnchorPane prefHeight="560.0" prefWidth="900.0" stylesheets="@/CSS/AbrSearch.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MainView">
    <children>
       <ScrollPane layoutX="33.0" layoutY="162.0" prefHeight="384.0" prefWidth="357.0">
          <content>
