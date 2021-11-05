@@ -33,7 +33,7 @@ public class AbbreviationDao implements AbbreviationDaoInter {
 
     @Override
     public void updateAbbreviation(Abbreviation abbreviation) throws Exception {
-        httpService.AddOrUpdateObject("", abbreviation);
+        httpService.AddOrUpdateObject(AbrPath, abbreviation);
     }
 
     @Override

@@ -109,7 +109,7 @@ public class AddView implements Initializable {
 
 
 //      removeAbbreviation(3L);
-        dislikeAbbreviation(2L);
+//        dislikeAbbreviation(2L);
 
 
     }

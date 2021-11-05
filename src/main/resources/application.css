@@ -139,3 +139,43 @@ AnchorPane #department{
 #new_Abbreviations{
     -fx-spacing: 10;
 }
+
+
+
+Label {
+    -fx-background-color: #01689b;
+    -fx-text-fill: white;
+    -fx-label-padding: 20px;
+}
+
+.abrAddAnchorpane, .LoginAnchorPane{
+    -fx-background-color: #ededed;
+    -fx-background-radius: 10;
+    -fx-border-width: 1;
+    -fx-border-color: #828081;
+    -fx-border-radius: 10;
+
+}
+
+.functieT{
+
+    -fx-font-size: 13;
+
+}
+
+.header{
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-font-size: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);
+}
+
+.overA{
+    -fx-font-size: 15;
+
+}
+
+#LoginPage{
+    -fx-background-color: #01689b;
+    -fx-text-fill: white;
+}

@@ -70,8 +70,9 @@ public class HttpService {
 
     public boolean AddOrUpdateObject(String url, Abbreviation abbreviation) throws Exception{
 
-        HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host )
+        HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url)
                 .header("Accept", "application/json")
+                .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMZW9uYXJkIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL2xvZ2luIiwiZXhwIjoxNjM2MTEyMjkyfQ.rCPGp98dy47Qtz952hx-h_eqKc8_GycN_CxcEKwUgAs")
                 .header("Content-Type", "application/json")
                 .body(abbreviation)
                 .asJson();
