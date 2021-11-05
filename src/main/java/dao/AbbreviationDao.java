@@ -62,11 +62,11 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     @Override
     public Boolean LikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("/%s/%d/%s",AbrPath, id,"GiveLike"));
+        return httpService.LikeObject(String.format("%s/%d/%s",AbrPath, id,"GiveLike"));
     }
 
     @Override
     public Boolean DislikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("/%s/%d/%s",AbrPath, id,"GiveDisLike"));
+        return httpService.LikeObject(String.format("%s/%d/%s",AbrPath, id,"GiveDisLike"));
     }
 }

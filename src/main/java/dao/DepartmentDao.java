@@ -7,10 +7,11 @@ import java.util.ArrayList;
 
 public class DepartmentDao implements DepartmentDaoInter {
     services.HttpService HttpService = new HttpService();
-    private final String AbrPath = "/api/Department";
+    private final String AbrPath = "/api/departments";
 
     @Override
     public ArrayList<DepartmentModel> GetAllDepartments() {
+
         ArrayList list = new ArrayList();
         try {
             list = (ArrayList) HttpService.GetAllDepartments(AbrPath);

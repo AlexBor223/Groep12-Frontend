@@ -17,8 +17,11 @@ import models.Abbreviation;
 import models.DepartmentModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
-    public class AbrSearchController {
+public class AbrSearchController {
+
+        private ArrayList<DepartmentModel> DepartmentArray;
 
         private String AbbreviationBoxStylingId = "abbreviationBox";
         private String PngLocation = "/images/%s.png";
@@ -61,7 +64,7 @@ import java.util.ArrayList;
         };
 
         public boolean noSearch() {
-            return SearchedAbr.isEmpty();
+            return SearchedAbr == null;
         }
 
         public ArrayList<AnchorPane> getAbbreviationBoxes() {
@@ -89,7 +92,7 @@ import java.util.ArrayList;
                 if (localAbr != null) {
                     for (Abbreviation abr : localAbr) {
                         if (!abr.isApproved()) {
-                            abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId(), true));
+                            abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), getNameById(Long.parseLong(abr.getDepartment())), abr.getId(), true));
                         }
                     }
                 }
@@ -188,11 +191,36 @@ import java.util.ArrayList;
         }
 
         public ArrayList<DepartmentModel> getAllDepartments() {
-            return new ArrayList<DepartmentModel>();
+            DepartmentArray =depDao.GetAllDepartments();
+
+            return DepartmentArray;
         }
 
         public void updateDep(String department) {
             SearchedDepartment = department;
         }
+
+
+    private  List<String> depListToTDepList(List<DepartmentModel> Departments){
+        List<String> newList = new ArrayList<String>(Departments.size());
+
+        for (DepartmentModel department : Departments) {
+            newList.add(department.getName());
+        }
+        return newList;
+    }
+
+    private String getNameById(long id){
+            String returnValue = "error";
+
+            for(int i=0; i< DepartmentArray.size();i++){
+                if(DepartmentArray.get(i).getId() == id){
+                    returnValue = DepartmentArray.get(i).getName();
+                }
+            }
+
+            return returnValue;
+    }
+
 
     }
