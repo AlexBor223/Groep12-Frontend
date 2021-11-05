@@ -201,7 +201,7 @@ public class AbrSearchController {
         }
 
 
-    private  List<String> depListToTDepList(List<DepartmentModel> Departments){
+    private  List<String> depListToNameList(List<DepartmentModel> Departments){
         List<String> newList = new ArrayList<String>(Departments.size());
 
         for (DepartmentModel department : Departments) {
