@@ -79,14 +79,16 @@ public class AddView implements Initializable {
     }
 
     public void getInput(javafx.event.ActionEvent actionEvent) throws Exception {
+
         String AbbreviationL = AbbreviationLetters.getText();
         String Meaning = AbbreviationMeaning.getText();
         String Department = ChooseDep.getValue();
 
         abbreviation.setLetters(AbbreviationL);
         abbreviation.setMeaning(Meaning);
-        abbreviation.setDepartment(Department);
+        abbreviation.setDepartment("1");
         abbreviation.setLikes(0);
+
 
 
         checkInput();

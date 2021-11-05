@@ -18,6 +18,7 @@ import java.util.List;
 public class HttpService {
 
     private String host = "http://localhost:8080";
+
     private String charset = "UTF-8";
 
 

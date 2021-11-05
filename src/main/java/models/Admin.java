@@ -12,6 +12,10 @@ public class Admin {
         this.Password = Password;
     }
 
+    public Admin(){
+
+    }
+
 
     public String getUsername() {
         return Username;

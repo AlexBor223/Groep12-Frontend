@@ -14,7 +14,7 @@
         <Label fx:id="LabelAdmin" layoutY="20" text="Admin login" />
         <TextField fx:id="AdminUsername" layoutX="50" layoutY="100" promptText="Gebruikersnaam" />
         <TextField fx:id="AdminPassword" layoutX="250" layoutY="100" prefWidth="200" promptText="Wachtwoord" />
-        <Button fx:id="AdminLogin" layoutX="250" layoutY="200">Inloggen</Button>
+        <Button fx:id="AdminLogin" layoutX="250" layoutY="200" onAction="#getInput">Inloggen</Button>
         <Text fx:id="StatusText" layoutX="480" layoutY="250" />
     </AnchorPane>
 
