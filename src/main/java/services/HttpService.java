@@ -58,6 +58,16 @@ public class HttpService {
         return abbreviation;
     }
 
+    public HttpResponse<JsonNode> login(String username, String password) throws Exception{
+        String url = "/api/login";
+        HttpResponse<kong.unirest.JsonNode> jwt = Unirest.get(host + url)
+                .header("accept", "application/json")
+                .header("Content-Type", "application/json")
+                .asJson();
+
+        return jwt;
+    }
+
     public HttpResponse<JsonNode> GetAllObjects(String url) throws Exception{
         HttpResponse<kong.unirest.JsonNode> abbreviation = Unirest.get(host)
                 .header("accept", "application/json")
@@ -73,12 +83,13 @@ public class HttpService {
 
         HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url)
                 .header("Accept", "application/json")
-                .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMZW9uYXJkIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL2xvZ2luIiwiZXhwIjoxNjM2MTEyMjkyfQ.rCPGp98dy47Qtz952hx-h_eqKc8_GycN_CxcEKwUgAs")
+//                .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMZW9uYXJkIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL2xvZ2luIiwiZXhwIjoxNjM2MTEyMjkyfQ.rCPGp98dy47Qtz952hx-h_eqKc8_GycN_CxcEKwUgAs")
                 .header("Content-Type", "application/json")
                 .body(abbreviation)
                 .asJson();
 
         System.out.println("body: " + response.getBody());
+        System.out.println("body: " + response.getStatus());
         return (response.getStatus()==201);
     }
 
