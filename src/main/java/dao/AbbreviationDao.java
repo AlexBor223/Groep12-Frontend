@@ -5,7 +5,7 @@ import services.HttpService;
 
 import java.util.*;
 
-public class AbbreviationDao implements AbbreviationDaoInter {
+public class AbbreviationDao implements AbbreviationDaoInter{
 
     List<Abbreviation> abbreviations;
 
@@ -21,7 +21,7 @@ public class AbbreviationDao implements AbbreviationDaoInter {
     public Abbreviation getAbbreviaton(Integer id) throws Exception {
         httpService.SearchObject(id);
 
-        return null;
+     return null;
     }
 
     @Override //krijg alle abbreviations
@@ -37,36 +37,30 @@ public class AbbreviationDao implements AbbreviationDaoInter {
     }
 
     @Override
-    public ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department) {
-
-//        try {
-//            abbreviations = HttpService.SearchAbbreviationsObject( AbrPath, abbreviation, department);
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
+    public List<Abbreviation> searchAbbreviations(String abbreviation, String department) {
+        abbreviations = new ArrayList<Abbreviation>();
         try {
-            abbreviations = httpService.GetAllAbbreviations(AbrPath);
-        } catch (Exception e) {
+            abbreviations = httpService.SearchAbbreviationsObject( AbrPath+"/filter", abbreviation, department);
+        }catch(Exception e){
             e.printStackTrace();
         }
-        ArrayList<Abbreviation> abbreviationList = new ArrayList<Abbreviation>();
-        abbreviationList = (ArrayList<Abbreviation>) abbreviations;
-        return abbreviationList;
+
+        return abbreviations;
     }
 
     @Override  //verwijder een abbreviation
     public void deleteAbbreviation(Long id) throws Exception {
-        httpService.DeleteObject("", id);
+        httpService.DeleteObject("",id);
     }
 
 
     @Override
     public Boolean LikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("/%s/%d/%s", AbrPath, id, "GiveLike"));
+        return httpService.LikeObject(String.format("%s/%d/%s",AbrPath, id,"GiveLike"));
     }
 
     @Override
     public Boolean DislikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("/%s/%d/%s", AbrPath, id, "GiveDisLike"));
+        return httpService.LikeObject(String.format("%s/%d/%s",AbrPath, id,"GiveDisLike"));
     }
 }

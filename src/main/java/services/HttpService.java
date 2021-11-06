@@ -24,10 +24,10 @@ public class HttpService {
     public List<Abbreviation> SearchAbbreviationsObject(String url, String Dep, String abr) throws Exception{
         HttpResponse<List<Abbreviation>> response = Unirest.get(host+url)
                 .header("accept", "application/json")
-                .queryString("Department", Dep)
-                .queryString("Abbreviation", abr)
+                .queryString("department", Dep)
+                .queryString("letters", abr)
                 .asObject(new GenericType<List<Abbreviation>>() {
-                });
+        });
         return response.getBody();
     }
 
@@ -35,7 +35,7 @@ public class HttpService {
         System.out.println(host+url);
         HttpResponse<List<DepartmentModel>> response = Unirest.get(host+url)
                 .asObject(new GenericType<List<DepartmentModel>>() {
-                });
+        });
         return response.getBody();
     }
 
@@ -72,7 +72,6 @@ public class HttpService {
 
         HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url)
                 .header("Accept", "application/json")
-                .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMZW9uYXJkIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL2xvZ2luIiwiZXhwIjoxNjM2MTEyMjkyfQ.rCPGp98dy47Qtz952hx-h_eqKc8_GycN_CxcEKwUgAs")
                 .header("Content-Type", "application/json")
                 .body(abbreviation)
                 .asJson();
@@ -99,6 +98,8 @@ public class HttpService {
 
         return (response.getStatus()==201);
     }
+
+
 
 }
 
