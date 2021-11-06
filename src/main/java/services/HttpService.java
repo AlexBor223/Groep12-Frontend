@@ -22,12 +22,14 @@ public class HttpService {
 
 
     public List<Abbreviation> SearchAbbreviationsObject(String url, String Dep, String abr) throws Exception{
+        System.out.println("test");
         HttpResponse<List<Abbreviation>> response = Unirest.get(host+url)
                 .header("accept", "application/json")
-                .queryString("Department", Dep)
-                .queryString("Abbreviation", abr)
+                .queryString("department", Dep)
+                .queryString("letters", abr)
                 .asObject(new GenericType<List<Abbreviation>>() {
         });
+        System.out.println(response.getStatus());
         return response.getBody();
     }
 

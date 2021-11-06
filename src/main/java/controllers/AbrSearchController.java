@@ -64,7 +64,7 @@ public class AbrSearchController {
         };
 
         public boolean noSearch() {
-            return SearchedAbr == null;
+            return SearchedAbr.isEmpty();
         }
 
         public ArrayList<AnchorPane> getAbbreviationBoxes() {
@@ -83,8 +83,6 @@ public class AbrSearchController {
             }
             return abbreviationBoxes;
         }
-
-
         public ArrayList<AnchorPane> getNewAbbreviationBoxes() {
             ArrayList<Abbreviation> localAbr = getAbbreviations();
             ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
@@ -107,7 +105,7 @@ public class AbrSearchController {
         }
 
         public ArrayList<Abbreviation> getAbbreviations() {
-            return abrDao.searchAbbreviations(SearchedAbr, SearchedDepartment);
+            return (ArrayList<Abbreviation>) abrDao.searchAbbreviations(SearchedAbr, SearchedDepartment);
         }
 
         public Boolean likeAbbreviation(long id) throws Exception {

@@ -37,21 +37,15 @@ public class AbbreviationDao implements AbbreviationDaoInter{
     }
 
     @Override
-    public ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department) {
-
-//        try {
-//            abbreviations = HttpService.SearchAbbreviationsObject( AbrPath, abbreviation, department);
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
+    public List<Abbreviation> searchAbbreviations(String abbreviation, String department) {
+        abbreviations = new ArrayList<Abbreviation>();
         try {
-            abbreviations = httpService.GetAllAbbreviations(AbrPath);
-       }catch(Exception e){
+            abbreviations = httpService.SearchAbbreviationsObject( AbrPath+"/filter", abbreviation, department);
+        }catch(Exception e){
             e.printStackTrace();
-       }
-        ArrayList<Abbreviation> abbreviationList = new ArrayList<Abbreviation>();
-        abbreviationList = (ArrayList<Abbreviation>) abbreviations;
-        return abbreviationList;
+        }
+
+        return abbreviations;
     }
 
     @Override  //verwijder een abbreviation
