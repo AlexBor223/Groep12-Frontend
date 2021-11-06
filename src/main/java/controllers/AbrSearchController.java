@@ -74,7 +74,7 @@ public class AbrSearchController {
                 if (localAbr != null) {
                     for (Abbreviation abr : localAbr) {
                         if (abr.isApproved()) {
-                            abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), abr.getDepartment(), abr.getId(), false));
+                            abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(),  getNameById(Long.parseLong(abr.getDepartment())), abr.getId(), false));
                         }
                     }
                 }

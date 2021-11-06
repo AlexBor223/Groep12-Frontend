@@ -38,6 +38,7 @@ public class HttpService {
         HttpResponse<List<DepartmentModel>> response = Unirest.get(host+url)
                 .asObject(new GenericType<List<DepartmentModel>>() {
         });
+        System.out.println(response.getStatus());
         return response.getBody();
     }
 
@@ -97,6 +98,7 @@ public class HttpService {
         HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url )
                 .header("Accept", "application/json")
                 .asJson();
+        System.out.println(response.getStatus());
 
         return (response.getStatus()==201);
     }
