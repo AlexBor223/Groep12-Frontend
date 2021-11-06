@@ -140,14 +140,6 @@ AnchorPane #department{
     -fx-spacing: 10;
 }
 
-
-
-Label {
-    -fx-background-color: #01689b;
-    -fx-text-fill: white;
-    -fx-label-padding: 20px;
-}
-
 .abrAddAnchorpane, .LoginAnchorPane{
     -fx-background-color: #ededed;
     -fx-background-radius: 10;
