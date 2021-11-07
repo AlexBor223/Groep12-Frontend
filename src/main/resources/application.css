@@ -172,7 +172,7 @@ AnchorPane #department{
     -fx-text-fill: white;
 }
 
-Label {
+.labelH {
     -fx-background-color: #01689b;
     -fx-text-fill: white;
     -fx-label-padding: 20px;

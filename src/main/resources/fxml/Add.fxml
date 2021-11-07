@@ -14,7 +14,7 @@
     <Button fx:id="LoginPage" layoutX="800" layoutY="500" onAction="#loadAdminPage">Admin inloggen</Button>
 
     <AnchorPane layoutX="76.0" layoutY="187.0" prefHeight="275" prefWidth="750" styleClass="abrAddAnchorpane">
-        <Label fx:id="LabelAdd" layoutY="20" text="Afkorting Toevoegen" />
+        <Label fx:id="LabelAdd" layoutY="20" styleClass="labelH" text="Afkorting Toevoegen" />
         <TextField fx:id="AbbreviationLetters" layoutX="50" layoutY="100" promptText="Afkorting" />
         <TextField fx:id="AbbreviationMeaning" layoutX="250" layoutY="100" prefWidth="200" promptText="Betekenis" />
         <ComboBox id="ChooseDep" fx:id="ChooseDep" layoutX="480" layoutY="100" prefWidth="175" promptText="Afdeling" />
