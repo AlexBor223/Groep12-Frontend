@@ -50,6 +50,11 @@ public class GameView implements Initializable {
     @FXML
     private Label timerLabel, scoreLabel, meaningLabel, answerLabel;
 
+
+    /**
+     * GameView constructor
+     * @author Plinio
+     */
     public GameView() {
         gameController = new GameController();
         windowController = new WindowController();
@@ -57,6 +62,12 @@ public class GameView implements Initializable {
         abbreviations = gameController.getAllAbbreviations();
     }
 
+    /**
+     * Initaliser for the GameView
+     * @param url
+     * @param resourceBundle
+     * @author Plinio
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buttons = gameController.getButtonsFromClassName(buttonContainer, "gamebtn");
@@ -70,12 +81,20 @@ public class GameView implements Initializable {
         setupWindowHideEvent();
     }
 
+    /**
+     * Resets the abbreviations and shuffles them
+     * @author Plinio
+     */
     private void resetAbbreviations() {
         copyAbbreviations = new ArrayList<>();
         copyAbbreviations.addAll(abbreviations);
         Collections.shuffle(copyAbbreviations);
     }
 
+    /**
+     * Loads an abbreviation in the game
+     * @author Plinio
+     */
     private void loadAbbreviation() {
         if (copyAbbreviations.isEmpty()) {
             showGamePopup();
@@ -88,11 +107,14 @@ public class GameView implements Initializable {
         randomStrings = gameController.getStringsFromAbbreviation(firstAbbr, buttons.size());
         correctLetters = firstAbbr.getLetters();
 
-//        Platform.runLater(() -> meaningProperty.setValue(firstAbbr.getMeaning()));
         meaningProperty.setValue(firstAbbr.getMeaning());
         randomiseButtons();
     }
 
+    /**
+     * Resets the game by calling reset methods
+     * @author Plinio
+     */
     private void resetGame() {
         Platform.runLater(() -> {
             enableGameButtons(false);
@@ -102,6 +124,10 @@ public class GameView implements Initializable {
         });
     }
 
+    /**
+     * Resets the game variables
+     * @author Plinio
+     */
     private void resetVariables() {
         scoreProperty.setValue("Punten: 0");
         secondsProperty.setValue(defaultInterval + " sec");
@@ -109,6 +135,12 @@ public class GameView implements Initializable {
         meaningProperty.setValue("Betekenis komt hier");
     }
 
+    /**
+     * Resets the timer
+     *
+     * Makes sure the interval is reset
+     * @author Plinio
+     */
     private void resetTimer() {
         interval = defaultInterval;
 
@@ -118,6 +150,12 @@ public class GameView implements Initializable {
         }
     }
 
+    /**
+     * Gets called every second of the timer to update view
+     *
+     * Also checks if time has run out
+     * @author Plinio
+     */
     private void gameTick() {
         interval--;
         Platform.runLater(() -> secondsProperty.setValue(interval + " sec"));
@@ -128,6 +166,11 @@ public class GameView implements Initializable {
         }
     }
 
+    /**
+     * Creates the game TimerTask
+     * @return TimerTask
+     * @author Plinio
+     */
     private TimerTask getTimerTask() {
         return new TimerTask() {
             @Override
@@ -137,6 +180,10 @@ public class GameView implements Initializable {
         };
     }
 
+    /**
+     * Starts the game and timer
+     * @author Plinio
+     */
     private void startGame() {
         gameTimer = new Timer();
         gameTimer.scheduleAtFixedRate(getTimerTask(), 1000, 1000);
@@ -144,6 +191,11 @@ public class GameView implements Initializable {
         enableGameButtons(true);
     }
 
+    /**
+     * Gets the current score
+     * @return score and otherwise zero
+     * @author Plinio
+     */
     private int getScore() {
         if (scoreProperty.getValue() == null)
             return 0;
@@ -154,6 +206,10 @@ public class GameView implements Initializable {
         return (matcher.find()) ? Integer.parseInt(matcher.group(0)) : 0;
     }
 
+    /**
+     * Updates the score
+     * @author Plinio
+     */
     private void updateScore() {
         if (answerProperty.getValue().equals(correctLetters)) {
             int score = getScore() + 1;
@@ -161,6 +217,10 @@ public class GameView implements Initializable {
         }
     }
 
+    /**
+     * Randomises the game buttons
+     * @author Plinio
+     */
     private void randomiseButtons() {
         if (randomStrings.isEmpty()) {
             updateScore();
@@ -172,17 +232,16 @@ public class GameView implements Initializable {
         String firstString = randomStrings.get(0);
         randomStrings.remove(0);
 
-//        Platform.runLater(() -> {
-//            for (int i = 0; i < firstString.length(); i++) {
-//                buttons.get(i).setText(String.valueOf(firstString.charAt(i)));
-//            }
-//        });
-
         for (int i = 0; i < firstString.length(); i++) {
             buttons.get(i).setText(String.valueOf(firstString.charAt(i)));
         }
     }
 
+    /**
+     * Adds the letter of the button to the view
+     * @param letter
+     * @author Plinio
+     */
     private void addLetterToAnswer(String letter) {
         if (answerProperty.getValue().equals("Jouw antwoord hier"))
             answerProperty.setValue(null);
@@ -191,18 +250,31 @@ public class GameView implements Initializable {
         answerProperty.setValue((currentText != null) ? currentText + letter : letter);
     }
 
+    /**
+     * Method to enable/disable the game buttons
+     * @param enable
+     * @author Plinio
+     */
     private void enableGameButtons(boolean enable) {
         startButton.setDisable(enable);
         buttonContainer.setDisable(!enable);
         stopButton.setDisable(!enable);
     }
 
+    /**
+     * Sets up the windowHideEvent
+     * @author Plinio
+     */
     private void setupWindowHideEvent() {
         windowController.getWindow().setOnHiding(windowEvent -> {
             resetGame();
         });
     }
 
+    /**
+     * Shows the game popup with score
+     * @author Plinio
+     */
     private void showGamePopup() {
         int score = getScore();
 
@@ -214,6 +286,11 @@ public class GameView implements Initializable {
         });
     }
 
+    /**
+     * Method that fires when a game button is pressed
+     * @param event
+     * @author Plinio
+     */
     @FXML
     private void gameButtonClicked(ActionEvent event) {
         Button gameButton = (Button) event.getSource();
@@ -227,11 +304,21 @@ public class GameView implements Initializable {
         randomiseButtons();
     }
 
+    /**
+     * Method that fires when the start button is pressed
+     * @param event
+     * @author Plinio
+     */
     @FXML
     private void startButtonClicked(ActionEvent event) {
         startGame();
     }
 
+    /**
+     * Method that fires when the stop button is pressed
+     * @param event
+     * @author Plinio
+     */
     @FXML
     private void stopButtonClicked(ActionEvent event) {
         resetGame();
