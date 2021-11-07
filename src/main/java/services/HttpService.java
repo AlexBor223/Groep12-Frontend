@@ -65,6 +65,23 @@ public class HttpService {
     }
 
     /**
+     * login method
+     * @param username
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    public HttpResponse<JsonNode> login(String username, String password) throws Exception{
+        String url = "/api/login";
+        HttpResponse<kong.unirest.JsonNode> jwt = Unirest.get(host + url)
+                .header("accept", "application/json")
+                .header("Content-Type", "application/json")
+                .asJson();
+
+        return jwt;
+    }
+
+    /**
      * gets all abbreviations from the back-end
      *
      * @param url the url at which the department api is located
