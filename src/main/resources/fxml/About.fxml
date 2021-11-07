@@ -20,7 +20,7 @@
     <Text layoutX="50.0" layoutY="309.0" styleClass="overA">In deze applicatie kan je verschillende dingen doen:</Text>
 
     <Text id="functieT" layoutX="50.0" layoutY="339.0" styleClass="functieT" wrappingWidth="400">• Je kan een afkorting opzoeken. Als je dit doet zoek je in de database naar afkortingen die
-        overeenkomen met jou zoekopdracht.</Text>
+        overeenkomen met jouw zoekopdracht.</Text>
 
     <Text layoutX="50.0" layoutY="389.0" styleClass="functieT" wrappingWidth="400">• Je kan een afkorting toevoegen als je dit doet word de afkorting als tijdelijke afkorting
         aan de database toegoevoegd. Als dan andere personen genoeg likes aan de afkorting geven word
