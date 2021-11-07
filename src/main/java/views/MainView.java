@@ -36,6 +36,12 @@ public class MainView implements Initializable {
     @FXML
     private VBox newAbbreviations;
 
+
+    /**
+     * creates the combobox and the listeners for queries to abbreviations
+     * @param url
+     * @param resourceBundle
+     */
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         input.requestFocus();
@@ -61,6 +67,9 @@ public class MainView implements Initializable {
         });
     }
 
+    /**
+     * interacts with the controller to push all the queried abbreviations into the view
+     */
     private void updateAbbreviationBoxes() {
         abbreviations.getChildren().clear();
         newAbbreviations.getChildren().clear();

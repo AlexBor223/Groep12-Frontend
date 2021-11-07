@@ -9,6 +9,10 @@ public class DepartmentDao implements DepartmentDaoInter {
     services.HttpService HttpService = new HttpService();
     private final String AbrPath = "/api/departments";
 
+    /**
+     * get all departments from back-end
+     * @return a list of all departments
+     */
     @Override
     public ArrayList<DepartmentModel> GetAllDepartments() {
 

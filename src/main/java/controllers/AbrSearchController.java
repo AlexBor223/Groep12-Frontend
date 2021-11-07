@@ -19,22 +19,40 @@ import models.DepartmentModel;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class AbrSearchController {
 
         private ArrayList<DepartmentModel> DepartmentArray;
+
+    /**
+     * information needed for loading things into view
+     */
 
         private String AbbreviationBoxStylingId = "abbreviationBox";
         private String PngLocation = "/images/%s.png";
         private String AbbreviationStylingId = "abbreviation";
         private String DepartmentStylingId = "department";
 
+    /**
+     * Dao set-up
+     */
+
         private AbbreviationDao abrDao = new AbbreviationDao();
         private DepartmentDao depDao = new DepartmentDao();
 
+    /**
+     * stored queries
+     */
         private String SearchedAbr;
         private String SearchedDepartment;
 
-        private EventHandler<MouseEvent> like = new EventHandler<MouseEvent>() {
+
+
+    /**
+     * like and dislike handlers
+     */
+
+    private EventHandler<MouseEvent> like = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 Button clickedButton = (Button) event.getSource();
@@ -63,18 +81,26 @@ public class AbrSearchController {
             }
         };
 
-        public boolean noSearch() {
+    /**
+     * checks if Search String is empty
+     * @return A boolean representing the search state
+     */
+    public boolean noSearch() {
             return SearchedAbr.isEmpty();
         }
 
-        public ArrayList<AnchorPane> getAbbreviationBoxes() {
+    /**
+     * creates a list of abbreviation boxes based on server side filtered abbreviations
+     * @return list of abbreviation boxes
+     */
+    public ArrayList<AnchorPane> getAbbreviationBoxes() {
             ArrayList<Abbreviation> localAbr = getAbbreviations();
             ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
             try {
                 if (localAbr != null) {
                     for (Abbreviation abr : localAbr) {
                         if (abr.isApproved()) {
-                            abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(),  getNameById(Long.parseLong(abr.getDepartment())), abr.getId(), false));
+                            abbreviationBoxes.add(createAbbreviationBox(abr.getLetters() + "  " + abr.getMeaning(),  getNameById(Long.parseLong(abr.getDepartment())), abr.getId(), false));
                         }
                     }
                 }
@@ -83,6 +109,11 @@ public class AbrSearchController {
             }
             return abbreviationBoxes;
         }
+
+    /**
+     * creates a list of new abbreviation boxes based on server side filtered abbreviations
+     * @return list of abbreviation boxes
+     */
         public ArrayList<AnchorPane> getNewAbbreviationBoxes() {
             ArrayList<Abbreviation> localAbr = getAbbreviations();
             ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
@@ -90,7 +121,7 @@ public class AbrSearchController {
                 if (localAbr != null) {
                     for (Abbreviation abr : localAbr) {
                         if (!abr.isApproved()) {
-                            abbreviationBoxes.add(insertAbbreviation(abr.getLetters() + "  " + abr.getMeaning(), getNameById(Long.parseLong(abr.getDepartment())), abr.getId(), true));
+                            abbreviationBoxes.add(createAbbreviationBox(abr.getLetters() + "  " + abr.getMeaning(), getNameById(Long.parseLong(abr.getDepartment())), abr.getId(), true));
                         }
                     }
                 }
@@ -100,19 +131,42 @@ public class AbrSearchController {
             return abbreviationBoxes;
         }
 
-        public void updateAbr(String Abr) {
+    /**
+     * updates the search querty string
+     * @param Abr the string value that's being searched on
+     */
+    public void updateAbr(String Abr) {
             SearchedAbr = Abr;
         }
 
-        public ArrayList<Abbreviation> getAbbreviations() {
+    /**
+     * gets a list of filtered abbreviations from the dao
+     * @return an array of filtered abbreviations
+     */
+    public ArrayList<Abbreviation> getAbbreviations() {
             return (ArrayList<Abbreviation>) abrDao.searchAbbreviations(SearchedAbr, SearchedDepartment);
         }
 
-        public Boolean likeAbbreviation(long id) throws Exception {
+    /**
+     * gives a like to a abbreviation based on ID
+     * @param id the id of the abbreviation given a like
+     * @return if it succeeds or not
+     * @throws Exception if the http request fails
+     */
+    public Boolean likeAbbreviation(long id) throws Exception {
             return abrDao.LikeAbbreviation(id);
         }
 
-        public AnchorPane insertAbbreviation(String AbbreviationMeaning, String department, long AbrId, boolean isNew) {
+
+    /**
+     * creates a abbreviation box from information about the abbreviation
+     * @param AbbreviationMeaning meaning of the abbreviation
+     * @param department the department of the abbreviation
+     * @param AbrId the id of the abbreviation
+     * @param isNew wether the id is new or not
+     * @return an AnchorPane containing the abbreviation box
+     */
+    public AnchorPane createAbbreviationBox(String AbbreviationMeaning, String department, long AbrId, boolean isNew) {
             AnchorPane abbreviationBox = createBaseAbbreviationBox(AbbreviationMeaning, department, AbrId);
             if (isNew) {
                 Button likeButton = CreateLikeButton("like");
@@ -138,7 +192,13 @@ public class AbrSearchController {
             return abbreviationBox;
         }
 
-        public Button CreateLikeButton(String kind) {
+    /**
+     * creates a like button for abbreviation box based on wether it's a like or dislike button
+     * @param kind what kind of button it is
+     * @return a like or dislike button
+     */
+
+    public Button CreateLikeButton(String kind) {
             Button likeButton = new Button();
 
             //makes button black
@@ -159,7 +219,13 @@ public class AbrSearchController {
             return likeButton;
         }
 
-
+    /**
+     * creates the base for an abbreviation box containing the base information
+     * @param abbreviationMeaning the meaning of an abbreviation
+     * @param department the department of an abbreviation
+     * @param abrId the id of an abbreviation
+     * @return a basic abbreviation box
+     */
         public AnchorPane createBaseAbbreviationBox(String abbreviationMeaning, String department, long abrId) {
             AnchorPane abbreviationBox = new AnchorPane();
             Text Meaning = new Text();
@@ -188,7 +254,11 @@ public class AbrSearchController {
             return abbreviationBox;
         }
 
-        public ArrayList<DepartmentModel> getAllDepartments() {
+    /**
+     * gets a list of all departments from the back-end
+     * @return a list of all departments
+     */
+    public ArrayList<DepartmentModel> getAllDepartments() {
             DepartmentArray =depDao.GetAllDepartments();
 
             return DepartmentArray;
@@ -198,7 +268,11 @@ public class AbrSearchController {
             SearchedDepartment = department;
         }
 
-
+    /**
+     * creates a list of all the names out of a department list
+     * @param Departments a list of the departments that need a name
+     * @return a list of all names
+     */
     private  List<String> depListToNameList(List<DepartmentModel> Departments){
         List<String> newList = new ArrayList<String>(Departments.size());
 
@@ -208,6 +282,11 @@ public class AbrSearchController {
         return newList;
     }
 
+    /**
+     * gets the name of a department by it's id
+     * @param id the id of which the department name is needed
+     * @return the department name
+     */
     private String getNameById(long id){
             String returnValue = "error";
 

@@ -26,6 +26,10 @@ public class NavbarController implements Initializable {
         LoadWindow(Initialfxml);
     }
 
+    /**
+     * changes the window of the program
+     * @param event the click of the navbar
+     */
     @FXML
     public void ChangeWindow(ActionEvent event) {
         Button btn = (Button) event.getSource();
@@ -34,6 +38,10 @@ public class NavbarController implements Initializable {
         LoadWindow(fxmlName);
     }
 
+    /**
+     * load a window into the view
+     * @param fxmlName the name of the file loaded into the view
+     */
     public void LoadWindow(String fxmlName) {
 
         try {

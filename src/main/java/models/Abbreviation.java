@@ -48,10 +48,18 @@ public class Abbreviation {
         this.meaning = meaning;
     }
 
+    /**
+     * gets likes from abbreviation
+     * @return like count
+     */
     public Integer getLikes() {
         return likes;
     }
 
+    /**
+     * set likes count of abbreviation
+     * @param likes amount of likes being set
+     */
     public void setLikes(Integer likes) {
         this.likes = likes;
     }
@@ -68,6 +76,10 @@ public class Abbreviation {
         return department;
     }
 
+    /**
+     * checks if the abbreviation is approved
+     * @return if the abbreviation is approved or not
+     */
     public Boolean isApproved() {
         return approved;
     }
