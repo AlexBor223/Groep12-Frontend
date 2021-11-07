@@ -9,13 +9,15 @@ import java.util.*;
  * makes abbreviation data accessible for front-end
  */
 
-public class AbbreviationDao implements AbbreviationDaoInter{
+public class AbbreviationDao implements AbbreviationDaoInter {
 
 
     List<Abbreviation> abbreviations;
 
     /**
      * items needed for connections
+     *
+     * @author Ruben
      */
     private static HttpService httpService = new HttpService();
     private final String AbrPath = "/api/abbreviations";
@@ -23,6 +25,8 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     /**
      * creates a basic abbreviationDao
+     *
+     * @author Martin
      */
     public AbbreviationDao() {
         abbreviations = new ArrayList<Abbreviation>();
@@ -30,21 +34,25 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     /**
      * gets an Abbreviation from the server by ID
+     *
      * @param id the id of the abbreviation
      * @return the abbreviation of which the id is searched
      * @throws Exception
+     * @author Martin, Ruben
      */
     @Override
     public Abbreviation getAbbreviaton(Integer id) throws Exception {
         httpService.SearchObject(id);
 
-     return null;
+        return null;
     }
 
     /**
      * gets all abbreviations from the server
+     *
      * @return all abbreviations
      * @throws Exception HttpServer error
+     * @author Martin, Ruben
      */
 
     @Override
@@ -56,8 +64,10 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     /**
      * updates the abbreviation at the back-end
+     *
      * @param abbreviation the edited version of the abbreviation
      * @throws Exception HttpServer error
+     * @author Martin, Ruben
      */
     @Override
     public void updateAbbreviation(Abbreviation abbreviation) throws Exception {
@@ -66,16 +76,18 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     /**
      * Searched for abbreviation in back-end by letters and department
+     *
      * @param abbreviation the letters which are being searched
-     * @param department the department that's filtered on, can be an empty string
+     * @param department   the department that's filtered on, can be an empty string
      * @return a list of all fitting abbreviations
+     * @author Martin, Ruben
      */
     @Override
     public List<Abbreviation> searchAbbreviations(String abbreviation, String department) {
         abbreviations = new ArrayList<Abbreviation>();
         try {
-            abbreviations = httpService.SearchAbbreviationsObject( AbrPath+"/filter", abbreviation, department);
-        }catch(Exception e){
+            abbreviations = httpService.SearchAbbreviationsObject(AbrPath + "/filter", abbreviation, department);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -84,33 +96,39 @@ public class AbbreviationDao implements AbbreviationDaoInter{
 
     /**
      * Deletes an abbreviation in the back-end by ID
+     *
      * @param id the ID of the abbreviation
      * @throws Exception HttpService error
+     * @author Martin, Ruben
      */
     @Override
     public void deleteAbbreviation(Long id) throws Exception {
-        httpService.DeleteObject("",id);
+        httpService.DeleteObject("", id);
     }
 
     /**
      * gives a like to an abbreviation by I
+     *
      * @param id
      * @return
      * @throws Exception
+     * @author Martin, Ruben
      */
     @Override
     public Boolean LikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("%s/%d/%s",AbrPath, id,"GiveLike"));
+        return httpService.LikeObject(String.format("%s/%d/%s", AbrPath, id, "GiveLike"));
     }
 
     /**
      * gives a dislike to an abbreviation by ID
+     *
      * @param id the disliked abbreviation
      * @return wether the dislike succeeds
      * @throws Exception
+     * @author Martin, Ruben
      */
     @Override
     public Boolean DislikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("%s/%d/%s",AbrPath, id,"GiveDisLike"));
+        return httpService.LikeObject(String.format("%s/%d/%s", AbrPath, id, "GiveDisLike"));
     }
 }
