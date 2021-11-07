@@ -18,6 +18,10 @@ import java.util.ResourceBundle;
 
 public class AddView implements Initializable {
 
+
+    /**
+     * loads all the fxml attributes
+     */
     @FXML
     private ComboBox<String> ChooseDep;
     @FXML
@@ -29,17 +33,16 @@ public class AddView implements Initializable {
     @FXML
     private Text StatusText;
 
+    /**
+     * the view of the abbreviation search window and the first window that's loaded upon start
+     *
+     * @author Martin
+     */
     Abbreviation abbreviation = new Abbreviation();
     WindowController windowController = new WindowController();
     AbrAddController abrAddController = new AbrAddController();
 
 
-    ObjectMapper objectMapper = new ObjectMapper();
-
-
-    private String noAbbreviation = "Geef een afkorting mee";
-    private String noExplanation = "Geef een uitleg van je afkorting mee";
-    private String selectDepartment = "Selecteerd u eerst een afdeling";
     private String fillInFields = "Vul alle velden goed in";
     private String AbrAdded = "Afkorting succesvol toegevoegd";
 
@@ -60,24 +63,37 @@ public class AddView implements Initializable {
                     "Ministerie van Volksgezondheid, Welzijn en Sport"
             );
 
+
+    /**
+     * in the making of the screen load the combobox with items
+     *
+     * @param url            link of the fxml pane
+     * @param resourceBundle
+     * @author Martin
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChooseDep.setItems(Departments);
 
 
-//        try {           //voor testen
-//            likeAbbreviation(1L);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
     }
 
+    /**
+     * loads in the adminpage
+     *
+     * @author Martin
+     */
     public void loadAdminPage() {
         windowController.showWindow("LoginPage", "Inlog admin");
 
     }
 
+    /**
+     * gets the input of the filled in fields to add the abbreviation
+     *
+     * @param actionEvent press of a button
+     * @author Martin
+     */
     public void getInput(javafx.event.ActionEvent actionEvent) throws Exception {
         String AbbreviationL = AbbreviationLetters.getText();
         String Meaning = AbbreviationMeaning.getText();
@@ -92,6 +108,11 @@ public class AddView implements Initializable {
         checkInput();
     }
 
+    /**
+     * checks if the input is you gave is not empty then sends the abrreviation to the controller
+     *
+     * @author Martin
+     */
     public void checkInput() throws Exception {
 
         if (abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty() || abbreviation.getDepartment() == null) {
@@ -101,29 +122,41 @@ public class AddView implements Initializable {
 
             StatusText.setText(AbrAdded);
             abrAddController.createAbbreviation(abbreviation);
-//            String jsonStr = objectMapper.writeValueAsString(abbreviation);
-//            System.out.println(jsonStr);  print input van abbreviation uit
 
 
         }
 
 
-//      removeAbbreviation(3L);
-//        dislikeAbbreviation(2L);
-
-
     }
 
+    /**
+     * interacts with the controller to giva a abbreviation a like
+     *
+     * @param id id of the abbreviation
+     * @author Martin
+     */
     public void likeAbbreviation(Long id) throws Exception {
         abrAddController.giveLike(id);
 
     }
 
+    /**
+     * interacts with the controller to giva a abbreviation a dislike
+     *
+     * @param id id of the abbreviation
+     * @author Martin
+     */
     public void dislikeAbbreviation(Long id) throws Exception {
         abrAddController.giveDislike(id);
 
     }
 
+    /**
+     * interacts with the controller to delete a abbreviation by id
+     *
+     * @param id id of the abbreviation
+     * @author Martin
+     */
     public void removeAbbreviation(Long id) throws Exception {
         abrAddController.delete(id);
     }

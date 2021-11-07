@@ -10,12 +10,12 @@ public class Abbreviation {
     private Boolean approved = false;
 
 
-    public Abbreviation(){
+    public Abbreviation() {
 
     }
 
 
-    public Abbreviation(String letters, String meaning, String department, Integer likes, long id){
+    public Abbreviation(String letters, String meaning, String department, Integer likes, long id) {
         this.letters = letters;
         this.meaning = meaning;
         this.department = department;
@@ -23,13 +23,12 @@ public class Abbreviation {
         this.id = id;
     }
 
-    public Abbreviation(String letters, String meaning, String department, Integer likes){
+    public Abbreviation(String letters, String meaning, String department, Integer likes) {
         this.letters = letters;
         this.meaning = meaning;
         this.department = department;
         this.likes = likes;
     }
-
 
 
     public String getLetters() {
@@ -50,6 +49,7 @@ public class Abbreviation {
 
     /**
      * gets likes from abbreviation
+     *
      * @return like count
      */
     public Integer getLikes() {
@@ -58,6 +58,7 @@ public class Abbreviation {
 
     /**
      * set likes count of abbreviation
+     *
      * @param likes amount of likes being set
      */
     public void setLikes(Integer likes) {
@@ -78,6 +79,7 @@ public class Abbreviation {
 
     /**
      * checks if the abbreviation is approved
+     *
      * @return if the abbreviation is approved or not
      */
     public Boolean isApproved() {

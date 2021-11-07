@@ -21,6 +21,8 @@ public class HttpService {
 
     /**
      * connection information
+     *
+     * @author Ruben
      */
     private String host = "http://localhost:8080";
     private String charset = "UTF-8";
@@ -28,44 +30,50 @@ public class HttpService {
 
     /**
      * send request for filtered abbreviations based on Department name and starting letters
+     *
      * @param url the url at which the abbreviations api is located
      * @param Dep the filtered on department name
      * @param abr the searched for starting letters
      * @return a list of all abbreviations fitting the description
      * @throws Exception failure of connection
+     * @author Ruben, Martin
      */
-    public List<Abbreviation> SearchAbbreviationsObject(String url, String Dep, String abr) throws Exception{
-        HttpResponse<List<Abbreviation>> response = Unirest.get(host+url)
+    public List<Abbreviation> SearchAbbreviationsObject(String url, String Dep, String abr) throws Exception {
+        HttpResponse<List<Abbreviation>> response = Unirest.get(host + url)
                 .header("accept", "application/json")
                 .queryString("department", Dep)
                 .queryString("letters", abr)
                 .asObject(new GenericType<List<Abbreviation>>() {
-        });
+                });
         return response.getBody();
     }
 
     /**
      * gets all departments from the back-end
-     * @param url  the url at which the abbreviations api is located
-     * @return  a list of all departments in the back-end
+     *
+     * @param url the url at which the abbreviations api is located
+     * @return a list of all departments in the back-end
      * @throws Exception failure of connection
+     * @author Ruben, Martin
      */
-    public List<DepartmentModel> GetAllDepartments(String url) throws Exception{
-        System.out.println(host+url);
-        HttpResponse<List<DepartmentModel>> response = Unirest.get(host+url)
+    public List<DepartmentModel> GetAllDepartments(String url) throws Exception {
+        System.out.println(host + url);
+        HttpResponse<List<DepartmentModel>> response = Unirest.get(host + url)
                 .asObject(new GenericType<List<DepartmentModel>>() {
-        });
+                });
         return response.getBody();
     }
 
     /**
      * gets all abbreviations from the back-end
+     *
      * @param url the url at which the department api is located
      * @return a list of all departments in the back-end
      * @throws Exception
+     * @author Ruben, Martin
      */
-    public List<Abbreviation> GetAllAbbreviations(String url) throws Exception{
-        HttpResponse<List<Abbreviation>> response = Unirest.get(host+url)
+    public List<Abbreviation> GetAllAbbreviations(String url) throws Exception {
+        HttpResponse<List<Abbreviation>> response = Unirest.get(host + url)
                 .header("accept", "application/json")
                 .asObject(new GenericType<List<Abbreviation>>() {
                 });
@@ -74,11 +82,13 @@ public class HttpService {
 
     /**
      * a basic get request for a basic json //not actually used//
+     *
      * @param id searches for ID object
      * @return requested Json object
      * @throws Exception
+     * @author Ruben, Martin
      */
-    public HttpResponse<JsonNode> SearchObject(Integer id) throws Exception{
+    public HttpResponse<JsonNode> SearchObject(Integer id) throws Exception {
         HttpResponse<kong.unirest.JsonNode> abbreviation = Unirest.get(host)
                 .header("accept", "application/json")
                 .header("Content-Type", "application/json")
@@ -91,11 +101,13 @@ public class HttpService {
 
     /**
      * a basic get request for a basic json //not actually used//
+     *
      * @param url url of the needed item
      * @return requested Json object
      * @throws Exception
+     * @author Ruben, Martin
      */
-    public HttpResponse<JsonNode> GetAllObjects(String url) throws Exception{
+    public HttpResponse<JsonNode> GetAllObjects(String url) throws Exception {
         HttpResponse<kong.unirest.JsonNode> abbreviation = Unirest.get(host)
                 .header("accept", "application/json")
                 .header("Content-Type", "application/json")
@@ -107,12 +119,14 @@ public class HttpService {
 
     /**
      * a basic push query
-     * @param url url of pushed item
+     *
+     * @param url          url of pushed item
      * @param abbreviation item that's being updated
      * @return requested Json object
      * @throws Exception connection error
+     * @author Ruben, Martin
      */
-    public boolean AddOrUpdateObject(String url, Abbreviation abbreviation) throws Exception{
+    public boolean AddOrUpdateObject(String url, Abbreviation abbreviation) throws Exception {
 
         HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url)
                 .header("Accept", "application/json")
@@ -121,15 +135,17 @@ public class HttpService {
                 .asJson();
 
         System.out.println("body: " + response.getBody());
-        return (response.getStatus()==201);
+        return (response.getStatus() == 201);
     }
 
     /**
      * deletes object based on path and id
+     *
      * @param url the path at which the object is located
-     * @param id the id of the object
-     * @return  successful or not
+     * @param id  the id of the object
+     * @return successful or not
      * @throws Exception connection error
+     * @author Ruben, Martin
      */
     public boolean DeleteObject(String url, long id) throws Exception {
         HttpResponse<kong.unirest.JsonNode> response = Unirest.delete(host + "/" + id)
@@ -141,20 +157,21 @@ public class HttpService {
 
     /**
      * gives an abbreviation an like or dislike
+     *
      * @param url the url of the abbreviation and like or dislike
      * @return successful or not
      * @throws Exception
+     * @author Ruben, Martin
      */
-    public boolean LikeObject(String url) throws Exception{
+    public boolean LikeObject(String url) throws Exception {
         System.out.println(host + url);
 
-        HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url )
+        HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url)
                 .header("Accept", "application/json")
                 .asJson();
 
-        return (response.getStatus()==201);
+        return (response.getStatus() == 201);
     }
-
 
 
 }
