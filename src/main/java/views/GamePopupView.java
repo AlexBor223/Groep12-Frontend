@@ -19,14 +19,29 @@ public class GamePopupView {
         message = "";
     }
 
+    /**
+     * Returns the resource as a String
+     * @param resourcePath
+     * @return Resource String
+     * @author Plinio
+     */
     private String getResourceAsString(String resourcePath) {
         return String.valueOf(getClass().getClassLoader().getResource(resourcePath));
     }
 
+    /**
+     * Methods that closes the popup window
+     * @author Plinio
+     */
     private void okayButtonClicked() {
         window.close();
     }
 
+    /**
+     * Returns the popup VBox
+     * @return VBox containing nodes
+     * @author Plinio
+     */
     private VBox getVBox() {
         Label messageLabel = new Label(message);
         Button okayButton = new Button("OK");
@@ -42,6 +57,10 @@ public class GamePopupView {
         return pane;
     }
 
+    /**
+     * Shows the window and halts the thread
+     * @author Plinio
+     */
     public void showAndWait() {
         VBox pane = getVBox();
         Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
@@ -55,10 +74,20 @@ public class GamePopupView {
         window.showAndWait();
     }
 
+    /**
+     * Sets the title of the popup
+     * @param title
+     * @author Plinio
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Sets the message of the popup
+     * @param message
+     * @author Plinio
+     */
     public void setMessage(String message) {
         this.message = message;
     }

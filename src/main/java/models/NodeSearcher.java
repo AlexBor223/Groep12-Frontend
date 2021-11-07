@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class NodeSearcher {
+    /**
+     * Gets the buttons from the parent with the css class name
+     * @param parent
+     * @param className
+     * @return ArrayList of buttons
+     */
     public ArrayList<Button> getButtonsFromClassName(Parent parent, String className) {
         ArrayList<Button> buttons = new ArrayList<>();
 
