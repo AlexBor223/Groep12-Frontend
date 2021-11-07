@@ -19,6 +19,9 @@ import models.DepartmentModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * controls the view for the abbreviation search window
+ */
 
 public class AbrSearchController {
 

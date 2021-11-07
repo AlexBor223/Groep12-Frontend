@@ -5,6 +5,10 @@ import services.HttpService;
 
 import java.util.*;
 
+/**
+ * makes abbreviation data accessible for front-end
+ */
+
 public class AbbreviationDao implements AbbreviationDaoInter{
 
 

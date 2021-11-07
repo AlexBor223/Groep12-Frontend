@@ -5,6 +5,10 @@ import services.HttpService;
 
 import java.util.ArrayList;
 
+/**
+ * makes abbreviation data accessible for front-end
+ */
+
 public class DepartmentDao implements DepartmentDaoInter {
     services.HttpService HttpService = new HttpService();
     private final String AbrPath = "/api/departments";

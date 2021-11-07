@@ -14,7 +14,9 @@ import java.net.URLEncoder;
 import java.net.URLEncoder;
 import java.util.List;
 
-
+/**
+ * facilitates the connection to the back-end
+ */
 public class HttpService {
 
     /**

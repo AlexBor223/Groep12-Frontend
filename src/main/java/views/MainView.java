@@ -22,6 +22,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * the view of the abbreviation search window and the first window that's loaded upon start
+ */
 public class MainView implements Initializable {
 
     @FXML
