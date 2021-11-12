@@ -86,7 +86,7 @@ public class AbbreviationDao implements AbbreviationDaoInter {
     public List<Abbreviation> searchAbbreviations(String abbreviation, String department) {
         abbreviations = new ArrayList<Abbreviation>();
         try {
-            abbreviations = httpService.SearchAbbreviationsObject(AbrPath + "/filter", abbreviation, department);
+            abbreviations = httpService.SearchAbbreviationsObject(AbrPath + "/filter", department, abbreviation);
         } catch (Exception e) {
             e.printStackTrace();
         }
