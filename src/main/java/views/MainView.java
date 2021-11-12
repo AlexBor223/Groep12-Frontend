@@ -50,8 +50,8 @@ public class MainView implements Initializable {
         input.requestFocus();
         ArrayList<DepartmentModel> DepartmentArray = controller.getAllDepartments();
         ObservableList<String> options = FXCollections.observableArrayList();
-
         for (DepartmentModel department:DepartmentArray){
+
             options.add(department.getName());
         }
 

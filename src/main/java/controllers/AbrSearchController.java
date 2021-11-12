@@ -103,7 +103,8 @@ public class AbrSearchController {
                 if (localAbr != null) {
                     for (Abbreviation abr : localAbr) {
                         if (abr.isApproved()) {
-                            abbreviationBoxes.add(createAbbreviationBox(abr.getLetters() + "  " + abr.getMeaning(),  getNameById(Long.parseLong(abr.getDepartment())), abr.getId(), false));
+                            abbreviationBoxes.add(createAbbreviationBox(
+                                    abr.getLetters() + "  " + abr.getMeaning(),  getNameById(abr.getDepartment()), abr.getId(), false));
                         }
                     }
                 }
@@ -120,11 +121,13 @@ public class AbrSearchController {
         public ArrayList<AnchorPane> getNewAbbreviationBoxes() {
             ArrayList<Abbreviation> localAbr = getAbbreviations();
             ArrayList<AnchorPane> abbreviationBoxes = new ArrayList<AnchorPane>();
+
             try {
                 if (localAbr != null) {
                     for (Abbreviation abr : localAbr) {
                         if (!abr.isApproved()) {
-                            abbreviationBoxes.add(createAbbreviationBox(abr.getLetters() + "  " + abr.getMeaning(), getNameById(Long.parseLong(abr.getDepartment())), abr.getId(), true));
+                            abbreviationBoxes.add(createAbbreviationBox(
+                                    abr.getLetters() + "  " + abr.getMeaning(), getNameById(abr.getDepartment()), abr.getId(), true));
                         }
                     }
                 }
@@ -292,7 +295,7 @@ public class AbrSearchController {
      */
     private String getNameById(long id){
             String returnValue = "error";
-
+            System.out.println(id);
             for(int i=0; i< DepartmentArray.size();i++){
                 if(DepartmentArray.get(i).getId() == id){
                     returnValue = DepartmentArray.get(i).getName();

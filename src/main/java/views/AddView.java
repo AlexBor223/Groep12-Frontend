@@ -101,7 +101,7 @@ public class AddView implements Initializable {
 
         abbreviation.setLetters(AbbreviationL);
         abbreviation.setMeaning(Meaning);
-        abbreviation.setDepartment(Department);
+        abbreviation.setDepartment(Long.valueOf(2));
         abbreviation.setLikes(0);
 
 

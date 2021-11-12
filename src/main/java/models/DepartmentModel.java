@@ -1,12 +1,16 @@
 package models;
 
-public class DepartmentModel {
-    private int id;
-    private String name;
-    private String letters;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public int getId() {
-        return id;
+public class DepartmentModel {
+
+    private Long department;
+    private String name;
+    private String abbreviation;
+
+    public Long getId() {
+        System.out.println(department);
+        return department;
     }
 
     public String getName() {
