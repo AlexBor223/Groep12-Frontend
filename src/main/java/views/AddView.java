@@ -1,7 +1,7 @@
 package views;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.AbrAddController;
+import controllers.AbrSearchController;
 import controllers.WindowController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,8 +12,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.Abbreviation;
+import models.DepartmentModel;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AddView implements Initializable {
@@ -33,6 +35,10 @@ public class AddView implements Initializable {
     @FXML
     private Text StatusText;
 
+    private String fillInFields = "Vul alle velden goed in";
+    private String AbrAdded = "Afkorting succesvol toegevoegd";
+
+
     /**
      * the view of the abbreviation search window and the first window that's loaded upon start
      *
@@ -41,27 +47,13 @@ public class AddView implements Initializable {
     Abbreviation abbreviation = new Abbreviation();
     WindowController windowController = new WindowController();
     AbrAddController abrAddController = new AbrAddController();
+    AbrSearchController abrSearchController = new AbrSearchController();
 
 
-    private String fillInFields = "Vul alle velden goed in";
-    private String AbrAdded = "Afkorting succesvol toegevoegd";
+    ArrayList<DepartmentModel> DepartmentArray = abrSearchController.getAllDepartments();
+    ObservableList<String> options = FXCollections.observableArrayList();
 
 
-    ObservableList<String> Departments =
-            FXCollections.observableArrayList(
-                    "Ministerie van Algemene Zaken",
-                    "Ministerie van Binnenlandse Zaken en Koninkrijksrelaties",
-                    "Ministerie van Buitenlandse Zaken",
-                    "Ministerie van Defensie",
-                    "Ministerie van Economische Zaken en Klimaat",
-                    "Ministerie van Financiën",
-                    "Ministerie van Infrastructuur en Waterstaat",
-                    "Ministerie van Justitie en Veiligheid",
-                    "Ministerie van Landbouw, Natuur en Voedselkwaliteit",
-                    "Ministerie van Onderwijs, Cultuur en Wetenschap",
-                    "Ministerie van Sociale Zaken en Werkgelegenheid",
-                    "Ministerie van Volksgezondheid, Welzijn en Sport"
-            );
 
 
     /**
@@ -73,7 +65,11 @@ public class AddView implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ChooseDep.setItems(Departments);
+
+        for (DepartmentModel department:DepartmentArray){
+            options.add(department.getName());
+        }
+        ChooseDep.setItems(options);
 
 
     }
