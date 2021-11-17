@@ -1,17 +1,31 @@
 package services;
 
 import kong.unirest.*;
+import kong.unirest.json.JSONObject;
 import models.Abbreviation;
 import models.DepartmentModel;
 import models.Abbreviation;
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,19 +80,39 @@ public class HttpService {
 
     /**
      * login method
+     *
      * @param username
      * @param password
      * @return
      * @throws Exception
      */
-    public HttpResponse<JsonNode> login(String username, String password) throws Exception{
-        String url = "/api/login";
-        HttpResponse<kong.unirest.JsonNode> jwt = Unirest.get(host + url)
-                .header("accept", "application/json")
-                .header("Content-Type", "application/json")
-                .asJson();
+    public InputStream login(String username, String password) throws Exception {
+        String uri = "/api/login";
+        String url = host + uri;
+        HttpClient httpclient = HttpClients.createDefault();
+        HttpPost httppost = new HttpPost(url);
 
-        return jwt;
+// Request parameters and other properties.
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("username", username));
+        params.add(new BasicNameValuePair("password", password));
+        httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+//Execute and get the response.
+        org.apache.http.HttpResponse response = httpclient.execute(httppost);
+        HttpEntity entity = response.getEntity();
+        String responseString = EntityUtils.toString(entity, "UTF-8");
+        System.out.println(responseString);
+        if (entity != null) {
+            try (InputStream instream = entity.getContent()) {
+                return instream;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+
     }
 
     /**

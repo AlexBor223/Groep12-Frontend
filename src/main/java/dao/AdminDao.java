@@ -2,12 +2,15 @@ package dao;
 
 import services.HttpService;
 
+import java.io.InputStream;
+import java.util.List;
+
 public class AdminDao implements AdminDaoInter {
     private static HttpService httpService = new HttpService();
-    private final String AbrPath = "/api/abbreviations";
-
+    private InputStream JWT;
     @Override
     public void login(String username, String password) throws Exception{
-        httpService.login(username, password);
+       JWT = httpService.login(username, password);
+       System.out.println(JWT);
     }
 }

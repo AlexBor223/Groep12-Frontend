@@ -7,8 +7,7 @@ public class AdminController {
     private String JWT;
     private String username;
     private String password;
-
-    AdminDao adminDao = new AdminDao();
+    private static AdminDao adminDao = new AdminDao();
 
     public void login(String username, String password) throws Exception {
         adminDao.login(username, password);
