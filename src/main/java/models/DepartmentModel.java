@@ -1,12 +1,11 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class DepartmentModel {
 
     private Long department;
     private String name;
-    private String abbreviation;
+
+    private String letters;
 
     public Long getId() {
         System.out.println(department);
@@ -15,5 +14,10 @@ public class DepartmentModel {
 
     public String getName() {
         return name;
+    }
+
+    public DepartmentModel(String name){
+        this.name =name;
+        this.letters = name;
     }
 }

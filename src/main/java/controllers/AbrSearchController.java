@@ -126,7 +126,6 @@ public class AbrSearchController {
                 if (localAbr != null) {
                     for (Abbreviation abr : localAbr) {
                         if (!abr.isApproved()) {
-                            System.out.println(abr.getDepartment());
                             abbreviationBoxes.add(createAbbreviationBox(
                                     abr.getLetters() + "  " + abr.getMeaning(), getNameById(abr.getDepartment()), abr.getId(), true));
                         }

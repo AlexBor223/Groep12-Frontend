@@ -5,7 +5,7 @@ public class Abbreviation {
 
     private String letters;
     private String meaning;
-    private Long department;
+    private Long department_id;
     private Integer likes;
     private long id;
     private Boolean approved = false;
@@ -19,7 +19,7 @@ public class Abbreviation {
     public Abbreviation(String letters, String meaning, Long department, Integer likes, long id) {
         this.letters = letters;
         this.meaning = meaning;
-        this.department = department;
+        this.department_id = department;
         this.likes = likes;
         this.id = id;
     }
@@ -27,7 +27,7 @@ public class Abbreviation {
     public Abbreviation(String letters, String meaning, Long department, Integer likes) {
         this.letters = letters;
         this.meaning = meaning;
-        this.department = department;
+        this.department_id = department;
         this.likes = likes;
     }
 
@@ -75,7 +75,7 @@ public class Abbreviation {
     }
 
     public Long getDepartment() {
-        return department;
+        return department_id;
     }
 
     /**
@@ -88,7 +88,7 @@ public class Abbreviation {
     }
 
     public void setDepartment(Long department) {
-        this.department = department;
+        this.department_id = department;
     }
 
 

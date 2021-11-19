@@ -29,4 +29,11 @@ public class DepartmentDao implements DepartmentDaoInter {
             return list;
         }
     }
+
+    @Override
+    public Boolean addDepartment(DepartmentModel departmentModel) {
+
+            return HttpService.AddOrUpdateObject(AbrPath, departmentModel);
+
+    }
 }

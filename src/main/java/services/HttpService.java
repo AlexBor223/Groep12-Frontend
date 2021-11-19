@@ -122,21 +122,26 @@ public class HttpService {
      * a basic push query
      *
      * @param url          url of pushed item
-     * @param abbreviation item that's being updated
+     * @param object item that's being updated
      * @return requested Json object
      * @throws Exception connection error
      * @author Ruben, Martin
      */
-    public boolean AddOrUpdateObject(String url, Abbreviation abbreviation) throws Exception {
+    public boolean AddOrUpdateObject(String url, Object object) {
+        try {
+            HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(object)
+                    .asJson();
 
-        HttpResponse<kong.unirest.JsonNode> response = Unirest.post(host + url)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .body(abbreviation)
-                .asJson();
 
         System.out.println("body: " + response.getBody());
         return (response.getStatus() == 201);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
