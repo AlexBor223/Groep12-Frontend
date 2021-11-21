@@ -35,8 +35,9 @@ public class AddView implements Initializable {
     @FXML
     private Text StatusText;
 
-    private String fillInFields = "Vul alle velden goed in";
-    private String AbrAdded = "Afkorting succesvol toegevoegd";
+    private final String fillInFields = "Vul alle velden goed in";
+    private final String AbrAdded = "Afkorting succesvol toegevoegd";
+    private final String notTheSameField = "Je mag niet 2 keer dezelfde afkorting invoeren";
 
 
     /**
@@ -44,16 +45,15 @@ public class AddView implements Initializable {
      *
      * @author Martin
      */
-    Abbreviation abbreviation = new Abbreviation();
+
     WindowController windowController = new WindowController();
     AbrAddController abrAddController = new AbrAddController();
     AbrSearchController abrSearchController = new AbrSearchController();
+    Abbreviation abbreviation2 = new Abbreviation();
 
 
     ArrayList<DepartmentModel> DepartmentArray = abrSearchController.getAllDepartments();
     ObservableList<String> options = FXCollections.observableArrayList();
-
-
 
 
     /**
@@ -66,7 +66,7 @@ public class AddView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        for (DepartmentModel department:DepartmentArray){
+        for (DepartmentModel department : DepartmentArray) {
             options.add(department.getName());
         }
         ChooseDep.setItems(options);
@@ -87,21 +87,19 @@ public class AddView implements Initializable {
     /**
      * gets the input of the filled in fields to add the abbreviation
      *
-     * @param actionEvent press of a button
+     * @param
      * @author Martin
      */
-    public void getInput(javafx.event.ActionEvent actionEvent) throws Exception {
-        String AbbreviationL = AbbreviationLetters.getText();
-        String Meaning = AbbreviationMeaning.getText();
-        String Department = ChooseDep.getValue();
-
-        abbreviation.setLetters(AbbreviationL);
-        abbreviation.setMeaning(Meaning);
-        abbreviation.setDepartment(Department);
+    public void getInput() throws Exception {
+        Abbreviation abbreviation = new Abbreviation();
+        abbreviation.setLetters(AbbreviationLetters.getText());
+        abbreviation.setMeaning(AbbreviationMeaning.getText());
+        abbreviation.setDepartment(ChooseDep.getValue());
         abbreviation.setLikes(0);
 
 
-        checkInput();
+        checkInput(abbreviation);
+
     }
 
     /**
@@ -109,18 +107,23 @@ public class AddView implements Initializable {
      *
      * @author Martin
      */
-    public void checkInput() throws Exception {
+    public void checkInput(Abbreviation abbreviation) throws Exception {
 
         if (abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty() || abbreviation.getDepartment() == null) {
             StatusText.setText(fillInFields);
 
-        } else {
 
+        } else if (abbreviation.equals(abbreviation2)) {
+            StatusText.setText(notTheSameField);
+
+        } else {
             StatusText.setText(AbrAdded);
             abrAddController.createAbbreviation(abbreviation);
-
+            abbreviation2 = abbreviation;
 
         }
+        System.out.println(abbreviation);
+        System.out.println(abbreviation2);
 
 
     }
