@@ -14,9 +14,15 @@ import javafx.scene.text.Text;
 import models.Abbreviation;
 import models.DepartmentModel;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddView implements Initializable {
 
@@ -40,6 +46,19 @@ public class AddView implements Initializable {
     private final String notTheSameField = "Je mag niet 2 keer dezelfde afkorting invoeren";
 
 
+
+    private boolean canInput = true;
+    Timer timer = new Timer();
+
+    TimerTask inputTask = new TimerTask() {
+        @Override
+        public void run() {
+            canInput = true;
+            System.out.println("can input is waar");
+            timer.cancel();
+        }
+    };
+
     /**
      * the view of the abbreviation search window and the first window that's loaded upon start
      *
@@ -49,7 +68,6 @@ public class AddView implements Initializable {
     WindowController windowController = new WindowController();
     AbrAddController abrAddController = new AbrAddController();
     AbrSearchController abrSearchController = new AbrSearchController();
-    Abbreviation abbreviation2 = new Abbreviation();
 
 
     ArrayList<DepartmentModel> DepartmentArray = abrSearchController.getAllDepartments();
@@ -91,6 +109,7 @@ public class AddView implements Initializable {
      * @author Martin
      */
     public void getInput() throws Exception {
+
         Abbreviation abbreviation = new Abbreviation();
         abbreviation.setLetters(AbbreviationLetters.getText());
         abbreviation.setMeaning(AbbreviationMeaning.getText());
@@ -99,6 +118,9 @@ public class AddView implements Initializable {
 
 
         checkInput(abbreviation);
+
+
+
 
     }
 
@@ -112,22 +134,17 @@ public class AddView implements Initializable {
         if (abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty() || abbreviation.getDepartment() == null) {
             StatusText.setText(fillInFields);
 
-
-        } else if (abbreviation.equals(abbreviation2)) {
-            StatusText.setText(notTheSameField);
-
         } else {
-            StatusText.setText(AbrAdded);
-            abrAddController.createAbbreviation(abbreviation);
-            abbreviation2 = abbreviation;
 
-        }
-        System.out.println(abbreviation);
-        System.out.println(abbreviation2);
+            StatusText.setText(AbrAdded);
+
+            abrAddController.createAbbreviation(abbreviation);
+            disable(AbrToApp, 10000);
+
 
 
     }
-
+    }
     /**
      * interacts with the controller to giva a abbreviation a like
      *
@@ -158,6 +175,19 @@ public class AddView implements Initializable {
      */
     public void removeAbbreviation(Long id) throws Exception {
         abrAddController.delete(id);
+    }
+
+    static void disable(Button b, final long ms) {
+        b.setDisable(true);
+        new SwingWorker() {
+            @Override protected Object doInBackground() throws Exception {
+                Thread.sleep(ms);
+                return null;
+            }
+            @Override protected void done() {
+                b.setDisable(false);
+            }
+        }.execute();
     }
 
 
