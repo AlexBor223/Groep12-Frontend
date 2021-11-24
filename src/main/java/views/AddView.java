@@ -45,19 +45,8 @@ public class AddView implements Initializable {
     private final String AbrAdded = "Afkorting succesvol toegevoegd";
     private final String notTheSameField = "Je mag niet 2 keer dezelfde afkorting invoeren";
 
-
-
-    private boolean canInput = true;
-    Timer timer = new Timer();
-
-    TimerTask inputTask = new TimerTask() {
-        @Override
-        public void run() {
-            canInput = true;
-            System.out.println("can input is waar");
-            timer.cancel();
-        }
-    };
+    private String meaningCheck;
+    private String tempMeaning;
 
     /**
      * the view of the abbreviation search window and the first window that's loaded upon start
@@ -115,11 +104,14 @@ public class AddView implements Initializable {
         abbreviation.setMeaning(AbbreviationMeaning.getText());
         abbreviation.setDepartment(ChooseDep.getValue());
         abbreviation.setLikes(0);
+        tempMeaning = AbbreviationMeaning.getText();
 
-
-        checkInput(abbreviation);
-
-
+        if (meaningCheck != null && meaningCheck.equals(tempMeaning)){
+            StatusText.setText(notTheSameField);
+            System.out.println("zm r");
+        }else{
+            checkInput(abbreviation);
+        }
 
 
     }
@@ -135,15 +127,15 @@ public class AddView implements Initializable {
             StatusText.setText(fillInFields);
 
         } else {
-
             StatusText.setText(AbrAdded);
-
             abrAddController.createAbbreviation(abbreviation);
-            disable(AbrToApp, 10000);
+            disable(AbrToApp, 1000);
+            System.out.println("betekenis vorige: " + meaningCheck);
+            System.out.println("betekenis huidige: " + abbreviation.getMeaning());
+            meaningCheck = abbreviation.getMeaning();
 
 
-
-    }
+        }
     }
     /**
      * interacts with the controller to giva a abbreviation a like
