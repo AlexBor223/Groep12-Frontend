@@ -1,32 +1,62 @@
 package views;
 
-import Controllers.AdminController;
+import controllers.WindowController;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import models.Admin;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginView {
-    private final AdminController adminController;
-    Admin admin;
+public class LoginView implements Initializable {
+    private final WindowController windowController;
 
     @FXML
-    private TextField AdminUsername;
+    private TextField usernameTextField;
+
     @FXML
-    private TextField AdminPassword;
+    private PasswordField passwordField;
+
+    @FXML
+    private Label statusLabel;
 
     public LoginView() {
-        adminController = new AdminController();
-        admin = new Admin();
+        windowController = new WindowController();
     }
 
-    public void getInput() throws Exception {
-        String username = AdminUsername.getText();
-        String password = AdminPassword.getText();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {}
 
-        admin.setUsername(username);
-        admin.setPassword(password);
+    @FXML
+    private void loginClicked() {
+        String username = usernameTextField.getText();
+        String password = passwordField.getText();
 
-        adminController.login(admin.getUsername(), admin.getPassword());
+        if (!filledInCredentials(username, password))
+            return;
+
+        // TODO: Implement login check and show message if needed. If login successful then show admin window
+        windowController.showWindow("Admin", "Adminpaneel");
+    }
+
+    private boolean filledInCredentials(String username, String password) {
+        if (username.isBlank() && password.isBlank()) {
+            statusLabel.setText("Vul eerst uw inloggegevens in!");
+            return false;
+        }
+
+        if (username.isBlank()) {
+            statusLabel.setText("Voer een gebruikersnaam in!");
+            return false;
+        }
+
+        if (password.isBlank()) {
+            statusLabel.setText("Voer een wachtwoord in!");
+            return false;
+        }
+
+        return true;
     }
 }

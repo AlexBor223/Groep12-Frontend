@@ -1,165 +1,110 @@
 package views;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import controllers.AbrAddController;
-import controllers.WindowController;
+import controllers.AbbreviationController;
+import controllers.DepartmentController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import models.Abbreviation;
+import models.Department;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AddView implements Initializable {
+    private final AbbreviationController abbreviationController;
+    private final DepartmentController departmentController;
+    private ArrayList<Department> departments;
 
-
-    /**
-     * loads all the fxml attributes
-     */
     @FXML
-    private ComboBox<String> ChooseDep;
+    private TextField lettersTextField, meaningTextField;
+
     @FXML
-    private TextField AbbreviationLetters;
+    private ComboBox<String> departmentComboBox;
+
     @FXML
-    private TextField AbbreviationMeaning;
-    @FXML
-    private Button AbrToApp;
-    @FXML
-    private Text StatusText;
+    private Label statusLabel;
 
-    /**
-     * the view of the abbreviation search window and the first window that's loaded upon start
-     *
-     * @author Martin
-     */
-    Abbreviation abbreviation = new Abbreviation();
-    WindowController windowController = new WindowController();
-    AbrAddController abrAddController = new AbrAddController();
+    public AddView() {
+        abbreviationController = new AbbreviationController();
+        departmentController = new DepartmentController();
+    }
 
-
-    private String fillInFields = "Vul alle velden goed in";
-    private String AbrAdded = "Afkorting succesvol toegevoegd";
-
-
-    ObservableList<String> Departments =
-            FXCollections.observableArrayList(
-                    "Ministerie van Algemene Zaken",
-                    "Ministerie van Binnenlandse Zaken en Koninkrijksrelaties",
-                    "Ministerie van Buitenlandse Zaken",
-                    "Ministerie van Defensie",
-                    "Ministerie van Economische Zaken en Klimaat",
-                    "Ministerie van Financiën",
-                    "Ministerie van Infrastructuur en Waterstaat",
-                    "Ministerie van Justitie en Veiligheid",
-                    "Ministerie van Landbouw, Natuur en Voedselkwaliteit",
-                    "Ministerie van Onderwijs, Cultuur en Wetenschap",
-                    "Ministerie van Sociale Zaken en Werkgelegenheid",
-                    "Ministerie van Volksgezondheid, Welzijn en Sport"
-            );
-
-
-    /**
-     * in the making of the screen load the combobox with items
-     *
-     * @param url            link of the fxml pane
-     * @param resourceBundle
-     * @author Martin
-     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ChooseDep.setItems(Departments);
-
-
+        departments = departmentController.getAllDepartments();
+        putDepartmentNamesInCombo();
     }
 
-    /**
-     * loads in the adminpage
-     *
-     * @author Martin
-     */
-    public void loadAdminPage() {
-        windowController.showWindow("LoginPage", "Inlog admin");
+    @FXML
+    private void addButtonClicked() {
+        String letters = lettersTextField.getText().strip();
+        String meaning = meaningTextField.getText().strip();
+        long departmentId = getDepartmentId();
 
+        if (!filledInInfo(letters, meaning, departmentId))
+            return;
+
+        // Create a new abbreviation
+        Abbreviation abbreviation = new Abbreviation(departmentId, letters, meaning, 0);
+        abbreviationController.create(abbreviation);
+        statusLabel.setText("Afkorting toegevoegd!");
     }
 
-    /**
-     * gets the input of the filled in fields to add the abbreviation
-     *
-     * @param actionEvent press of a button
-     * @author Martin
-     */
-    public void getInput(javafx.event.ActionEvent actionEvent) throws Exception {
-        String AbbreviationL = AbbreviationLetters.getText();
-        String Meaning = AbbreviationMeaning.getText();
-        String Department = ChooseDep.getValue();
+    private void putDepartmentNamesInCombo() {
+        ObservableList<String> departmentNames = FXCollections.observableArrayList(getDepartmentNames());
 
-        abbreviation.setLetters(AbbreviationL);
-        abbreviation.setMeaning(Meaning);
-        abbreviation.setDepartment(Department);
-        abbreviation.setLikes(0);
-
-
-        checkInput();
+        if (!departmentNames.isEmpty()) {
+            departmentComboBox.setItems(departmentNames);
+            departmentComboBox.getSelectionModel().select(0);
+        }
     }
 
-    /**
-     * checks if the input is you gave is not empty then sends the abrreviation to the controller
-     *
-     * @author Martin
-     */
-    public void checkInput() throws Exception {
-
-        if (abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty() || abbreviation.getDepartment() == null) {
-            StatusText.setText(fillInFields);
-
-        } else {
-
-            StatusText.setText(AbrAdded);
-            abrAddController.createAbbreviation(abbreviation);
-
-
+    private boolean filledInInfo(String letters, String meaning, long departmentId) {
+        if (letters.isBlank() && meaning.isBlank()) {
+            statusLabel.setText("Vul de velden in!");
+            return false;
         }
 
+        if (letters.isBlank()) {
+            statusLabel.setText("Voer de letters in!");
+            return false;
+        }
 
+        if (meaning.isBlank()) {
+            statusLabel.setText("Voer de betekenis in!");
+            return false;
+        }
+
+        if (departmentId == -1) {
+            // Only possible when there's no connection or an error occurred
+            statusLabel.setText("Er is een fout opgetreden!");
+            return false;
+        }
+
+        return true;
     }
 
-    /**
-     * interacts with the controller to giva a abbreviation a like
-     *
-     * @param id id of the abbreviation
-     * @author Martin
-     */
-    public void likeAbbreviation(Long id) throws Exception {
-        abrAddController.giveLike(id);
-
+    private ArrayList<String> getDepartmentNames() {
+        ArrayList<String> departmentNames = new ArrayList<>();
+        departments.forEach((Department department) -> departmentNames.add(department.getName()));
+        return departmentNames;
     }
 
-    /**
-     * interacts with the controller to giva a abbreviation a dislike
-     *
-     * @param id id of the abbreviation
-     * @author Martin
-     */
-    public void dislikeAbbreviation(Long id) throws Exception {
-        abrAddController.giveDislike(id);
+    private long getDepartmentId() {
+        String name = departmentComboBox.getValue();
 
+        for (Department department : departments) {
+            if (department.getName().equals(name)) {
+                return department.getId();
+            }
+        }
+
+        return -1;
     }
-
-    /**
-     * interacts with the controller to delete a abbreviation by id
-     *
-     * @param id id of the abbreviation
-     * @author Martin
-     */
-    public void removeAbbreviation(Long id) throws Exception {
-        abrAddController.delete(id);
-    }
-
-
 }
