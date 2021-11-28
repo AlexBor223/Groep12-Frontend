@@ -16,8 +16,8 @@ public class DepartmentModel {
         return name;
     }
 
-    public DepartmentModel(String name){
+    public DepartmentModel(String name, String abbreviation){
         this.name =name;
-        this.letters = name;
+        this.letters = abbreviation;
     }
 }

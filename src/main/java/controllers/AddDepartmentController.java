@@ -19,8 +19,8 @@ public class AddDepartmentController {
         return false;
     }
 
-    public Boolean addDepartment(String input){
-        DepartmentModel departmentModel = new DepartmentModel(input);
+    public Boolean addDepartment(String name, String abbreviation){
+        DepartmentModel departmentModel = new DepartmentModel(name, abbreviation);
         if(departmentDao.addDepartment(departmentModel)){
             return true;
         }

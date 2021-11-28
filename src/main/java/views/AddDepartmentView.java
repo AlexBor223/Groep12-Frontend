@@ -23,6 +23,9 @@ public class AddDepartmentView {
     @FXML
     private TextField DepartmentName;
     @FXML
+    private TextField Abbreviation;
+
+    @FXML
     private Text StatusText;
 
     @FXML
@@ -31,26 +34,27 @@ public class AddDepartmentView {
     }
 
     public void addDepartment(){
-        String input = DepartmentName.getText();
+        String input1 = DepartmentName.getText();
+        String input2 = Abbreviation.getText();
 
-        if(controller.inputExists(input)) {
+        if(controller.inputExists(input1)) {
             StatusText.setFill(Color.RED);
             StatusText.setText("department bestaat al");
             return;
         }
 
-        if(departmentConfirmation(input)){
-            controller.addDepartment(input);
+        if(departmentConfirmation(input1, input2)){
+            controller.addDepartment(input1, input2);
             StatusText.setFill(Color.BLUE);
             StatusText.setText("department is toegevoegd");
         }
         else{return;};
 
     }
-    private Boolean departmentConfirmation(String departmentName){
+    private Boolean departmentConfirmation(String departmentName, String afkorting){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Department onfirmation");
-        alert.setHeaderText("u wilt een department met \""+departmentName+ "\" als naam toevoegen");
+        alert.setHeaderText("u wilt een department met \""+departmentName+ "\" als naam en \""+afkorting+" \" toevoegen");
         alert.setContentText("klopt de spelling?");
 
         Optional<ButtonType> result = alert.showAndWait();
