@@ -6,8 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import services.LoginService;
 
 import java.net.URL;
+import java.security.spec.ECField;
 import java.util.ResourceBundle;
 
 public class LoginView implements Initializable {
@@ -27,10 +29,11 @@ public class LoginView implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
 
     @FXML
-    private void loginClicked() {
+    private void loginClicked() throws Exception {
         String username = usernameTextField.getText();
         String password = passwordField.getText();
 
@@ -38,7 +41,17 @@ public class LoginView implements Initializable {
             return;
 
         // TODO: Implement login check and show message if needed. If login successful then show admin window
-        windowController.showWindow("Admin", "Adminpaneel");
+        LoginService loginService = LoginService.getInstance();
+        try {
+            loginService.login(username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (loginService.getAccessToken() != null && loginService.getRefreshToken() != null) {
+            windowController.showWindow("Admin", "Adminpaneel");
+        } else {
+            statusLabel.setText("Controleer uw gegevens");
+        }
     }
 
     private boolean filledInCredentials(String username, String password) {
