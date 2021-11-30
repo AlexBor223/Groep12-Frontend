@@ -1,38 +1,39 @@
 package models;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Abbreviation {
+    private long id;
+    private long departmentId;
 
     private String letters;
     private String meaning;
-    private Long department_id;
-    private Integer likes;
-    private long id;
-    private Boolean approved = false;
 
+    private int likes;
+    private boolean approved = false;
 
-    public Abbreviation() {
+    public Abbreviation() {}
 
-    }
-
-
-    public Abbreviation(String letters, String meaning, Long department, Integer likes, long id) {
+    public Abbreviation(long departmentId, String letters, String meaning, int likes) {
+        this.departmentId = departmentId;
         this.letters = letters;
         this.meaning = meaning;
-        this.department_id = department;
         this.likes = likes;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Abbreviation(String letters, String meaning, Long department, Integer likes) {
-        this.letters = letters;
-        this.meaning = meaning;
-        this.department_id = department;
-        this.likes = likes;
+    public long getDepartmentId() {
+        return departmentId;
     }
 
+    public void setDepartmentId(long departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public String getLetters() {
         return letters;
@@ -50,48 +51,19 @@ public class Abbreviation {
         this.meaning = meaning;
     }
 
-    /**
-     * gets likes from abbreviation
-     *
-     * @return like count
-     */
-    public Integer getLikes() {
+    public int getLikes() {
         return likes;
     }
 
-    /**
-     * set likes count of abbreviation
-     *
-     * @param likes amount of likes being set
-     */
-    public void setLikes(Integer likes) {
+    public void setLikes(int likes) {
         this.likes = likes;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Long getDepartment() {
-        return department_id;
-    }
-
-    /**
-     * checks if the abbreviation is approved
-     *
-     * @return if the abbreviation is approved or not
-     */
-    public Boolean isApproved() {
+    public boolean isApproved() {
         return approved;
     }
 
-    public void setDepartment(Long department) {
-        this.department_id = department;
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
-
-
 }

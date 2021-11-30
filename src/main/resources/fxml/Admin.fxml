@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AdminView">
+    <fx:include source="Navbar.fxml"/>
+    <AnchorPane layoutY="139.0" prefHeight="474.0" prefWidth="900.0">
+        <children>
+            <ComboBox fx:id="filterComboBox" layoutX="47.0" layoutY="33.0" prefHeight="25.0" prefWidth="357.0" styleClass="depcombo"/>
+            <ScrollPane layoutX="47.0" layoutY="129.0" prefHeight="331.0" prefWidth="357.0" styleClass="abbrpane">
+                <content>
+                    <VBox fx:id="abbreviationsContainer" prefWidth="340.0" spacing="10.0"/>
+                </content>
+            </ScrollPane>
+            <TextField fx:id="searchTextField" layoutX="47.0" layoutY="81.0" onKeyPressed="#searchOnKeyPressed" prefHeight="31.0" prefWidth="318.0" promptText="Zoeken" styleClass="standard-textfield"/>
+            <Button onAction="#searchButtonClicked" styleClass="search-btn" layoutX="372.0" layoutY="81.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0"/>
+            <Separator layoutX="447.0" layoutY="20.0" orientation="VERTICAL" prefHeight="426.0" prefWidth="5.0"/>
+         <AnchorPane styleClass="greybox" layoutX="521.0" layoutY="29.0" prefHeight="203.0" prefWidth="318.0">
+            <children>
+               <Label styleClass="title-lbl" layoutX="96.0" layoutY="14.0" text="Departement Toevoegen" textAlignment="CENTER"/>
+               <TextField fx:id="departmentLettersTextField" layoutX="61.0" layoutY="49.0" prefHeight="31.0" prefWidth="197.0" promptText="Departement letters" styleClass="standard-textfield"/>
+               <TextField fx:id="departmentNameTextField" layoutX="61.0" layoutY="93.0" prefHeight="31.0" prefWidth="197.0" promptText="Volledige naam" styleClass="standard-textfield"/>
+               <Button onAction="#addDepartmentButtonClicked" styleClass="standard-btn" layoutX="122.0" layoutY="164.0" mnemonicParsing="false" text="Toevoegen"/>
+               <Label fx:id="departmentStatusLabel" layoutX="61.0" layoutY="133.0" textAlignment="CENTER"/>
+            </children>
+         </AnchorPane>
+        </children>
+    </AnchorPane>
+</AnchorPane>

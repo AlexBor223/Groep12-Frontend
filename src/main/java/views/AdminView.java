@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainView implements Initializable {
+public class AdminView implements Initializable {
     private final AbbreviationController abbreviationController;
     private final DepartmentController departmentController;
 
@@ -28,12 +28,15 @@ public class MainView implements Initializable {
     private ComboBox<String> filterComboBox;
 
     @FXML
-    private VBox abbreviationsContainer, newAbbreviationsContainer;
+    private VBox abbreviationsContainer;
 
     @FXML
-    private TextField searchTextField;
+    private TextField searchTextField, departmentLettersTextField, departmentNameTextField;
 
-    public MainView() {
+    @FXML
+    private Label departmentStatusLabel;
+
+    public AdminView() {
         abbreviationController = new AbbreviationController();
         departmentController = new DepartmentController();
     }
@@ -57,21 +60,24 @@ public class MainView implements Initializable {
         String departmentName = filterComboBox.getValue();
         ArrayList<Abbreviation> abbreviations = abbreviationController.getAll();
 
-        // TODO: Search with filter and show accepted and unaccepted abbreviations
-
         for (Abbreviation abbreviation : abbreviations) {
             AnchorPane box = createAbbreviationBox(abbreviation);
-            newAbbreviationsContainer.getChildren().add(box);
+            abbreviationsContainer.getChildren().add(box);
         }
     }
 
-    private ArrayList<Abbreviation> getAbbreviationsByApproved(ArrayList<Abbreviation> abbreviations, boolean approved) {
-        for (int i = 0; i < abbreviations.size(); i++) {
-            if (abbreviations.get(i).isApproved() != approved)
-                abbreviations.remove(i);
-        }
+    @FXML
+    private void addDepartmentButtonClicked() {
+        String letters = departmentLettersTextField.getText();
+        String meaning = departmentNameTextField.getText();
 
-        return abbreviations;
+        if (!filledInDepartmentInfo(letters, meaning))
+            return;
+
+        // To make sure the adminpanel has the latest departments
+        putDepartmentNamesInCombo();
+
+        // TODO: Add department to backend & refresh
     }
 
     private void putDepartmentNamesInCombo() {
@@ -84,10 +90,34 @@ public class MainView implements Initializable {
         }
     }
 
+    private boolean filledInDepartmentInfo(String letters, String meaning) {
+        if (letters.isBlank() && meaning.isBlank()) {
+            departmentStatusLabel.setText("Vul de velden in!");
+            return false;
+        }
+
+        if (letters.isBlank()) {
+            departmentStatusLabel.setText("Voer de letters in!");
+            return false;
+        }
+
+        if (meaning.isBlank()) {
+            departmentStatusLabel.setText("Voer de naam in!");
+            return false;
+        }
+
+        return true;
+    }
+
     private AnchorPane createAbbreviationBox(Abbreviation abbreviation) {
         AnchorPane box = new AnchorPane();
         box.setPrefSize(340, 40);
-        box.getStyleClass().add("abbrbox");
+
+        if (abbreviation.isApproved()) {
+            box.getStyleClass().add("abbrbox");
+        } else {
+            box.getStyleClass().add("unapprovedbox");
+        }
 
         Label letters = new Label(abbreviation.getLetters());
         letters.getStyleClass().add("abbrletters");
@@ -98,26 +128,21 @@ public class MainView implements Initializable {
         meaning.setLayoutX(20);
         meaning.setLayoutY(25);
 
-        if (abbreviation.isApproved()) {
-            box.getChildren().addAll(letters, meaning);
-        } else {
-            Button like = new Button();
-            like.getStyleClass().addAll("abbricon", "abbrlike");
-            like.setPrefSize(30, 30);
-            like.setLayoutX(250);
-            like.setLayoutY(10);
-            like.setOnMouseClicked(e -> abbreviationController.like(abbreviation.getId()));
+        Button edit = new Button();
+        edit.getStyleClass().addAll("abbricon", "abbredit");
+        edit.setPrefSize(30, 30);
+        edit.setLayoutX(290);
+        edit.setLayoutY(10);
+        // TODO: Implement setOnMouseClicked and show edit popup
 
-            Button dislike = new Button();
-            dislike.getStyleClass().addAll("abbricon", "abbrlike");
-            dislike.setPrefSize(30, 30);
-            dislike.setRotate(180);
-            dislike.setLayoutX(290);
-            dislike.setLayoutY(10);
-            dislike.setOnMouseClicked(e -> abbreviationController.dislike(abbreviation.getId()));
+        Button remove = new Button();
+        remove.getStyleClass().addAll("abbricon", "abbrremove");
+        remove.setPrefSize(30, 30);
+        remove.setLayoutX(250);
+        remove.setLayoutY(10);
+        // TODO: Implement setOnMouseClicked and show confirmation popup
 
-            box.getChildren().addAll(letters, meaning, like, dislike);
-        }
+        box.getChildren().addAll(letters, meaning, edit, remove);
 
         return box;
     }

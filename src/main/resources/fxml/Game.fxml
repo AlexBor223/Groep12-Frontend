@@ -44,15 +44,11 @@
                <Label fx:id="answerLabel" />
             </children>
          </HBox>
-         <HBox alignment="CENTER" layoutY="34.0" prefHeight="62.0" prefWidth="136.0">
-            <children>
-               <Label text="Game" />
-            </children>
-         </HBox>
          <Label fx:id="timerLabel" layoutX="737.0" layoutY="48.0" styleClass="gamelbl" />
          <Label fx:id="scoreLabel" layoutX="737.0" layoutY="78.0" styleClass="gamelbl" />
          <Button fx:id="startButton" layoutX="729.0" layoutY="260.0" mnemonicParsing="false" onAction="#startButtonClicked" styleClass="startbtn" text="START" />
          <Button fx:id="stopButton" disable="true" layoutX="729.0" layoutY="297.0" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="25.0" prefWidth="50.0" styleClass="stopbtn" text="STOP" />
+         <Label layoutX="7.0" layoutY="40.0" styleClass="labelH" text="Game" />
       </children>
    </AnchorPane>
 </AnchorPane>

@@ -5,21 +5,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddView">
-
     <fx:include source="Navbar.fxml" />
-
-    <Button fx:id="LoginPage" layoutX="800" layoutY="500" onAction="#loadAdminPage">Admin inloggen</Button>
-
-    <AnchorPane layoutX="76.0" layoutY="187.0" prefHeight="275" prefWidth="750" styleClass="abrAddAnchorpane">
-        <Label fx:id="LabelAdd" layoutY="20" styleClass="labelH" text="Afkorting Toevoegen" />
-        <TextField fx:id="AbbreviationLetters" layoutX="50" layoutY="100" promptText="Afkorting" />
-        <TextField fx:id="AbbreviationMeaning" layoutX="250" layoutY="100" prefWidth="200" promptText="Betekenis" />
-        <ComboBox id="ChooseDep" fx:id="ChooseDep" layoutX="480" layoutY="100" prefWidth="175" promptText="Afdeling" />
-        <Button id="AbrToApp" fx:id="AbrToApp" layoutX="480" layoutY="200" onAction="#getInput">Invoeren</Button>
-        <Text fx:id="StatusText" layoutX="480" layoutY="250" />
+    <AnchorPane layoutX="76.0" layoutY="187.0" prefHeight="275" prefWidth="750" styleClass="greybox">
+        <Label layoutX="5" layoutY="20" styleClass="labelH" text="Afkorting Toevoegen" />
+        <TextField fx:id="lettersTextField" styleClass="standard-textfield" layoutX="43.0" layoutY="103.0" promptText="Afkorting letters" />
+        <TextField fx:id="meaningTextField" styleClass="standard-textfield" layoutX="207.0" layoutY="103.0" prefWidth="200" promptText="Betekenis" />
+        <ComboBox fx:id="departmentComboBox" layoutX="420.0" layoutY="100.0" prefHeight="25.0" prefWidth="318.0" styleClass="depcombo" />
+        <Button layoutX="420.0" layoutY="158.0" onAction="#addButtonClicked" styleClass="standard-btn">Toevoegen</Button>
+        <Label fx:id="statusLabel" layoutX="420.0" layoutY="195.0"/>
     </AnchorPane>
-
 </AnchorPane>

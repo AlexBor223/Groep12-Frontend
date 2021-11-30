@@ -10,16 +10,15 @@
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.NavbarView">
 
     <AnchorPane styleClass="navlogo">
-        <ImageView onMouseClicked="#goToMain" fitHeight="100.0" fitWidth="150.0" layoutX="350.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="350.0" onMouseClicked="#goToMain" pickOnBounds="true" preserveRatio="true">
             <Image url="@../images/rijksoverheid.png" />
         </ImageView>
     </AnchorPane>
-   <HBox styleClass="navbar" prefHeight="40.0" prefWidth="900.0">
-      <children>
-           <Button id="Main" onAction="#loadWindow" prefHeight="40" prefWidth="225">Afkortingen</Button>
-           <Button id="Game" onAction="#loadWindow" prefHeight="40" prefWidth="225">Game</Button>
-           <Button id="Add" onAction="#loadWindow" prefHeight="40" prefWidth="225">Afkorting Toevoegen</Button>
-           <Button id="About" onAction="#loadWindow" prefHeight="40" prefWidth="225">About</Button>
-      </children>
-   </HBox>
+    <HBox prefHeight="40.0" prefWidth="900.0" styleClass="navbar">
+        <Button id="Main" onAction="#loadWindow" prefHeight="40" prefWidth="225">Afkortingen</Button>
+        <Button id="Game" onAction="#loadWindow" prefHeight="40" prefWidth="225">Game</Button>
+        <Button id="Add" onAction="#loadWindow" prefHeight="40" prefWidth="225">Afkorting Toevoegen</Button>
+        <Button id="Login" onAction="#loadWindow" prefHeight="40" prefWidth="225">Login</Button>
+        <Button id="About" onAction="#loadWindow" prefHeight="40" prefWidth="225">About</Button>
+    </HBox>
 </VBox>
