@@ -10,4 +10,6 @@ public interface DepartmentDaoInter {
     ArrayList<String> getAllDepartmentNames();
 
     long getDepartmentIdByName(String name);
+
+    void updateDepartment(Department department);
 }

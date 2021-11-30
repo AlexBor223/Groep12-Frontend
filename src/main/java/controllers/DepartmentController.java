@@ -23,4 +23,6 @@ public class DepartmentController {
     public ArrayList<String> getAllDepartmentNames() {
         return departmentDao.getAllDepartmentNames();
     }
+
+    public void createDepartment(Department department) { departmentDao.updateDepartment(department);}
 }

@@ -31,4 +31,8 @@ public class AbbreviationController {
     public void dislike(long id) {
         abbreviationDao.dislikeAbbreviation(id);
     }
+
+    public ArrayList<Abbreviation> getFiltered(String department, String abbreviation) {
+        return abbreviationDao.searchAbbreviations(department, abbreviation);
+    }
 }

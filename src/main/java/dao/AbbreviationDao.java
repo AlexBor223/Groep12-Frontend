@@ -41,7 +41,14 @@ public class AbbreviationDao implements AbbreviationDaoInter {
 
     @Override
     public ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department) {
+        HttpResponse<String> response = httpService.getResponse(String.format("%s/%s?department=%s&letters=%s", abbreviationPath, "filter", department, abbreviation));
+
+        if (response != null)
+            return (response.statusCode() == 200) ? jsonToAbbreviationList(response.body()) : new ArrayList<>();
+
         return new ArrayList<>();
+
+
     }
 
     @Override

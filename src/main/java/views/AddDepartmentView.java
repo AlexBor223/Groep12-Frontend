@@ -1,6 +1,7 @@
 package views;
 
-import controllers.AddDepartmentController;
+
+import controllers.DepartmentController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -9,14 +10,14 @@ import javafx.scene.control.TextField;
 import dao.DepartmentDao;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import models.DepartmentModel;
+import models.Department;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class AddDepartmentView {
 
-        AddDepartmentController controller = new AddDepartmentController();
+        DepartmentController controller = new DepartmentController();
 
     @FXML
     private Button AbrToApp;
@@ -37,15 +38,20 @@ public class AddDepartmentView {
         String input1 = DepartmentName.getText();
         String input2 = Abbreviation.getText();
 
-        if(controller.inputExists(input1)) {
-            StatusText.setFill(Color.RED);
-            StatusText.setText("department bestaat al");
-            return;
+
+        ArrayList<Department> departmentList = controller.getAllDepartments();
+        for(int i=0; i<departmentList.size();i++){
+            if(departmentList.get(i).getName().equals(input1)){
+                StatusText.setFill(Color.RED);
+                StatusText.setText("department bestaat al");
+                return;
+            }
         }
 
         if(departmentConfirmation(input1, input2)){
-            controller.addDepartment(input1, input2);
+            Department department = new Department(3, input1, input2);
             StatusText.setFill(Color.BLUE);
+            controller.createDepartment(department);
             StatusText.setText("department is toegevoegd");
         }
         else{return;};

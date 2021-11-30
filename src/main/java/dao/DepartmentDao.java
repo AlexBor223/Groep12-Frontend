@@ -60,9 +60,7 @@ public class DepartmentDao implements DepartmentDaoInter {
     }
 
     @Override
-    public Boolean addDepartment(DepartmentModel departmentModel) {
-
-            return HttpService.AddOrUpdateObject(AbrPath, departmentModel);
-
+    public void updateDepartment(Department department) {
+        httpService.postResponse(departmentPath, department);
     }
 }
