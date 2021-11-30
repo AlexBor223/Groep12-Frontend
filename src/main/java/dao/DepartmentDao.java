@@ -1,33 +1,62 @@
 package dao;
 
-import models.DepartmentModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import models.Department;
 import services.HttpService;
 
+import java.lang.reflect.Type;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
-/**
- * makes abbreviation data accessible for front-end
- */
-
 public class DepartmentDao implements DepartmentDaoInter {
-    services.HttpService HttpService = new HttpService();
-    private final String AbrPath = "/api/departments";
+    private final HttpService httpService;
+    private final String departmentPath;
 
-    /**
-     * get all departments from back-end
-     * @return a list of all departments
-     */
+    public DepartmentDao() {
+        httpService = HttpService.getInstance();
+        departmentPath = "/api/departments";
+    }
+
+    private ArrayList<Department> jsonToAbbreviationList(String json) {
+        Gson gson = new Gson();
+        Type departmentListType = new TypeToken<ArrayList<Department>>(){}.getType();
+        return gson.fromJson(json, departmentListType);
+    }
+
     @Override
-    public ArrayList<DepartmentModel> GetAllDepartments() {
+    public ArrayList<Department> getAllDepartments() {
+        HttpResponse<String> response = httpService.getResponse(departmentPath);
 
-        ArrayList list = new ArrayList();
-        try {
-            list = (ArrayList) HttpService.GetAllDepartments(AbrPath);
-            return list;
-        }catch(Exception e){
-            e.printStackTrace();
-            return list;
+        if (response != null)
+            return (response.statusCode() == 200) ? jsonToAbbreviationList(response.body()) : new ArrayList<>();
+
+        return new ArrayList<>();
+    }
+
+    @Override
+    public ArrayList<String> getAllDepartmentNames() {
+        ArrayList<Department> departments = getAllDepartments();
+        ArrayList<String> departmentNames = new ArrayList<>();
+
+        if (departments.isEmpty())
+            return departmentNames;
+
+        departments.forEach((Department department) -> departmentNames.add(department.getName()));
+
+        return departmentNames;
+    }
+
+    @Override
+    public long getDepartmentIdByName(String name) {
+        ArrayList<Department> departments = getAllDepartments();
+
+        for (Department department : departments) {
+            if (department.getName().equals(name))
+                return department.getId();
         }
+
+        return -1;
     }
 
     @Override

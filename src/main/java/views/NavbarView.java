@@ -17,19 +17,17 @@ public class NavbarView implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     @FXML
-    public void loadWindow(ActionEvent event) {
+    private void loadWindow(ActionEvent event) {
         Button navButton = (Button) event.getSource();
         String fxmlName = navButton.getId();
         windowController.showWindow(fxmlName, null);
     }
 
     @FXML
-    public void goToMain() {
+    private void goToMain() {
         windowController.showWindow("Main", null);
     }
 }

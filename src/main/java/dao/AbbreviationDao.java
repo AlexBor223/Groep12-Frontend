@@ -1,134 +1,80 @@
 package dao;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import models.Abbreviation;
 import services.HttpService;
 
-import java.util.*;
-
-/**
- * makes abbreviation data accessible for front-end
- */
+import java.lang.reflect.Type;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
 
 public class AbbreviationDao implements AbbreviationDaoInter {
+    private final HttpService httpService;
+    private final String abbreviationPath;
 
-
-    List<Abbreviation> abbreviations;
-
-    /**
-     * items needed for connections
-     *
-     * @author Ruben
-     */
-    private static HttpService httpService = new HttpService();
-    private final String AbrPath = "/api/abbreviations";
-
-
-    /**
-     * creates a basic abbreviationDao
-     *
-     * @author Martin
-     */
     public AbbreviationDao() {
-        abbreviations = new ArrayList<Abbreviation>();
+        httpService = HttpService.getInstance();
+        abbreviationPath = "/api/abbreviations";
     }
 
-    /**
-     * gets an Abbreviation from the server by ID
-     *
-     * @param id the id of the abbreviation
-     * @return the abbreviation of which the id is searched
-     * @throws Exception
-     * @author Martin, Ruben
-     */
+    private Abbreviation jsonToAbbreviation(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, Abbreviation.class);
+    }
+
+    private ArrayList<Abbreviation> jsonToAbbreviationList(String json) {
+        Gson gson = new Gson();
+        Type abbreviationListType = new TypeToken<ArrayList<Abbreviation>>(){}.getType();
+        return gson.fromJson(json, abbreviationListType);
+    }
+
     @Override
-    public Abbreviation getAbbreviaton(Integer id) throws Exception {
-        httpService.SearchObject(id);
+    public ArrayList<Abbreviation> getAllAbbreviations() {
+        HttpResponse<String> response = httpService.getResponse(abbreviationPath);
+
+        if (response != null)
+            return (response.statusCode() == 200) ? jsonToAbbreviationList(response.body()) : new ArrayList<>();
+
+        return new ArrayList<>();
+    }
+
+    @Override
+    public ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public Abbreviation getAbbreviationById(long id) {
+        HttpResponse<String> response = httpService.getResponse(abbreviationPath + "/" + id);
+
+        if (response != null)
+            return (response.statusCode() == 200) ? jsonToAbbreviation(response.body()) : null;
 
         return null;
     }
 
-    /**
-     * gets all abbreviations from the server
-     *
-     * @return all abbreviations
-     * @throws Exception HttpServer error
-     * @author Martin, Ruben
-     */
-
     @Override
-    public List<Abbreviation> getAllAbbreviations() throws Exception {
-        httpService.GetAllObjects("");
-
-        return abbreviations;
+    public void updateAbbreviation(Abbreviation abbreviation) {
+        httpService.postResponse(abbreviationPath, abbreviation);
     }
 
-    /**
-     * updates the abbreviation at the back-end
-     *
-     * @param abbreviation the edited version of the abbreviation
-     * @throws Exception HttpServer error
-     * @author Martin, Ruben
-     */
     @Override
-    public void updateAbbreviation(Abbreviation abbreviation) throws Exception {
-        httpService.AddOrUpdateObject(AbrPath, abbreviation);
+    public void deleteAbbreviationById(long id) {
+        HttpResponse<String> response = httpService.deleteResponse(abbreviationPath + "/" + id);
     }
 
-    /**
-     * Searched for abbreviation in back-end by letters and department
-     *
-     * @param abbreviation the letters which are being searched
-     * @param department   the department that's filtered on, can be an empty string
-     * @return a list of all fitting abbreviations
-     * @author Martin, Ruben
-     */
     @Override
-    public List<Abbreviation> searchAbbreviations(String abbreviation, String department) {
-        abbreviations = new ArrayList<Abbreviation>();
-        try {
-            abbreviations = httpService.SearchAbbreviationsObject(AbrPath + "/filter", department, abbreviation);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return abbreviations;
+    public void likeAbbreviation(long id) {
+        HttpResponse<String> response = httpService.postResponse(
+                String.format("%s/%d/%s", abbreviationPath, id, "Like"),
+                null);
     }
 
-    /**
-     * Deletes an abbreviation in the back-end by ID
-     *
-     * @param id the ID of the abbreviation
-     * @throws Exception HttpService error
-     * @author Martin, Ruben
-     */
     @Override
-    public void deleteAbbreviation(Long id) throws Exception {
-        httpService.DeleteObject("", id);
-    }
-
-    /**
-     * gives a like to an abbreviation by I
-     *
-     * @param id
-     * @return
-     * @throws Exception
-     * @author Martin, Ruben
-     */
-    @Override
-    public Boolean LikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("%s/%d/%s", AbrPath, id, "GiveLike"));
-    }
-
-    /**
-     * gives a dislike to an abbreviation by ID
-     *
-     * @param id the disliked abbreviation
-     * @return wether the dislike succeeds
-     * @throws Exception
-     * @author Martin, Ruben
-     */
-    @Override
-    public Boolean DislikeAbbreviation(Long id) throws Exception {
-        return httpService.LikeObject(String.format("%s/%d/%s", AbrPath, id, "GiveDisLike"));
+    public void dislikeAbbreviation(long id) {
+        HttpResponse<String> response = httpService.postResponse(
+                String.format("%s/%d/%s", abbreviationPath, id, "Dislike"),
+                null);
     }
 }

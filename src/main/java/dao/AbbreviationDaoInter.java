@@ -2,20 +2,20 @@ package dao;
 
 import models.Abbreviation;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface AbbreviationDaoInter {
-    List<Abbreviation> getAllAbbreviations() throws Exception;
+    ArrayList<Abbreviation> getAllAbbreviations();
 
-    void updateAbbreviation(Abbreviation abbreviation) throws Exception;
+    ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department);
 
-    List<Abbreviation> searchAbbreviations(String abbreviation, String department);
+    Abbreviation getAbbreviationById(long id);
 
-    Abbreviation getAbbreviaton(Integer id) throws Exception;
+    void updateAbbreviation(Abbreviation abbreviation);
 
-    Boolean LikeAbbreviation(Long id) throws Exception;
+    void deleteAbbreviationById(long id);
 
-    Boolean DislikeAbbreviation(Long id) throws Exception;
+    void likeAbbreviation(long id);
 
-    public void deleteAbbreviation(Long id) throws Exception;
+    void dislikeAbbreviation(long id);
 }
