@@ -13,17 +13,20 @@ import java.net.URI;
 
 public class LoginService {
     private static LoginService loginService;
-    private final HttpService httpService;
+    private static HttpService httpService;
     private final String host = "http://localhost:8080";
     private final String charset = "UTF-8";
     private String accessToken;
     private String refreshToken;
 
-    private LoginService() { httpService = HttpService.getInstance(); }
+    private LoginService() {
+    }
 
     public static LoginService getInstance() {
-        if (loginService == null)
+        if (loginService == null) {
             loginService = new LoginService();
+            httpService = HttpService.getInstance();
+        }
 
         return loginService;
     }
@@ -41,9 +44,9 @@ public class LoginService {
 
             CloseableHttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
+            String result = EntityUtils.toString(entity);
 
             try {
-                String result = EntityUtils.toString(entity);
                 JSONObject responseJSON = new JSONObject(result);
                 setAccessToken(responseJSON.getString("access_token"));
                 setRefreshToken(responseJSON.getString("refresh_token"));
@@ -51,8 +54,7 @@ public class LoginService {
                 System.out.println(getRefreshToken());
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 response.close();
             }
         } finally {

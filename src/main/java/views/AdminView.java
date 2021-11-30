@@ -15,6 +15,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import models.Abbreviation;
+import models.Department;
+import services.HttpService;
+import services.LoginService;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,6 +26,8 @@ import java.util.ResourceBundle;
 public class AdminView implements Initializable {
     private final AbbreviationController abbreviationController;
     private final DepartmentController departmentController;
+    private final HttpService httpService;
+    private String url;
 
     @FXML
     private ComboBox<String> filterComboBox;
@@ -39,6 +44,7 @@ public class AdminView implements Initializable {
     public AdminView() {
         abbreviationController = new AbbreviationController();
         departmentController = new DepartmentController();
+        httpService = HttpService.getInstance();
     }
 
     @Override
@@ -78,6 +84,19 @@ public class AdminView implements Initializable {
         putDepartmentNamesInCombo();
 
         // TODO: Add department to backend & refresh
+        LoginService loginService = LoginService.getInstance();
+        if (loginService.getAccessToken() != null) {
+            try {
+                url = "/api/departments";
+                Department params = new Department(letters, meaning);
+//                params.add(new BasicNameValuePair("letters", letters));
+//                params.add(new BasicNameValuePair("meaning", meaning));
+                httpService.postResponse(url, params);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     private void putDepartmentNamesInCombo() {

@@ -12,6 +12,11 @@ public class Department {
         this.name = name;
         this.letters = letters;
     }
+    public Department(String name, String letters) {
+        this.id = id;
+        this.name = name;
+        this.letters = letters;
+    }
 
     public long getId() {
         return id;
