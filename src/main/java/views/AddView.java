@@ -18,11 +18,6 @@ import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AddView implements Initializable {
 
@@ -39,7 +34,7 @@ public class AddView implements Initializable {
     @FXML
     private Button AbrToApp;
     @FXML
-    private Text StatusText;
+    public Text StatusText;
 
     private final String fillInFields = "Vul alle velden goed in";
     private final String AbrAdded = "Afkorting succesvol toegevoegd";
@@ -47,7 +42,8 @@ public class AddView implements Initializable {
 
     private String meaningCheck;
     private String tempMeaning;
-
+    private int exponentialInt = 1;
+    private int multiplyInt = 1;
     /**
      * the view of the abbreviation search window and the first window that's loaded upon start
      *
@@ -106,10 +102,10 @@ public class AddView implements Initializable {
         abbreviation.setLikes(0);
         tempMeaning = AbbreviationMeaning.getText();
 
-        if (meaningCheck != null && meaningCheck.equals(tempMeaning)){
+        if (meaningCheck != null && meaningCheck.equals(tempMeaning)) {
             StatusText.setText(notTheSameField);
-            System.out.println("zm r");
-        }else{
+
+        } else {
             checkInput(abbreviation);
         }
 
@@ -117,26 +113,44 @@ public class AddView implements Initializable {
     }
 
     /**
-     * checks if the input is you gave is not empty then sends the abrreviation to the controller
+     * checks if the input is you gave is not empty then sends the abrreviation to the controller and gives confirmation about that
+     * If the
      *
      * @author Martin
      */
-    public void checkInput(Abbreviation abbreviation) throws Exception {
+    public boolean checkInput(Abbreviation abbreviation) throws Exception {
 
         if (abbreviation.getLetters().isEmpty() || abbreviation.getMeaning().isEmpty() || abbreviation.getDepartment() == null) {
-            StatusText.setText(fillInFields);
+
+            setStatusTextFillIn();
+            return false;
 
         } else {
-            StatusText.setText(AbrAdded);
+            setStatusTextAdded();
+
             abrAddController.createAbbreviation(abbreviation);
-            disable(AbrToApp, 1000);
-            System.out.println("betekenis vorige: " + meaningCheck);
-            System.out.println("betekenis huidige: " + abbreviation.getMeaning());
+
+            disable(AbrToApp, multiplyInt * 2000);
+            updateWaitInt(exponentialInt);
+            exponentialInt += 1;
+
             meaningCheck = abbreviation.getMeaning();
 
+            return true;
 
         }
+
+
     }
+
+    public int updateWaitInt(int exInt) {
+        multiplyInt = (int) Math.pow(2, exInt);
+        return multiplyInt;
+
+    }
+
+
+
     /**
      * interacts with the controller to giva a abbreviation a like
      *
@@ -169,18 +183,29 @@ public class AddView implements Initializable {
         abrAddController.delete(id);
     }
 
+
     static void disable(Button b, final long ms) {
         b.setDisable(true);
         new SwingWorker() {
-            @Override protected Object doInBackground() throws Exception {
+            @Override
+            protected Object doInBackground() throws Exception {
                 Thread.sleep(ms);
                 return null;
             }
-            @Override protected void done() {
+
+            @Override
+            protected void done() {
                 b.setDisable(false);
             }
         }.execute();
     }
 
+    private void setStatusTextAdded() {
+        StatusText.setText(AbrAdded);
+    }
+
+    private void setStatusTextFillIn() {
+        StatusText.setText(fillInFields);
+    }
 
 }
