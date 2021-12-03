@@ -4,6 +4,7 @@ import controllers.AbbreviationController;
 import controllers.DepartmentController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -71,6 +72,34 @@ public class AdminView implements Initializable {
     }
 
     @FXML
+    public void addDepartmentAdminButtonClicked(ActionEvent actionEvent) {
+        String letters = departmentLettersTextField.getText();
+        String meaning = departmentNameTextField.getText();
+//        if () {
+//
+//        }
+
+        if (!filledInDepartmentInfo(letters, meaning))
+            return;
+
+        // To make sure the adminpanel has the latest departments
+        putDepartmentNamesInCombo();
+
+        // TODO: Add department to backend & refresh
+        LoginService loginService = LoginService.getInstance();
+        if (loginService.getAccessToken() != null) {
+            try {
+                url = "/api/departments";
+                Department params = new Department(letters, meaning);
+                httpService.postResponse(url, params);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @FXML
     private void addDepartmentButtonClicked() {
         String letters = departmentLettersTextField.getText();
         String meaning = departmentNameTextField.getText();
@@ -87,8 +116,6 @@ public class AdminView implements Initializable {
             try {
                 url = "/api/departments";
                 Department params = new Department(letters, meaning);
-//                params.add(new BasicNameValuePair("letters", letters));
-//                params.add(new BasicNameValuePair("meaning", meaning));
                 httpService.postResponse(url, params);
             } catch (Exception e) {
                 e.printStackTrace();
