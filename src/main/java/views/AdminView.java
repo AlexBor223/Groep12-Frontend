@@ -75,15 +75,9 @@ public class AdminView implements Initializable {
     public void addDepartmentAdminButtonClicked(ActionEvent actionEvent) {
         String letters = departmentLettersTextField.getText();
         String meaning = departmentNameTextField.getText();
-//        if () {
-//
-//        }
 
         if (!filledInDepartmentInfo(letters, meaning))
             return;
-
-        // To make sure the adminpanel has the latest departments
-        putDepartmentNamesInCombo();
 
         // TODO: Add department to backend & refresh
         LoginService loginService = LoginService.getInstance();
@@ -95,8 +89,10 @@ public class AdminView implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
+
+        // To make sure the adminpanel has the latest departments
+        putDepartmentNamesInCombo();
     }
 
     @FXML
@@ -152,14 +148,24 @@ public class AdminView implements Initializable {
         return true;
     }
 
+    private Abbreviation cloneAbbreviation(Abbreviation abbreviation) {
+        return new Abbreviation(
+                abbreviation.getId(),
+                abbreviation.getDepartmentId(),
+                abbreviation.getLetters(),
+                abbreviation.getMeaning(),
+                abbreviation.getLikes()
+        );
+    }
+
     private void editButtonClicked(Abbreviation abbreviation) {
-        EditPopupView editPopup = new EditPopupView(abbreviation);
+        Abbreviation editAbbreviation = cloneAbbreviation(abbreviation);
+        EditPopupView editPopup = new EditPopupView(editAbbreviation);
         editPopup.setWindowTitle(String.format("Bewerken Afkorting [%s]", abbreviation.getLetters()));
         editPopup.showAndWait();
 
-        Abbreviation editedAbbreviation = editPopup.getAbbreviation();
-
-        if (!editedAbbreviation.equals(abbreviation)) {
+        if (!editAbbreviation.equals(abbreviation) && editPopup.getClickedSave()) {
+            System.out.println("SAVE");
             // TODO: Send the editedAbbreviation to the backend
         }
     }

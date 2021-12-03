@@ -5,8 +5,11 @@ import com.google.gson.reflect.TypeToken;
 import models.Abbreviation;
 import services.HttpService;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class AbbreviationDao implements AbbreviationDaoInter {
@@ -25,12 +28,23 @@ public class AbbreviationDao implements AbbreviationDaoInter {
 
     private ArrayList<Abbreviation> jsonToAbbreviationList(String json) {
         Gson gson = new Gson();
-        Type abbreviationListType = new TypeToken<ArrayList<Abbreviation>>(){}.getType();
+        Type abbreviationListType = new TypeToken<ArrayList<Abbreviation>>() {}.getType();
         return gson.fromJson(json, abbreviationListType);
+    }
+
+    private String encodeValue(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+            return value;
+        }
     }
 
     private String getFilterString(String letters, String departmentName) {
         String url = "/filter?";
+        letters = encodeValue(letters);
+        departmentName = encodeValue(departmentName);
 
         if (!letters.isBlank())
             url += "letters=" + letters;
