@@ -34,7 +34,7 @@ public class AddView implements Initializable {
     @FXML
     private Button AbrToApp;
     @FXML
-    public Text StatusText;
+    private Text StatusText;
 
     private final String fillInFields = "Vul alle velden goed in";
     private final String AbrAdded = "Afkorting succesvol toegevoegd";
@@ -114,7 +114,9 @@ public class AddView implements Initializable {
 
     /**
      * checks if the input is you gave is not empty then sends the abrreviation to the controller and gives confirmation about that
-     * If the
+     * If all the fields are filled in correctly the methods setStatusTextAdded(),  abrAddController.createAbbreviation(abbreviation),
+     * updateWaitInt(exponentialInt) and disable(AbrToApp, multiplyInt * 2000) are called it also returns true and asigns a value to meaningCheck
+     * and gives the exponentialInt a + 1
      *
      * @author Martin
      */
@@ -143,12 +145,17 @@ public class AddView implements Initializable {
 
     }
 
+    /**
+     * sum to calculate exponential grow and assign it to a integer
+     *
+     * @param exInt is the exponential grow factor
+     * @author Martin
+     */
     public int updateWaitInt(int exInt) {
         multiplyInt = (int) Math.pow(2, exInt);
         return multiplyInt;
 
     }
-
 
 
     /**
@@ -183,29 +190,53 @@ public class AddView implements Initializable {
         abrAddController.delete(id);
     }
 
-
+    /**
+     * Disables the "invoer" button for a specific amount of time
+     *
+     * @param b  the button you want to disable
+     * @param ms the amount of milleseconds you want to disable the button
+     * @author Martin
+     */
     static void disable(Button b, final long ms) {
-        b.setDisable(true);
-        new SwingWorker() {
-            @Override
-            protected Object doInBackground() throws Exception {
-                Thread.sleep(ms);
-                return null;
-            }
+        if (b != null) {                                //voor unit test
+            b.setDisable(true);
+            new SwingWorker() {
+                @Override
+                protected Object doInBackground() throws Exception {
+                    Thread.sleep(ms);
+                    return null;
+                }
 
-            @Override
-            protected void done() {
-                b.setDisable(false);
-            }
-        }.execute();
+                @Override
+                protected void done() {
+                    b.setDisable(false);
+                }
+            }.execute();
+        }
     }
 
+    /**
+     * sets the text of StatusText to the value of AbrAdded if StatusText != null
+     *
+     * @author Martin
+     */
     private void setStatusTextAdded() {
-        StatusText.setText(AbrAdded);
+        if (StatusText != null) {           //voor unit test
+            StatusText.setText(AbrAdded);
+        }
+
     }
 
+    /**
+     * sets the text of StatusText to the value of fillInFields if StatusText != null
+     *
+     * @author Martin
+     */
     private void setStatusTextFillIn() {
-        StatusText.setText(fillInFields);
+        if (StatusText != null) {
+            StatusText.setText(fillInFields);
+        }
+
     }
 
 }

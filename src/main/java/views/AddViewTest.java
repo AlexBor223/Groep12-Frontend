@@ -1,28 +1,14 @@
 package views;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.text.Text;
 import models.Abbreviation;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
-
-import java.io.IOException;
-import java.util.Objects;
 
 import static org.junit.Assert.*;
 
-public class AddViewTest{
+public class AddViewTest {
 
     AddView addView = new AddView();
-
-
-
 
 
     @Test
@@ -51,6 +37,7 @@ public class AddViewTest{
 
     @Test
     public void expontialgrowTest() {
+
         int output1 = addView.updateWaitInt(2);
         int output2 = addView.updateWaitInt(10);
         int output3 = addView.updateWaitInt(20);
@@ -65,19 +52,36 @@ public class AddViewTest{
 
     @Test
     public void checkInputTest() throws Exception {
+
         Abbreviation abbreviation1 = new Abbreviation();
-        abbreviation1.setDepartment("2");
-        abbreviation1.setLetters("test");
-        abbreviation1.setMeaning("d");
-//        boolean t = addView.checkInput(abbreviation1);
+        Abbreviation abbreviation2 = new Abbreviation();
+        Abbreviation abbreviation3 = new Abbreviation();
+        Abbreviation abbreviation4 = new Abbreviation();
 
-//        Abbreviation abbreviation2 = new Abbreviation();
-//        abbreviation1.setDepartment("2");
-//        abbreviation1.setLetters("test");
-//        abbreviation1.setMeaning("");
+        abbreviation1.setDepartment("not empty");
+        abbreviation1.setLetters("t");
+        abbreviation1.setMeaning("Test");
 
-//        assertTrue(t);
-//        assertFalse(addView.checkInput(abbreviation2));
+
+        abbreviation2.setDepartment("2");
+        abbreviation2.setLetters("test");
+        abbreviation2.setMeaning("");
+
+        abbreviation3.setDepartment("");
+        abbreviation3.setLetters("");
+        abbreviation3.setMeaning("");
+
+        abbreviation4.setLetters("letters");
+        abbreviation4.setLikes(1);
+        abbreviation4.setMeaning("");
+        abbreviation4.setDepartment("");
+
+        assertTrue(addView.checkInput(abbreviation1));
+        assertFalse(addView.checkInput(abbreviation2));
+        assertFalse(addView.checkInput(abbreviation3));
+        assertFalse(addView.checkInput(abbreviation4));
+
+
     }
 
 }
