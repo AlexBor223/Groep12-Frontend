@@ -71,6 +71,25 @@ Button {
     -fx-background-image: url("/images/magnifying_glass.png");
 }
 
+.check-box .box {
+    -fx-cursor: hand;
+    -fx-background-color: white;
+    -fx-border-color: -fx-primaryColor;
+    -fx-border-radius: 0;
+}
+
+.check-box .mark {
+    -fx-shape: "M1.73,12.91 8.1,19.28 22.79,4.59 22.79,1.59 8.1,16.28 1.73,9.91";
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: -fx-primaryColor;
+}
+
 .abbrpane {
     -fx-background-color: transparent;
 }
@@ -198,12 +217,30 @@ Button {
     -fx-background-color: derive(-fx-redColor, -30%);
 }
 
-.okaybtn {
+/* popup */
+.popup-btn {
     -fx-text-fill: white;
     -fx-background-color: -fx-primaryColor;
     -fx-border-style: none;
 }
 
-.okaybtn:hover {
+.popup-btn:hover {
     -fx-background-color: derive(-fx-primaryColor, 30%);
+}
+
+.popup-delete-btn {
+    -fx-background-color: -fx-redColor;
+    -fx-border-style: none;
+}
+
+.popup-delete-btn:hover {
+    -fx-background-color: derive(-fx-redColor, 30%);
+}
+
+.popup-save-btn {
+    -fx-background-color: -fx-greenColor;
+}
+
+.popup-save-btn:hover {
+    -fx-background-color: derive(-fx-greenColor, -30%);
 }

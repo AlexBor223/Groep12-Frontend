@@ -62,14 +62,12 @@ public class AdminView implements Initializable {
 
     @FXML
     private void searchButtonClicked() {
-        String searchString = searchTextField.getText();
+        String letters = searchTextField.getText();
         String departmentName = filterComboBox.getValue();
-        ArrayList<Abbreviation> abbreviations = abbreviationController.getAll();
 
-        for (Abbreviation abbreviation : abbreviations) {
-            AnchorPane box = createAbbreviationBox(abbreviation);
-            abbreviationsContainer.getChildren().add(box);
-        }
+        ArrayList<Abbreviation> abbreviations = abbreviationController.filter(letters, departmentName);
+        clearAbbreviationBoxes();
+        createAbbreviationBoxes(abbreviations);
     }
 
     @FXML
@@ -95,7 +93,6 @@ public class AdminView implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -128,6 +125,38 @@ public class AdminView implements Initializable {
         return true;
     }
 
+    private void editButtonClicked(Abbreviation abbreviation) {
+        EditPopupView editPopup = new EditPopupView(abbreviation);
+        editPopup.setWindowTitle(String.format("Bewerken Afkorting [%s]", abbreviation.getLetters()));
+        editPopup.showAndWait();
+
+        Abbreviation editedAbbreviation = editPopup.getAbbreviation();
+
+        if (!editedAbbreviation.equals(abbreviation)) {
+            // TODO: Send the editedAbbreviation to the backend
+        }
+    }
+
+    private void removeButtonClicked(Abbreviation abbreviation) {
+        DeletePopupView deletePopup = new DeletePopupView();
+        deletePopup.setWindowTitle(String.format("Verwijder Afkorting [%s]", abbreviation.getLetters()));
+        deletePopup.showAndWait();
+
+        if (deletePopup.getClickedDelete())
+            abbreviationController.delete(abbreviation.getId());
+    }
+
+    private void clearAbbreviationBoxes() {
+        abbreviationsContainer.getChildren().clear();
+    }
+
+    private void createAbbreviationBoxes(ArrayList<Abbreviation> abbreviations) {
+        for (Abbreviation abbreviation : abbreviations) {
+            AnchorPane box = createAbbreviationBox(abbreviation);
+            abbreviationsContainer.getChildren().add(box);
+        }
+    }
+
     private AnchorPane createAbbreviationBox(Abbreviation abbreviation) {
         AnchorPane box = new AnchorPane();
         box.setPrefSize(340, 40);
@@ -152,14 +181,14 @@ public class AdminView implements Initializable {
         edit.setPrefSize(30, 30);
         edit.setLayoutX(290);
         edit.setLayoutY(10);
-        // TODO: Implement setOnMouseClicked and show edit popup
+        edit.setOnMouseClicked(e -> editButtonClicked(abbreviation));
 
         Button remove = new Button();
         remove.getStyleClass().addAll("abbricon", "abbrremove");
         remove.setPrefSize(30, 30);
         remove.setLayoutX(250);
         remove.setLayoutY(10);
-        // TODO: Implement setOnMouseClicked and show confirmation popup
+        remove.setOnMouseClicked(e -> removeButtonClicked(abbreviation));
 
         box.getChildren().addAll(letters, meaning, edit, remove);
 

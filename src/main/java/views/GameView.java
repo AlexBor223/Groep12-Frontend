@@ -27,7 +27,7 @@ public class GameView implements Initializable {
 
     // Game variables
     private Timer gameTimer;
-    private final int defaultInterval = 15;
+    private final int defaultInterval = 30;
     private int interval = 0;
     private String correctLetters;
     private ArrayList<Button> buttons;
@@ -204,7 +204,7 @@ public class GameView implements Initializable {
 
         Platform.runLater(() -> {
             GamePopupView gamePopup = new GamePopupView();
-            gamePopup.setTitle("Game Over");
+            gamePopup.setWindowTitle("Game Over");
             gamePopup.setMessage("Je score is " + score);
             gamePopup.showAndWait();
         });

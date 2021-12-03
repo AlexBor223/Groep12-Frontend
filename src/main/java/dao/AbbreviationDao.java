@@ -29,6 +29,20 @@ public class AbbreviationDao implements AbbreviationDaoInter {
         return gson.fromJson(json, abbreviationListType);
     }
 
+    private String getFilterString(String letters, String departmentName) {
+        String url = "/filter?";
+
+        if (!letters.isBlank())
+            url += "letters=" + letters;
+
+        if (!departmentName.isBlank()) {
+            String departmentString = "department=" + departmentName;
+            url += (url.endsWith("?")) ? departmentString : "&" + departmentString;
+        }
+
+        return url;
+    }
+
     @Override
     public ArrayList<Abbreviation> getAllAbbreviations() {
         HttpResponse<String> response = httpService.getResponse(abbreviationPath);
@@ -40,7 +54,12 @@ public class AbbreviationDao implements AbbreviationDaoInter {
     }
 
     @Override
-    public ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department) {
+    public ArrayList<Abbreviation> filterAbbreviations(String letters, String departmentName) {
+        HttpResponse<String> response = httpService.getResponse(abbreviationPath + getFilterString(letters, departmentName));
+
+        if (response != null)
+            return (response.statusCode() == 200) ? jsonToAbbreviationList(response.body()) : new ArrayList<>();
+
         return new ArrayList<>();
     }
 

@@ -66,4 +66,13 @@ public class Abbreviation {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
+
+    public boolean equals(Abbreviation abbreviation) {
+        return id == abbreviation.getId() &&
+               departmentId == abbreviation.getDepartmentId() &&
+               likes == abbreviation.getLikes() &&
+               approved == abbreviation.isApproved() &&
+               letters.equals(abbreviation.getLetters()) &&
+               meaning.equals(abbreviation.getMeaning());
+    }
 }

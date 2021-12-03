@@ -16,6 +16,10 @@ public class AbbreviationController {
         return abbreviationDao.getAllAbbreviations();
     }
 
+    public ArrayList<Abbreviation> filter(String letters, String departmentName) {
+        return abbreviationDao.filterAbbreviations(letters, departmentName);
+    }
+
     public void create(Abbreviation abbreviation) {
         abbreviationDao.updateAbbreviation(abbreviation);
     }

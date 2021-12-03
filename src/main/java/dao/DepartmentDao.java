@@ -27,6 +27,7 @@ public class DepartmentDao implements DepartmentDaoInter {
     @Override
     public ArrayList<Department> getAllDepartments() {
         HttpResponse<String> response = httpService.getResponse(departmentPath);
+        System.out.println(response.body());
 
         if (response != null)
             return (response.statusCode() == 200) ? jsonToAbbreviationList(response.body()) : new ArrayList<>();
@@ -52,6 +53,8 @@ public class DepartmentDao implements DepartmentDaoInter {
         ArrayList<Department> departments = getAllDepartments();
 
         for (Department department : departments) {
+            System.out.println(department.getId());
+
             if (department.getName().equals(name))
                 return department.getId();
         }

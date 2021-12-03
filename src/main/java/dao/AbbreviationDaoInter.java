@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface AbbreviationDaoInter {
     ArrayList<Abbreviation> getAllAbbreviations();
 
-    ArrayList<Abbreviation> searchAbbreviations(String abbreviation, String department);
+    ArrayList<Abbreviation> filterAbbreviations(String letters, String departmentName);
 
     Abbreviation getAbbreviationById(long id);
 

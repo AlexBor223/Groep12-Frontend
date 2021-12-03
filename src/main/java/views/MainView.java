@@ -53,25 +53,29 @@ public class MainView implements Initializable {
 
     @FXML
     private void searchButtonClicked() {
-        String searchString = searchTextField.getText();
+        String letters = searchTextField.getText();
         String departmentName = filterComboBox.getValue();
-        ArrayList<Abbreviation> abbreviations = abbreviationController.getAll();
 
-        // TODO: Search with filter and show accepted and unaccepted abbreviations
-
-        for (Abbreviation abbreviation : abbreviations) {
-            AnchorPane box = createAbbreviationBox(abbreviation);
-            newAbbreviationsContainer.getChildren().add(box);
-        }
+        ArrayList<Abbreviation> abbreviations = abbreviationController.filter(letters, departmentName);
+        clearAbbreviationBoxes();
+        createAbbreviationBoxes(abbreviations);
     }
 
-    private ArrayList<Abbreviation> getAbbreviationsByApproved(ArrayList<Abbreviation> abbreviations, boolean approved) {
-        for (int i = 0; i < abbreviations.size(); i++) {
-            if (abbreviations.get(i).isApproved() != approved)
-                abbreviations.remove(i);
-        }
+    private void clearAbbreviationBoxes() {
+        abbreviationsContainer.getChildren().clear();
+        newAbbreviationsContainer.getChildren().clear();
+    }
 
-        return abbreviations;
+    private void createAbbreviationBoxes(ArrayList<Abbreviation> abbreviations) {
+        for (Abbreviation abbreviation : abbreviations) {
+            AnchorPane box = createAbbreviationBox(abbreviation);
+
+            if (abbreviation.isApproved()) {
+                abbreviationsContainer.getChildren().add(box);
+            } else {
+                newAbbreviationsContainer.getChildren().add(box);
+            }
+        }
     }
 
     private void putDepartmentNamesInCombo() {
