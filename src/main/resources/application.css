@@ -244,3 +244,11 @@ Button {
 .popup-save-btn:hover {
     -fx-background-color: derive(-fx-greenColor, -30%);
 }
+
+.header {
+    -fx-font-size: 20px;
+}
+
+.overA {
+    -fx-font-size: 15px;
+}
