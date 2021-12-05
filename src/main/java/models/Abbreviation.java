@@ -19,6 +19,14 @@ public class Abbreviation {
         this.likes = likes;
     }
 
+    public Abbreviation(long departmentId, boolean approved, String letters, String meaning, int likes) {
+        this.departmentId = departmentId;
+        this.letters = letters;
+        this.approved = approved;
+        this.meaning = meaning;
+        this.likes = likes;
+    }
+
     public long getId() {
         return id;
     }
