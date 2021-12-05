@@ -1,13 +1,12 @@
-package views;
-
 import models.Abbreviation;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import views.AddView;
 
 
-public class AddViewTest {
+public class MartinUnitTests {
 
     AddView addView = new AddView();
 

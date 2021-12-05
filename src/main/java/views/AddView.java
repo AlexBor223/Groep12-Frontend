@@ -91,36 +91,27 @@ public class AddView implements Initializable {
         }
     }
 
-    boolean filledInInfo(String letters, String meaning, long departmentId) {
+    public boolean filledInInfo(String letters, String meaning, long departmentId) {
         if (letters.isBlank() && meaning.isBlank()) {
-            if (statusLabel != null) {
-                statusLabel.setText("Vul de velden in!");
-            }
+            statusLabel.setText("Vul de velden in!");
             return false;
         }
 
         if (letters.isBlank()) {
-            if (statusLabel != null) {
-                statusLabel.setText("Voer de letters in!");
-            }
+            statusLabel.setText("Voer de letters in!");
             return false;
         }
 
         if (meaning.isBlank()) {
-            if (statusLabel != null) {
-                statusLabel.setText("Voer de betekenis in!");
-            }
+            statusLabel.setText("Voer de betekenis in!");
             return false;
         }
 
         if (departmentId == -1) {
             // Only possible when there's no connection or an error occurred
-            if (statusLabel != null) {
-                statusLabel.setText("Er is een fout opgetreden!");
-            }
+            statusLabel.setText("Er is een fout opgetreden!");
             return false;
         }
-
 
         return true;
     }
