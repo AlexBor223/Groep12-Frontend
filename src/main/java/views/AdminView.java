@@ -243,8 +243,9 @@ public class AdminView implements Initializable {
         editPopup.showAndWait();
 
         if (!editAbbreviation.equals(abbreviation) && editPopup.getClickedSave()) {
-            System.out.println("SAVE");
-            // TODO: Send the editedAbbreviation to the backend
+            abbreviationController.update(editAbbreviation);
+
+            searchButtonClicked();
         }
     }
 

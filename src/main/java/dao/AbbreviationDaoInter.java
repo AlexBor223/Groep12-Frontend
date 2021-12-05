@@ -11,6 +11,8 @@ public interface AbbreviationDaoInter {
 
     Abbreviation getAbbreviationById(long id);
 
+    void addAbbreviation(Abbreviation abbreviation);
+
     void updateAbbreviation(Abbreviation abbreviation);
 
     void deleteAbbreviationById(long id);

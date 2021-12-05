@@ -21,6 +21,10 @@ public class AbbreviationController {
     }
 
     public void create(Abbreviation abbreviation) {
+        abbreviationDao.addAbbreviation(abbreviation);
+    }
+
+    public void update(Abbreviation abbreviation) {
         abbreviationDao.updateAbbreviation(abbreviation);
     }
 

@@ -113,4 +113,27 @@ public class HttpService {
 
         return response;
     }
+
+    public HttpResponse<String> putResponse(String url, Object object) {
+        HttpResponse<String> response = null;
+        url = getConcatenatedUrl(url);
+
+        setTokens();
+
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .PUT(HttpRequest.BodyPublishers.ofString(objectToJsonString(object)))
+                    .uri(URI.create(url))
+                    .setHeader("User-Agent", defaultUserAgent)
+                    .header("Content-Type", "application/json")
+                    .setHeader("Authorization", "Bearer " + accessToken)
+                    .setHeader("refresh_token", refreshToken)
+                    .build();
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return response;
+    }
 }

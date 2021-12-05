@@ -91,8 +91,13 @@ public class AbbreviationDao implements AbbreviationDaoInter {
     }
 
     @Override
-    public void updateAbbreviation(Abbreviation abbreviation) {
+    public void addAbbreviation(Abbreviation abbreviation) {
         httpService.postResponse(abbreviationPath, abbreviation);
+    }
+
+    @Override
+    public void updateAbbreviation(Abbreviation abbreviation) {
+        httpService.putResponse(abbreviationPath + "/" + abbreviation.getId(), abbreviation);
     }
 
     @Override
