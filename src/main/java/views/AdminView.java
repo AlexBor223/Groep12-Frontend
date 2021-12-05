@@ -17,7 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import models.Abbreviation;
 import models.Department;
-import org.apache.commons.logging.Log;
 import services.HttpService;
 import services.LoginService;
 
@@ -29,10 +28,7 @@ public class AdminView implements Initializable {
     private final AbbreviationController abbreviationController;
     private final DepartmentController departmentController;
     private final HttpService httpService;
-    private final LoginService loginService;
     private String url;
-    private ArrayList<Department> departments;
-    private boolean approved;
 
     @FXML
     private ComboBox<String> filterComboBox;
@@ -46,25 +42,14 @@ public class AdminView implements Initializable {
     @FXML
     private Label departmentStatusLabel;
 
-    @FXML
-    private TextField lettersTextField, meaningTextField;
-
-    @FXML
-    private ComboBox<String> departmentComboBoxAbbreviations;
-
-    @FXML
-    private Label statusLabel;
-
     public AdminView() {
         abbreviationController = new AbbreviationController();
         departmentController = new DepartmentController();
         httpService = HttpService.getInstance();
-        loginService = LoginService.getInstance();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        departments = departmentController.getAllDepartments();
         putDepartmentNamesInCombo();
         searchButtonClicked();
     }
@@ -87,64 +72,27 @@ public class AdminView implements Initializable {
     }
 
     @FXML
-    private void addAbbreviationButtonClicked() {
-        String letters = lettersTextField.getText().strip();
-        String meaning = meaningTextField.getText().strip();
-        long departmentId = getDepartmentId();
+    public void addDepartmentAdminButtonClicked(ActionEvent actionEvent) {
+        String letters = departmentLettersTextField.getText();
+        String meaning = departmentNameTextField.getText();
 
-        if (!filledInInfo(letters, meaning, departmentId))
+        if (!filledInDepartmentInfo(letters, meaning))
             return;
 
-        // Create a new abbreviation
-        Abbreviation abbreviation = new Abbreviation(departmentId, letters, meaning, 0);
-        abbreviationController.create(abbreviation);
-        statusLabel.setText("Afkorting toegevoegd!");
-    }
-
-    @FXML
-    private void addAbbreviationButtonClickedAdmin() {
-        String letters = lettersTextField.getText().strip();
-        String meaning = meaningTextField.getText().strip();
-        long departmentId = getDepartmentId();
-        if (loginService.getAccessToken()!=null){
-            approved = true;
-        } else {
-            statusLabel.setText("Log opnieuw in");
-            approved = false;
+        // TODO: Add department to backend & refresh
+        LoginService loginService = LoginService.getInstance();
+        if (loginService.getAccessToken() != null) {
+            try {
+                url = "/api/departments";
+                Department params = new Department(letters, meaning);
+                httpService.postResponse(url, params);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        if (!filledInInfo(letters, meaning, departmentId))
-            return;
-
-        // Create a new abbreviation
-        Abbreviation abbreviation = new Abbreviation(departmentId, approved, letters, meaning, 0);
-        abbreviationController.create(abbreviation);
-        statusLabel.setText("Afkorting toegevoegd!");
-    }
-
-    private boolean filledInInfo(String letters, String meaning, long departmentId) {
-        if (letters.isBlank() && meaning.isBlank()) {
-            statusLabel.setText("Vul de velden in!");
-            return false;
-        }
-
-        if (letters.isBlank()) {
-            statusLabel.setText("Voer de letters in!");
-            return false;
-        }
-
-        if (meaning.isBlank()) {
-            statusLabel.setText("Voer de betekenis in!");
-            return false;
-        }
-
-        if (departmentId == -1) {
-            // Only possible when there's no connection or an error occurred
-            statusLabel.setText("Er is een fout opgetreden!");
-            return false;
-        }
-
-        return true;
+        // To make sure the adminpanel has the latest departments
+        putDepartmentNamesInCombo();
     }
 
     @FXML
@@ -176,11 +124,6 @@ public class AdminView implements Initializable {
                 departmentController.getAllDepartmentNames());
 
         if (!departmentNames.isEmpty()) {
-            departmentComboBoxAbbreviations.setItems(departmentNames);
-            departmentComboBoxAbbreviations.getSelectionModel().select(0);
-        }
-
-        if (!departmentNames.isEmpty()) {
             filterComboBox.setItems(departmentNames);
             filterComboBox.getSelectionModel().select(0);
         }
@@ -205,14 +148,24 @@ public class AdminView implements Initializable {
         return true;
     }
 
+    private Abbreviation cloneAbbreviation(Abbreviation abbreviation) {
+        return new Abbreviation(
+                abbreviation.getId(),
+                abbreviation.getDepartmentId(),
+                abbreviation.getLetters(),
+                abbreviation.getMeaning(),
+                abbreviation.getLikes()
+        );
+    }
+
     private void editButtonClicked(Abbreviation abbreviation) {
-        EditPopupView editPopup = new EditPopupView(abbreviation);
+        Abbreviation editAbbreviation = cloneAbbreviation(abbreviation);
+        EditPopupView editPopup = new EditPopupView(editAbbreviation);
         editPopup.setWindowTitle(String.format("Bewerken Afkorting [%s]", abbreviation.getLetters()));
         editPopup.showAndWait();
 
-        Abbreviation editedAbbreviation = editPopup.getAbbreviation();
-
-        if (!editedAbbreviation.equals(abbreviation)) {
+        if (!editAbbreviation.equals(abbreviation) && editPopup.getClickedSave()) {
+            System.out.println("SAVE");
             // TODO: Send the editedAbbreviation to the backend
         }
     }
@@ -273,17 +226,5 @@ public class AdminView implements Initializable {
         box.getChildren().addAll(letters, meaning, edit, remove);
 
         return box;
-    }
-
-    private long getDepartmentId() {
-        String name = departmentComboBoxAbbreviations.getValue();
-
-        for (Department department : departments) {
-            if (department.getName().equals(name)) {
-                return department.getId();
-            }
-        }
-
-        return -1;
     }
 }

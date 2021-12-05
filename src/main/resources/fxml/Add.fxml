@@ -13,7 +13,7 @@
         <TextField fx:id="lettersTextField" styleClass="standard-textfield" layoutX="43.0" layoutY="103.0" promptText="Afkorting letters" />
         <TextField fx:id="meaningTextField" styleClass="standard-textfield" layoutX="207.0" layoutY="103.0" prefWidth="200" promptText="Betekenis" />
         <ComboBox fx:id="departmentComboBox" layoutX="420.0" layoutY="100.0" prefHeight="25.0" prefWidth="318.0" styleClass="depcombo" />
-        <Button layoutX="420.0" layoutY="158.0" onAction="#addButtonClicked" styleClass="standard-btn">Toevoegen</Button>
+        <Button fx:id="inputButton" layoutX="420.0" layoutY="158.0" onAction="#addButtonClicked" styleClass="standard-btn">Toevoegen</Button>
         <Label fx:id="statusLabel" layoutX="420.0" layoutY="195.0"/>
     </AnchorPane>
 </AnchorPane>

@@ -14,9 +14,11 @@ import models.Abbreviation;
 public class EditPopupView extends Popup {
     private final DepartmentController departmentController;
     private final Abbreviation abbreviation;
+    private boolean clickedSave;
 
     public EditPopupView(Abbreviation abbreviation) {
         departmentController = new DepartmentController();
+        clickedSave = false;
         this.abbreviation = abbreviation;
     }
 
@@ -101,7 +103,10 @@ public class EditPopupView extends Popup {
     private HBox createButtonsContainer() {
         Button saveButton = new Button("Opslaan");
         saveButton.getStyleClass().add("popup-save-btn");
-        saveButton.setOnAction(e -> window.close());
+        saveButton.setOnAction(e -> {
+            clickedSave = true;
+            window.close();
+        });
 
         Button cancelButton = new Button("Annuleren");
         cancelButton.getStyleClass().add("popup-delete-btn");
@@ -184,5 +189,9 @@ public class EditPopupView extends Popup {
 
     public Abbreviation getAbbreviation() {
         return abbreviation;
+    }
+
+    public boolean getClickedSave() {
+        return clickedSave;
     }
 }
