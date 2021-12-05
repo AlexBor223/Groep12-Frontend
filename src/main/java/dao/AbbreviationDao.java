@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import models.Abbreviation;
 import services.HttpService;
+import services.LoginService;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 
 public class AbbreviationDao implements AbbreviationDaoInter {
     private final HttpService httpService;
+    private final LoginService loginService;
     private final String abbreviationPath;
 
     public AbbreviationDao() {
         httpService = HttpService.getInstance();
+        loginService = LoginService.getInstance();
         abbreviationPath = "/api/abbreviations";
     }
 
@@ -94,7 +97,7 @@ public class AbbreviationDao implements AbbreviationDaoInter {
 
     @Override
     public void deleteAbbreviationById(long id) {
-        HttpResponse<String> response = httpService.deleteResponse(abbreviationPath + "/" + id);
+        httpService.deleteResponse("/api/abbreviations/" + id);
     }
 
     @Override

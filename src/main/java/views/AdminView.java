@@ -132,9 +132,6 @@ public class AdminView implements Initializable {
         if (!filledInDepartmentInfo(letters, meaning))
             return;
 
-        // To make sure the adminpanel has the latest departments
-        putDepartmentNamesInCombo();
-
         // TODO: Add department to backend & refresh
         LoginService loginService = LoginService.getInstance();
         if (loginService.getAccessToken() != null) {
@@ -146,6 +143,8 @@ public class AdminView implements Initializable {
                 e.printStackTrace();
             }
         }
+        // To make sure the adminpanel has the latest departments
+        putDepartmentNamesInCombo();
     }
 
     private void putDepartmentNamesInCombo() {
@@ -179,6 +178,8 @@ public class AdminView implements Initializable {
         Abbreviation abbreviation = new Abbreviation(departmentId, approved, letters, meaning, 0);
         abbreviationController.create(abbreviation);
         statusLabel.setText("Afkorting toegevoegd!");
+
+        searchButtonClicked();
     }
 
     private boolean filledInInfo(String letters, String meaning, long departmentId) {
@@ -254,6 +255,8 @@ public class AdminView implements Initializable {
 
         if (deletePopup.getClickedDelete())
             abbreviationController.delete(abbreviation.getId());
+
+        searchButtonClicked();
     }
 
     private void clearAbbreviationBoxes() {

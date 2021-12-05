@@ -60,10 +60,7 @@ public class HttpService {
         return response;
     }
 
-    public HttpResponse<String> postResponse(String url, Object object) {
-        HttpResponse<String> response = null;
-        url = getConcatenatedUrl(url);
-
+    public void setTokens() {
         if (loginService.getAccessToken() != null && loginService.getRefreshToken() != null) {
             accessToken = loginService.getAccessToken();
             refreshToken = loginService.getRefreshToken();
@@ -71,6 +68,13 @@ public class HttpService {
             accessToken = "please log in";
             refreshToken = "please log in";
         }
+    }
+
+    public HttpResponse<String> postResponse(String url, Object object) {
+        HttpResponse<String> response = null;
+        url = getConcatenatedUrl(url);
+
+        setTokens();
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -90,6 +94,7 @@ public class HttpService {
     }
 
     public HttpResponse<String> deleteResponse(String url) {
+        setTokens();
         HttpResponse<String> response = null;
         url = getConcatenatedUrl(url);
 
@@ -98,6 +103,8 @@ public class HttpService {
                     .DELETE()
                     .uri(URI.create(url))
                     .setHeader("User-Agent", defaultUserAgent)
+                    .setHeader("Authorization", "Bearer " + accessToken)
+                    .setHeader("refresh_token", refreshToken)
                     .build();
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception ex) {
