@@ -50,8 +50,6 @@ public class LoginService {
                 JSONObject responseJSON = new JSONObject(result);
                 setAccessToken(responseJSON.getString("access_token"));
                 setRefreshToken(responseJSON.getString("refresh_token"));
-                System.out.println(getAccessToken());
-                System.out.println(getRefreshToken());
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
