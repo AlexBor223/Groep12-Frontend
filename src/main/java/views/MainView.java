@@ -50,7 +50,7 @@ public class MainView implements Initializable {
             searchButtonClicked();
         }
     }
-
+    
     @FXML
     private void searchButtonClicked() {
         String letters = searchTextField.getText();

@@ -33,7 +33,7 @@
                     <ComboBox fx:id="departmentComboBoxAbbreviations" layoutX="61.0" layoutY="137.0" prefHeight="25.0" prefWidth="197.0" styleClass="depcombo" />
                     <Button onAction="#addAbbreviationButtonClicked" styleClass="standard-btn" layoutX="50.0" layoutY="184.0" mnemonicParsing="false" text="Toevoegen"/>
                     <Button onAction="#addAbbreviationButtonClickedAdmin" styleClass="standard-btn" layoutX="150.0" layoutY="184.0" mnemonicParsing="false" text="Toev. met acceptatie"/>
-                    <Label fx:id="statusLabel" layoutX="61.0" layoutY="133.0" textAlignment="CENTER"/>
+                    <Label fx:id="statusLabel" layoutX="85.0" layoutY="167.0" textAlignment="CENTER"/>
                 </children>
             </AnchorPane>
         </children>

@@ -75,21 +75,33 @@ public class HttpService {
         url = getConcatenatedUrl(url);
 
         setTokens();
-
         try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .POST(HttpRequest.BodyPublishers.ofString(objectToJsonString(object)))
-                    .uri(URI.create(url))
-                    .setHeader("User-Agent", defaultUserAgent)
-                    .header("Content-Type", "application/json")
-                    .setHeader("Authorization", "Bearer " + accessToken)
-                    .setHeader("refresh_token", refreshToken)
-                    .build();
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpRequest request;
+//            if (loginService.getAccessToken() != null && loginService.getRefreshToken() != null) {
+
+            if (accessToken.equals("please log in") && refreshToken.equals("please log in")) {
+                request = HttpRequest.newBuilder()
+                        .POST(HttpRequest.BodyPublishers.ofString(objectToJsonString(object)))
+                        .uri(URI.create(url))
+                        .setHeader("User-Agent", defaultUserAgent)
+                        .header("Content-Type", "application/json")
+                        .build();
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            }
+            else {
+                request = HttpRequest.newBuilder()
+                        .POST(HttpRequest.BodyPublishers.ofString(objectToJsonString(object)))
+                        .uri(URI.create(url))
+                        .setHeader("User-Agent", defaultUserAgent)
+                        .header("Content-Type", "application/json")
+                        .setHeader("Authorization", "Bearer " + accessToken)
+                        .setHeader("refresh_token", refreshToken)
+                        .build();
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return response;
     }
 
