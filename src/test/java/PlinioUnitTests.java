@@ -80,9 +80,9 @@ public class PlinioUnitTests {
     public void should_returnFalse_whenAbbreviationsAreUnequal() {
         // Arrange
         Abbreviation abbreviation1 = new Abbreviation(
-                0, 0, "DPC", "Dienst Publiek en Communicatie", 5);
+                0, 0, "DPC", "Dienst Publiek en Communicatie", 5, true);
         Abbreviation abbreviation2 = new Abbreviation(
-                0, 0, "DPC", "Dienst Publiek Communicatie", 5); // Meaning without "en"
+                0, 0, "DPC", "Dienst Publiek Communicatie", 5, true); // Meaning without "en"
 
         // Act
         boolean areEqual = abbreviation1.equals(abbreviation2);
@@ -95,8 +95,8 @@ public class PlinioUnitTests {
     public void should_returnIdenticalAbbreviation_when_convertingJsonStringToAbbreviation() {
         // Arrange
         Abbreviation abbreviation = new Abbreviation(
-                0, 1, "ETC", "Et cetera", 2);
-        String jsonString = "{\"id\":0,\"letters\":\"ETC\",\"meaning\":\"Et cetera\",\"likes\":2,\"departmentId\":1}";
+                0, 1, "ETC", "Et cetera", 2, true);
+        String jsonString = "{\"id\":0,\"letters\":\"ETC\",\"meaning\":\"Et cetera\",\"likes\":2,\"departmentId\":1,\"approved\":true}";
 
         // Act
         Abbreviation convertedAbbreviation = jsonToAbbreviation(jsonString);

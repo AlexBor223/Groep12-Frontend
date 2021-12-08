@@ -37,7 +37,7 @@ public class LoginService {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
             HttpUriRequest httppost = RequestBuilder.post()
-                    .setUri(new URI("http://localhost:8080/api/login"))
+                    .setUri(new URI(host + url))
                     .addParameter("username", username)
                     .addParameter("password", password)
                     .build();

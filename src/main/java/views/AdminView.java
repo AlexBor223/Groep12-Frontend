@@ -126,10 +126,10 @@ public class AdminView implements Initializable {
 
     @FXML
     private void addDepartmentButtonClicked() {
+        String name = departmentNameTextField.getText();
         String letters = departmentLettersTextField.getText();
-        String meaning = departmentNameTextField.getText();
 
-        if (!filledInDepartmentInfo(letters, meaning))
+        if (!filledInDepartmentInfo(letters, name))
             return;
 
         // TODO: Add department to backend & refresh
@@ -137,12 +137,13 @@ public class AdminView implements Initializable {
         if (loginService.getAccessToken() != null) {
             try {
                 url = "/api/departments";
-                Department params = new Department(letters, meaning);
+                Department params = new Department(name, letters);
                 httpService.postResponse(url, params);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
         // To make sure the adminpanel has the latest departments
         putDepartmentNamesInCombo();
     }
@@ -175,7 +176,7 @@ public class AdminView implements Initializable {
             return;
 
         // Create a new abbreviation
-        Abbreviation abbreviation = new Abbreviation(departmentId, approved, letters, meaning, 0);
+        Abbreviation abbreviation = new Abbreviation(departmentId, letters, meaning, 0, approved);
         abbreviationController.create(abbreviation);
         statusLabel.setText("Afkorting toegevoegd!");
 
@@ -226,18 +227,8 @@ public class AdminView implements Initializable {
         return true;
     }
 
-    private Abbreviation cloneAbbreviation(Abbreviation abbreviation) {
-        return new Abbreviation(
-                abbreviation.getId(),
-                abbreviation.getDepartmentId(),
-                abbreviation.getLetters(),
-                abbreviation.getMeaning(),
-                abbreviation.getLikes()
-        );
-    }
-
     private void editButtonClicked(Abbreviation abbreviation) {
-        Abbreviation editAbbreviation = cloneAbbreviation(abbreviation);
+        Abbreviation editAbbreviation = abbreviationController.clone(abbreviation);
         EditPopupView editPopup = new EditPopupView(editAbbreviation);
         editPopup.setWindowTitle(String.format("Bewerken Afkorting [%s]", abbreviation.getLetters()));
         editPopup.showAndWait();

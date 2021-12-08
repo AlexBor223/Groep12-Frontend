@@ -77,7 +77,7 @@ public class HttpService {
         setTokens();
         try {
             HttpRequest request;
-//            if (loginService.getAccessToken() != null && loginService.getRefreshToken() != null) {
+
 
             if (accessToken.equals("please log in") && refreshToken.equals("please log in")) {
                 request = HttpRequest.newBuilder()

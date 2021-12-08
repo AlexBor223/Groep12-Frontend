@@ -12,12 +12,13 @@ public class Abbreviation {
 
     public Abbreviation() {}
 
-    public Abbreviation(long id, long departmentId, String letters, String meaning, int likes) {
+    public Abbreviation(long id, long departmentId, String letters, String meaning, int likes, boolean approved) {
         this.id = id;
         this.departmentId = departmentId;
         this.letters = letters;
         this.meaning = meaning;
         this.likes = likes;
+        this.approved = approved;
     }
 
     public Abbreviation(long departmentId, String letters, String meaning, int likes) {
@@ -27,7 +28,7 @@ public class Abbreviation {
         this.likes = likes;
     }
 
-    public Abbreviation(long departmentId, boolean approved, String letters, String meaning, int likes) {
+    public Abbreviation(long departmentId, String letters, String meaning, int likes, boolean approved) {
         this.departmentId = departmentId;
         this.letters = letters;
         this.approved = approved;

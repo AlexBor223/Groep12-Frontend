@@ -110,7 +110,10 @@ public class MainView implements Initializable {
             like.setPrefSize(30, 30);
             like.setLayoutX(250);
             like.setLayoutY(10);
-            like.setOnMouseClicked(e -> abbreviationController.like(abbreviation.getId()));
+            like.setOnMouseClicked(e -> {
+                abbreviationController.like(abbreviation.getId());
+                searchButtonClicked();
+            });
 
             Button dislike = new Button();
             dislike.getStyleClass().addAll("abbricon", "abbrlike");
@@ -118,7 +121,10 @@ public class MainView implements Initializable {
             dislike.setRotate(180);
             dislike.setLayoutX(290);
             dislike.setLayoutY(10);
-            dislike.setOnMouseClicked(e -> abbreviationController.dislike(abbreviation.getId()));
+            dislike.setOnMouseClicked(e -> {
+                abbreviationController.dislike(abbreviation.getId());
+                searchButtonClicked();
+            });
 
             box.getChildren().addAll(letters, meaning, like, dislike);
         }
