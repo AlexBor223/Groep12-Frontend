@@ -10,8 +10,8 @@ public class AlexUnitTests {
     public void should_returnNull_when_login_unsuccessfull() throws Exception {
         // Arrange=
         LoginService loginService = LoginService.getInstance();
-        String username = "Leonard";
-        String password = "1245";
+        String username = "FakeName";
+        String password = "NonFunctionalPassword";
 
         // Act
         loginService.login(username, password);
